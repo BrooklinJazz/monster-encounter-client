@@ -5,7 +5,7 @@ import ActiveMonster from './reducer_active_monster'
 
 const rootReducer = combineReducers({
   monsters: MonsterReducer,
-  activeMonster: ActiveMonster
+  activeMonster: ActiveMonster,
 });
 
 export default rootReducer;
