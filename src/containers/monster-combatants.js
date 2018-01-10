@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+// import { selectMonster } from '../actions/index';
+// import { bindActionCreators} from 'redux';
 
-let monsterCombatantArr = []
+let monsterCombatantsArr = []
 class MonsterCombatants extends Component {
   renderList() {
-    return monsterCombatantArr.map((monster) => {
+    // NOTE bug where cannot select monster with same key result is flatten
+    return monsterCombatantsArr.map((monster, index) => {
       return (
         <li
-          key={monster.Name}
-          onClick={() => this.props.selectMonster(monster)}
+          key={index}
+          // onClick={() => this.props.selectMonster(monster)}
           className="list-group-item">
           {monster.Name}
         </li>
@@ -16,11 +19,11 @@ class MonsterCombatants extends Component {
     })
   }
   render() {
-    if (!this.props.monsterCombatant) {
-      return <div>Select a monsterCombatant to get started</div>
+    if (!this.props.monsterCombatants) {
+      return <div>Select a monsterCombatants to get started</div>
     }
-    monsterCombatantArr.push(this.props.monsterCombatant)
-    console.log(monsterCombatantArr);
+    monsterCombatantsArr.push(this.props.monsterCombatants)
+    console.log(monsterCombatantsArr);
     return (
       <ul className="list-group col-sm-4">
         {this.renderList()}
@@ -30,7 +33,13 @@ class MonsterCombatants extends Component {
 }
 
 function mapStateToProps(state) {
-  return {monsterCombatant: state.activeMonster};
+  return {monsterCombatants: state.activeMonster};
 }
+
+// function mapDispatchToProps(dispatch) {
+//   // Whenever SelectMonster is called, the result should be passed to all
+//   // of our reducers
+//   return bindActionCreators({ selectMonster: selectMonster}, dispatch)
+// }
 
 export default connect(mapStateToProps)(MonsterCombatants)
