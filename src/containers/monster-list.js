@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { selectMonster } from '../actions/index';
+import { bindActionCreators} from 'redux';
 
 class MonsterList extends Component {
   renderList() {
     return this.props.monsters.map((monster) => {
       return (
-        <li key={monster.Name} className="list-group-item">
+        <li
+          key={monster.Name}
+          onClick={() => this.props.selectMonster(monster)}
+          className="list-group-item">
           {monster.Name}
         </li>
       )
@@ -27,4 +32,15 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(MonsterList)
+// Anything returned from this function will end up as props
+// on the MonsterList container
+function mapDispatchToProps(dispatch) {
+  // Whenever SelectMonster is called, the result should be passed to all
+  // of our reducers
+  return bindActionCreators({ selectMonster: selectMonster}, dispatch)
+}
+
+// Promote MonsterList from a component to a container - it needs to know
+// about this new dispatch method, SelectMonster. Make it available
+// as a prop.
+export default connect(mapStateToProps, mapDispatchToProps)(MonsterList)
