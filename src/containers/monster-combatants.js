@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import * as actions from "../actions/index"
 // import { selectMonster } from '../actions/index';
 // import { bindActionCreators} from 'redux';
 
 // let monsterCombatantsArr = []
 class MonsterCombatants extends Component {
   renderList() {
-    // NOTE bug where cannot select monster with same key result is flatten
     return this.props.monsterCombatants.map((monster, index) => {
       return (
         <li
           key={index}
-          // onClick={() => this.props.selectMonster(monster)}
+          onClick={() => this.props.selectMonster(monster)}
           className="list-group-item"
         >
           {monster.Name}
+          HP: {monster.HP.Value}
+          AC {monster.AC.Value}
         </li>
       );
     });
@@ -34,10 +36,12 @@ function mapStateToProps(state) {
   return { monsterCombatants };
 }
 
-// function mapDispatchToProps(dispatch) {
-//   // Whenever SelectMonster is called, the result should be passed to all
-//   // of our reducers
-//   return bindActionCreators({ selectMonster: selectMonster}, dispatch)
-// }
+function mapDispatchToProps(dispatch) {
+  // Whenever SelectMonster is called, the result should be passed to all
+  // of our reducers
+  return {
+    selectMonster: monster => dispatch(actions.selectMonster(monster))
+  };
+}
 
-export default connect(mapStateToProps)(MonsterCombatants);
+export default connect(mapStateToProps, mapDispatchToProps)(MonsterCombatants);
