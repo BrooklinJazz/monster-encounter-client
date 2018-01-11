@@ -1,0 +1,6 @@
+export const types = {
+  MONSTER_SELECTED: "MONSTER_SELECTED",
+  ADD_MONSTER_TO_COMBATANTS: "ADD_MONSTER_TO_COMBATANTS",
+};
+
+export default types;

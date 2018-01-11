@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { selectMonster } from "../actions/index";
+// import { selectMonster } from "../actions/index";
+import * as actions from "../actions/index";
 import { bindActionCreators } from "redux";
 
 class MonsterList extends Component {
@@ -10,7 +11,7 @@ class MonsterList extends Component {
       return (
         <li
           key={monster.Name}
-          onClick={() => this.props.selectMonster(monster)}
+          onClick={() => this.props.addMonsterToCombatants(monster)}
           className="list-group-item"
         >
           {monster.Name}
@@ -37,7 +38,11 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   // Whenever SelectMonster is called, the result should be passed to all
   // of our reducers
-  return bindActionCreators({ selectMonster: selectMonster }, dispatch);
+  return {
+    selectMonster: monster => dispatch(actions.selectMonster(monster)),
+    addMonsterToCombatants: monster =>
+      dispatch(actions.addMonsterToCombatants(monster)),
+  };
 }
 
 // Promote MonsterList from a component to a container - it needs to know

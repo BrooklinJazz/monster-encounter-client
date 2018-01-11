@@ -12,13 +12,14 @@ class MonsterDetail extends Component {
         <h3>Details for: </h3>
         <div>Name: {this.props.monster.Name}</div>
         <div>Hp: {this.props.monster.HP.Value}</div>
+        <hr />
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { selectedMonster: monster } = state.activeMonster;
+  const { selectedMonster: monster } = state.monsters;
   return {
     monster,
   };
