@@ -2,15 +2,16 @@
 // this reducer is responsible for
 // NOTE TODO selecting one monster to start, but may have several active
 // monsters at once
+import monstersData from "../data/monsters";
+
 const INITIAL_STATE = {
-  selectedMonster: null,
+  monsters: monstersData(),
 };
 
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case "MONSTER_SELECTED":
-      const monsterData = action.payload;
-      return { ...state, selectedMonster: monsterData };
+    case "HELLO":
+      return action.payload;
   }
   return state;
 }

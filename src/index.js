@@ -1,15 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import "./reactotron-config";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import Reactotron from "reactotron-react-js";
 
-import App from './components/app';
-import reducers from './reducers';
+import App from "./components/app";
+import rootReducer from "./reducers";
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+// const createStoreWithMiddleware = applyMiddleware()(createStore);
+const middleware = applyMiddleware();
+
+const store =
+  process.env.NODE_ENV === "production"
+    ? createStore(rootReducer, middleware)
+    : console.tron.createStore(rootReducer, middleware);
+
+// Reactotron.createStore(reducers, applyMiddleware());
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <App />
-  </Provider>
-  , document.querySelector('.container'));
+  </Provider>,
+  document.querySelector(".container"),
+);
