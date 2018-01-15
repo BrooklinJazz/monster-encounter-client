@@ -8,6 +8,10 @@ import * as actions from "../actions/index"
 class MonsterCombatants extends Component {
   renderList() {
     return this.props.monsterCombatants.map((monster, index) => {
+      // define a current hp value to be modified later as the user inputs
+      monster.CurrentHp = monster.HP.Value
+      console.log(monster.CurrentHp);
+      console.log(monster);
       return (
         <li
           key={index}
