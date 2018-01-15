@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 class MonsterList extends Component {
   renderList() {
     console.log(this.props);
-    return this.props.monsters.map(monster => {
+    return this.props.monsters.filter(monster => monster.Name.toLowerCase().includes(this.props.searchTerm)).map(monster => {
       return (
         <li
           key={monster.Name}
@@ -27,9 +27,10 @@ class MonsterList extends Component {
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside of MonsterList
   console.tron.log(state);
-  const { monsters } = state.monsters;
+  const { monsters, searchTerm } = state.monsters;
   return {
     monsters,
+    searchTerm
   };
 }
 
