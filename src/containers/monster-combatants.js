@@ -15,8 +15,18 @@ class MonsterCombatants extends Component {
           className="list-group-item"
         >
           {monster.Name}
-          HP: {monster.HP.Value}
-          AC {monster.AC.Value}
+          <form>
+            <input
+              value={monster.HP.Value}
+              onClick={event => event.stopPropagation()}
+              />
+          </form>
+          <div>
+            HP: {monster.HP.Value}
+          </div>
+          <div>
+            AC: {monster.AC.Value}
+          </div>
         </li>
       );
     });
