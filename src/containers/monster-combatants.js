@@ -46,6 +46,7 @@ class MonsterCombatants extends Component {
         <div>
           AC: {monster.AC.Value}
         </div>
+        <button onClick={ () => this.props.removeCombatant({monster, index: index})}>Delete</button>
 
       </li>
     );
@@ -82,7 +83,8 @@ render() {
     // of our reducers
     return {
       selectMonster: monster => dispatch(actions.selectMonster(monster)),
-      changeMonsterHp: monster => dispatch(actions.changeMonsterHp(monster))
+      changeMonsterHp: monster => dispatch(actions.changeMonsterHp(monster)),
+      removeCombatant: monster => dispatch(actions.removeCombatant(monster))
     };
   }
 

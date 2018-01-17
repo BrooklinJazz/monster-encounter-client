@@ -33,13 +33,23 @@ export default function(state = INITIAL_STATE, action) {
         ...state,
         monsterCombatants: newMonsterCombatants,
       };
+      case Types.REMOVE_COMBATANT:
+      // const combatantsListAfterRemove = state.monsterCombatants.splice(action.payload.index, 1)
+      const combatantsListAfterRemove = state.monsterCombatants.map( (combatant, i) => {
+        return combatant
+      })
+      combatantsListAfterRemove.splice(action.payload.index, 1)
+        return {
+          ...state,
+          monsterCombatants: combatantsListAfterRemove
+        };
       case Types.FILTER_MONSTER_LIBRARY:
         return {
           ...state,
           searchTerm: action.searchTerm
         };
       case Types.CHANGE_MONSTER_HP:
-        const newCombatantsList = state.monsterCombatants.map( (combatant, i) => {
+        const combatantsListAfterChange = state.monsterCombatants.map( (combatant, i) => {
           if (i !== action.payload.index || isNaN(action.payload.hpChange) ) {
             // if the input given by hpChange is not a number
             // or the index of the current monster doesn't match
@@ -64,10 +74,10 @@ export default function(state = INITIAL_STATE, action) {
             return action.payload.monster
           }
         })
-        console.log('reducer working', newCombatantsList);
+        // console.log('reducer working', newCombatantsList);
         return {
           ...state,
-          monsterCombatants: newCombatantsList
+          monsterCombatants: combatantsListAfterChange
         }
 
   }

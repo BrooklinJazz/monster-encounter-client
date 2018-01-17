@@ -18,8 +18,12 @@ export const selectMonster = monster =>
 export const changeMonsterHp = payload =>
   createAction(Types.CHANGE_MONSTER_HP, { payload });
 
+export const removeCombatant = payload =>
+  createAction(Types.REMOVE_COMBATANT, { payload })
+
 export const addMonsterToCombatants = monster =>
   createAction(Types.ADD_MONSTER_TO_COMBATANTS, { monster });
+
 
 export const filterMonsterLibrary = searchTerm => {
   console.log('in actions',searchTerm)
