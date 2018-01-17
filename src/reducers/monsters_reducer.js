@@ -45,11 +45,13 @@ export default function(state = INITIAL_STATE, action) {
           // console.log('action index', action.index);
           // console.log('reducer index', i);
           if (i !== action.payload.index) {
-            console.log(1);
+            // console.log(1);
             return combatant
           } else {
-            console.log(2);
-            action.payload.monster.currentHp -= 4
+            // console.log(2);
+            // we are applying damage to the monster so positive numbers reduce
+            // the monster's currentHp
+            action.payload.monster.currentHp -= action.payload.hpChange
             // action.monster.currentHp -= action.hpChange
             return action.payload.monster
           }

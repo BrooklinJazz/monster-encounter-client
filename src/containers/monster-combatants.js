@@ -21,7 +21,23 @@ class MonsterCombatants extends Component {
           className="list-group-item"
           >
           {monster.Name}
-          <div onClick={() => this.props.changeMonsterHp({ monster, hpChange: 4, index: index})}>
+          <form
+            onClick={ (e) =>
+              e.stopPropagation()
+            }
+            onSubmit={ (e) => {
+              e.preventDefault()
+              this.props.changeMonsterHp({ monster, hpChange: this.state.hpChange, index: index})
+            }
+          }
+          >
+          <input type="text" name="hpChange"
+            onChange={ (e) =>
+              this.handleChange(e)
+            }
+            />
+        </form>
+        <div>
           CURRENT HP: {monster.currentHp}
         </div>
         <div>
@@ -35,6 +51,15 @@ class MonsterCombatants extends Component {
     );
   });
 }
+
+// function used for handling changeMonsterHp with form input
+handleChange (event) {
+  const newState = Object.assign({}, this.state, {
+    [event.target.name]: event.target.value,
+  });
+  this.setState(newState)
+}
+
 render() {
   if (!this.props.monsterCombatants) {
     return <div>Select a monsterCombatants to get started</div>;
