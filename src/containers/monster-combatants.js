@@ -51,7 +51,7 @@ class MonsterCombatants extends Component {
     );
   });
 }
-
+// TODO put logic for changeMonsterHp in monster_reducer here.
 // function used for handling changeMonsterHp with form input
 handleChange (event) {
   const newState = Object.assign({}, this.state, {
