@@ -38,6 +38,28 @@ export default function(state = INITIAL_STATE, action) {
           ...state,
           searchTerm: action.searchTerm
         };
+      case Types.CHANGE_MONSTER_HP:
+        const newCombatantsList = state.monsterCombatants.map( (combatant, i) => {
+          // console.log('combatant', combatant);
+          // console.log('action', action.monster);
+          // console.log('action index', action.index);
+          // console.log('reducer index', i);
+          if (i !== action.payload.index) {
+            console.log(1);
+            return combatant
+          } else {
+            console.log(2);
+            action.payload.monster.currentHp -= 4
+            // action.monster.currentHp -= action.hpChange
+            return action.payload.monster
+          }
+        })
+        console.log('reducer working', newCombatantsList);
+        return {
+          ...state,
+          monsterCombatants: newCombatantsList
+        }
+
   }
   return state;
 }
