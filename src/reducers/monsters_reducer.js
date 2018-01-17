@@ -5,7 +5,7 @@
 import monstersData from "../data/monsters";
 import Types from "../types";
 import monsterCombatants from "../containers/monster-combatants";
-
+import helpers from "../../helpers"
 const monsters = monstersData()
 
 // most of the time people actually use an immutable data structure for reducers
@@ -23,8 +23,11 @@ export default function(state = INITIAL_STATE, action) {
     case Types.MONSTER_SELECTED:
       return { ...state, selectedMonster: action.monster };
     case Types.ADD_MONSTER_TO_COMBATANTS:
+      const newMonster = helpers.deepClone(action.monster);
+      newMonster.currentHp = newMonster.HP.Value
       const newMonsterCombatants = state.monsterCombatants.concat(
-        action.monster,
+        newMonster,
+        // action.monster,
       );
       return {
         ...state,
@@ -34,7 +37,7 @@ export default function(state = INITIAL_STATE, action) {
         return {
           ...state,
           searchTerm: action.searchTerm
-        }
+        };
   }
   return state;
 }

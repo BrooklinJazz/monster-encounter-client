@@ -6,12 +6,13 @@ import * as actions from "../actions/index"
 
 // let monsterCombatantsArr = []
 class MonsterCombatants extends Component {
+
   renderList() {
     return this.props.monsterCombatants.map((monster, index) => {
       // define a current hp value to be modified later as the user inputs
       monster.CurrentHp = monster.HP.Value
-      console.log(monster.CurrentHp);
-      console.log(monster);
+      // console.log(monster.CurrentHp);
+      // console.log(monster);
       return (
         <li
           key={index}
@@ -19,18 +20,18 @@ class MonsterCombatants extends Component {
           className="list-group-item"
         >
           {monster.Name}
-          <form>
-            <input
-              value={monster.HP.Value}
-              onClick={event => event.stopPropagation()}
-              />
-          </form>
+          <div
+            onClick{() => {monster.currentHP} = 4}
+            >
+            CURRENT HP: {monster.currentHp}
+          </div>
           <div>
-            HP: {monster.HP.Value}
+            MAX HP: {monster.HP.Value}
           </div>
           <div>
             AC: {monster.AC.Value}
           </div>
+
         </li>
       );
     });
@@ -45,6 +46,8 @@ class MonsterCombatants extends Component {
   }
 }
 
+// anything in mapStateToProps will be this.props in the container above.
+// this.props.monsterCombatants is the array of monster combatants
 function mapStateToProps(state) {
   const { monsterCombatants } = state.monsters;
   return { monsterCombatants };
