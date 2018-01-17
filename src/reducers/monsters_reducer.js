@@ -40,19 +40,27 @@ export default function(state = INITIAL_STATE, action) {
         };
       case Types.CHANGE_MONSTER_HP:
         const newCombatantsList = state.monsterCombatants.map( (combatant, i) => {
-          // console.log('combatant', combatant);
-          // console.log('action', action.monster);
-          // console.log('action index', action.index);
-          // console.log('reducer index', i);
-          if (i !== action.payload.index) {
-            // console.log(1);
+          if (i !== action.payload.index || isNaN(action.payload.hpChange) ) {
+            // if the input given by hpChange is not a number
+            // or the index of the current monster doesn't match
+            // the expected index of payload: return the combatant as it is
             return combatant
+
+            // if healing applied to monster brings it above max health
+          } else if (action.payload.monster.currentHp - action.payload.hpChange > action.payload.monster.HP.Value) {
+            // set currentHp to maxHp `action.payload.monster.HP.Value`
+            action.payload.monster.currentHp = action.payload.monster.HP.Value
+            // return the monster with max hp
+            return action.payload.monster
+
+          } else if (action.payload.monster.currentHp - action.payload.hpChange < 0) {
+            action.payload.monster.currentHp = 0
+            return action.payload.monster
           } else {
-            // console.log(2);
             // we are applying damage to the monster so positive numbers reduce
             // the monster's currentHp
             action.payload.monster.currentHp -= action.payload.hpChange
-            // action.monster.currentHp -= action.hpChange
+            // return the monster with changed HP
             return action.payload.monster
           }
         })
