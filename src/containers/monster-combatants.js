@@ -46,7 +46,11 @@ class MonsterCombatants extends Component {
         <div>
           AC: {monster.AC.Value}
         </div>
-        <button onClick={ () => this.props.removeCombatant({monster, index: index})}>Delete</button>
+        <button onClick={ (e) => {
+          e.stopPropagation();
+          this.props.removeCombatant({monster, index: index})}
+          }
+          >Delete</button>
 
       </li>
     );
