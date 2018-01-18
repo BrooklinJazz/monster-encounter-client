@@ -14,7 +14,11 @@ class MonsterCombatants extends Component {
       showComponent: false
     };
     this._onButtonClick = this._onButtonClick.bind(this);
+    this.focusTextInput = this.focusTextInput.bind(this);
   }
+
+
+
   renderList() {
     return this.props.monsterCombatants.map((monster, index) => {
       // define a current hp value to be modified later as the user inputs
@@ -24,22 +28,24 @@ class MonsterCombatants extends Component {
       // currentHP is defined in monsters_reducer.js
       return (<li key={index} onClick={() => this.props.selectMonster(monster)} className="list-group-item">
         {monster.Name}
-
         <div>
 
           {
             this.state.showComponent
-              ?         <form onClick={(e) => e.stopPropagation()} onSubmit={(e) => {
-                          e.preventDefault()
-                          this.props.changeMonsterHp({monster, hpChange: this.state.hpChange, index: index})
-                          this.setState({showComponent: false});
-                        }
+            ? <form onClick={(e) => e.stopPropagation()} onSubmit={(e) => {
+                e.preventDefault()
+                this.props.changeMonsterHp({monster, hpChange: this.state.hpChange, index: index})
+                this.setState({showComponent: false});
+              }
               }>
-                        <input type="text" name="hpChange" onChange={(e) => this.handleChange(e)}/>
-                      </form>
-              :         <div onClick={this._onButtonClick}>
-                        CURRENT HP: {monster.currentHp}
-                      </div>
+                <input type="text" autoFocus name="hpChange" onChange={(e) => this.handleChange(e)}/>
+              </form>
+              : <div onClick={(e) => {
+                this._onButtonClick(e)
+                this.focusTextInput(this.textInput)
+              }}>
+                  CURRENT HP: {monster.currentHp}
+                </div>
           }
         </div>
 
@@ -58,6 +64,8 @@ class MonsterCombatants extends Component {
       </li>);
     });
   }
+
+
   // TODO put logic for changeMonsterHp in monster_reducer here.
   // function used for handling changeMonsterHp with form input
   handleChange(event) {
@@ -67,7 +75,15 @@ class MonsterCombatants extends Component {
     this.setState(newState)
   }
 
-  _onButtonClick() {
+  focusTextInput(a) {
+  // Explicitly focus the text input using the raw DOM API
+  console.log('this', this);
+  console.log('this.textInput', this.textInput);
+  this.textInput.focus();
+  }
+
+  _onButtonClick(e) {
+    e.stopPropagation()
     this.setState({showComponent: true});
   }
 
