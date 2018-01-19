@@ -4,7 +4,7 @@
 // monsters at once
 import monstersData from "../data/monsters";
 import Types from "../types";
-import monsterCombatants from "../containers/monster-combatants";
+import monsterCombatants from "../containers/MonsterCombatants";
 import helpers from "../../helpers"
 const monsters = monstersData()
 

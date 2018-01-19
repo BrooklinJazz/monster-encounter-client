@@ -7,7 +7,7 @@ import * as actions from "../actions/index"
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    // 
+    //
     // this.state = { term: '' };
   }
   render() {

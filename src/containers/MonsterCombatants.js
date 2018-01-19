@@ -26,10 +26,10 @@ class MonsterCombatants extends Component {
       // console.log(monster.CurrentHp);
       // console.log(monster);
       // currentHP is defined in monsters_reducer.js
+      console.log('monster combatants state:', this.state);
       return (<li key={index} onClick={() => this.props.selectMonster(monster)} className="list-group-item">
         {monster.Name}
         <div>
-
           {
             this.state.showComponent
             ? <form onClick={(e) => e.stopPropagation()} onSubmit={(e) => {
@@ -90,12 +90,12 @@ class MonsterCombatants extends Component {
   render() {
     if (!this.props.monsterCombatants) {
       return <div>Select a monsterCombatants to get started</div>;
+      }
+      // monsterCombatantsArr.push(this.props.monsterCombatants);
+      // console.log(monsterCombatantsArr);
+      return <ul className="list-group col-sm-4">{this.renderList()}</ul>;
+      }
     }
-    // monsterCombatantsArr.push(this.props.monsterCombatants);
-    // console.log(monsterCombatantsArr);
-    return <ul className="list-group col-sm-4">{this.renderList()}</ul>;
-  }
-}
 
 // anything in mapStateToProps will be this.props in the container above.
 // this.props.monsterCombatants is the array of monster combatants

@@ -1,10 +1,10 @@
 import React from "react";
 import { Component } from "react";
 
-import MonsterList from "../containers/monster-list";
-import SearchBar from "../containers/search-bar";
-import MonsterDetail from "../containers/monster-detail";
-import MonsterCombatants from "../containers/monster-combatants";
+import MonsterList from "../containers/MonsterList";
+import SearchBar from "../containers/SearchBar";
+import MonsterDetail from "../containers/MonsterDetail";
+import MonsterCombatants from "../containers/MonsterCombatants";
 
 export default class App extends Component {
   render() {
