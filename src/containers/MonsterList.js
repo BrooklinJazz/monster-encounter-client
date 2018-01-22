@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { selectMonster } from "../actions/index";
+import Monster from "../components/Monster"
 import * as actions from "../actions/index";
 import { bindActionCreators } from "redux";
 
@@ -14,7 +15,7 @@ class MonsterList extends Component {
           onClick={() => this.props.addMonsterToCombatants(monster)}
           className="list-group-item"
         >
-          {monster.Name}
+          <Monster monster={monster}/>
         </li>
       );
     });
@@ -40,7 +41,6 @@ function mapDispatchToProps(dispatch) {
   // Whenever SelectMonster is called, the result should be passed to all
   // of our reducers
   return {
-    selectMonster: monster => dispatch(actions.selectMonster(monster)),
     addMonsterToCombatants: monster =>
       dispatch(actions.addMonsterToCombatants(monster)),
   };
