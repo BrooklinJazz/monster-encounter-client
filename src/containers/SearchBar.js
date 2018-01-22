@@ -31,7 +31,7 @@ function mapDispatchToProps(dispatch) {
   // of our reducers
   return {
     updateSearchTerm: searchTerm => {
-      return dispatch(actions.filterMonsterLibrary(searchTerm))
+      return dispatch(actions.filterLibrary(searchTerm))
     }
   };
 }
