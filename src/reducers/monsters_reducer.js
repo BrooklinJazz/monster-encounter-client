@@ -4,7 +4,7 @@
 // monsters at once
 import monstersData from "../data/monsters";
 import Types from "../types";
-import monsterCombatants from "../containers/MonsterCombatants";
+import CombatantList from "../containers/CombatantList";
 import helpers from "../../helpers"
 const monsters = monstersData()
 
@@ -14,7 +14,7 @@ const monsters = monstersData()
 const INITIAL_STATE = {
   monsters,
   selectedMonster: null,
-  monsterCombatants: [],
+  CombatantList: [],
   searchTerm: '',
 };
 
@@ -25,23 +25,23 @@ export default function(state = INITIAL_STATE, action) {
     case Types.ADD_MONSTER_TO_COMBATANTS:
       const newMonster = helpers.deepClone(action.monster);
       newMonster.currentHp = newMonster.HP.Value
-      const newMonsterCombatants = state.monsterCombatants.concat(
+      const newCombatantList = state.CombatantList.concat(
         newMonster,
         // action.monster,
       );
       return {
         ...state,
-        monsterCombatants: newMonsterCombatants,
+        CombatantList: newCombatantList,
       };
       case Types.REMOVE_COMBATANT:
-      // const combatantsListAfterRemove = state.monsterCombatants.splice(action.payload.index, 1)
-      const combatantsListAfterRemove = state.monsterCombatants.map( (combatant, i) => {
+      // const combatantsListAfterRemove = state.CombatantList.splice(action.payload.index, 1)
+      const combatantsListAfterRemove = state.CombatantList.map( (combatant, i) => {
         return combatant
       })
       combatantsListAfterRemove.splice(action.payload.index, 1)
         return {
           ...state,
-          monsterCombatants: combatantsListAfterRemove
+          CombatantList: combatantsListAfterRemove
         };
       case Types.FILTER_MONSTER_LIBRARY:
         return {
@@ -49,7 +49,7 @@ export default function(state = INITIAL_STATE, action) {
           searchTerm: action.searchTerm
         };
       case Types.CHANGE_MONSTER_HP:
-        const combatantsListAfterChange = state.monsterCombatants.map( (combatant, i) => {
+        const combatantsListAfterChange = state.CombatantList.map( (combatant, i) => {
           if (i !== action.payload.index || isNaN(action.payload.hpChange) ) {
             // if the input given by hpChange is not a number
             // or the index of the current monster doesn't match
@@ -77,7 +77,7 @@ export default function(state = INITIAL_STATE, action) {
         // console.log('reducer working', newCombatantsList);
         return {
           ...state,
-          monsterCombatants: combatantsListAfterChange
+          CombatantList: combatantsListAfterChange
         }
 
   }

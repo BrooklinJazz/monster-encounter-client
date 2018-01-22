@@ -6,8 +6,8 @@ import DamageInput from "../components/damage-input";
 // import { selectMonster } from '../actions/index';
 // import { bindActionCreators} from 'redux';
 
-// let monsterCombatantsArr = []
-class MonsterCombatants extends Component {
+// let CombatantListArr = []
+class CombatantList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +20,7 @@ class MonsterCombatants extends Component {
 
 
   renderList() {
-    return this.props.monsterCombatants.map((monster, index) => {
+    return this.props.CombatantList.map((monster, index) => {
       // define a current hp value to be modified later as the user inputs
       // monster.CurrentHp = monster.HP.Value
       // console.log(monster.CurrentHp);
@@ -88,20 +88,20 @@ class MonsterCombatants extends Component {
   }
 
   render() {
-    if (!this.props.monsterCombatants) {
-      return <div>Select a monsterCombatants to get started</div>;
+    if (!this.props.CombatantList) {
+      return <div>Select a CombatantList to get started</div>;
       }
-      // monsterCombatantsArr.push(this.props.monsterCombatants);
-      // console.log(monsterCombatantsArr);
+      // CombatantListArr.push(this.props.CombatantList);
+      // console.log(CombatantListArr);
       return <ul className="list-group col-sm-4">{this.renderList()}</ul>;
       }
     }
 
 // anything in mapStateToProps will be this.props in the container above.
-// this.props.monsterCombatants is the array of monster combatants
+// this.props.CombatantList is the array of monster combatants
 function mapStateToProps(state) {
-  const {monsterCombatants} = state.monsters;
-  return {monsterCombatants};
+  const {CombatantList} = state.monsters;
+  return {CombatantList};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -114,4 +114,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MonsterCombatants);
+export default connect(mapStateToProps, mapDispatchToProps)(CombatantList);
