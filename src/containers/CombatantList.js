@@ -30,7 +30,9 @@ class CombatantList extends Component {
       console.log('combatant combatants state:', this.state);
       return (
         <div>
+
           {/* <Combatant combatant={combatant}/> */}
+          <Combatant combatant={combatant}/>
           <li key={index} onClick={() => this.props.selectCombatant(combatant)} className="list-group-item">
             {combatant.Name}
             <div>
