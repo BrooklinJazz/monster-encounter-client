@@ -2,8 +2,8 @@ import Types from "../types";
 
 const createAction = (type, params = null) => ({ type, ...params });
 
-// export function selectMonster(monster) {
-//   // selectMonster is an ActionCreator, it needs to return an action,
+// export function selectCombatant(monster) {
+//   // selectCombatant is an ActionCreator, it needs to return an action,
 //   // an object with a type property
 //   console.log("a monster was selected:", monster.Name);
 //   return {
@@ -12,10 +12,10 @@ const createAction = (type, params = null) => ({ type, ...params });
 //   };
 // }
 
-export const selectMonster = monster =>
+export const selectCombatant = monster =>
   createAction(Types.MONSTER_SELECTED, { monster });
 
-export const changeMonsterHp = payload =>
+export const changeCombatantHp = payload =>
   createAction(Types.CHANGE_MONSTER_HP, { payload });
 
 export const removeCombatant = payload =>

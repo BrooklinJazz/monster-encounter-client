@@ -27,7 +27,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  // Whenever SelectMonster is called, the result should be passed to all
+  // Whenever selectCombatant is called, the result should be passed to all
   // of our reducers
   return {
     updateSearchTerm: searchTerm => {
