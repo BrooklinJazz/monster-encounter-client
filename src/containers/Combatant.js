@@ -12,11 +12,9 @@ class Combatant extends Component {
     // this.focusTextInput = this.focusTextInput.bind(this);
   }
   render() {
-    return (
-      <div>
-        <p>Monster</p>
-      </div>
-    )
+    <div>
+      <p>Monster</p>
+    </div>
   }
 }
 

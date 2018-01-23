@@ -21,24 +21,24 @@ class CombatantList extends Component {
 
 
   renderList() {
-    return this.props.CombatantList.map((monster, index) => {
+    return this.props.CombatantList.map((combatant, index) => {
       // define a current hp value to be modified later as the user inputs
-      // monster.CurrentHp = monster.HP.Value
-      // console.log(monster.CurrentHp);
-      // console.log(monster);
-      // currentHP is defined in monsters_reducer.js
-      console.log('monster combatants state:', this.state);
+      // combatant.CurrentHp = combatant.HP.Value
+      // console.log(combatant.CurrentHp);
+      // console.log(combatant);
+      // currentHP is defined in combatants_reducer.js
+      console.log('combatant combatants state:', this.state);
       return (
         <div>
-          <Combatant />
-          <li key={index} onClick={() => this.props.selectCombatant(monster)} className="list-group-item">
-            {monster.Name}
+          {/* <Combatant combatant={combatant}/> */}
+          <li key={index} onClick={() => this.props.selectCombatant(combatant)} className="list-group-item">
+            {combatant.Name}
             <div>
               {
                 this.state.showComponent
                 ? <form onClick={(e) => e.stopPropagation()} onSubmit={(e) => {
                   e.preventDefault()
-                  this.props.changeCombatantHp({monster, hpChange: this.state.hpChange, index: index})
+                  this.props.changeCombatantHp({combatant, hpChange: this.state.hpChange, index: index})
                   this.setState({showComponent: false});
                 }
               }>
@@ -48,21 +48,21 @@ class CombatantList extends Component {
               this._onButtonClick(e)
               this.focusTextInput(this.textInput)
             }}>
-            CURRENT HP: {monster.currentHp}
+            CURRENT HP: {combatant.currentHp}
           </div>
         }
       </div>
 
       <div>
-        MAX HP: {monster.HP.Value}
+        MAX HP: {combatant.HP.Value}
       </div>
       <div>
-        AC: {monster.AC.Value}
+        AC: {combatant.AC.Value}
       </div>
       <button
         onClick={(e) => {
           e.stopPropagation();
-          this.props.removeCombatant({monster, index: index})
+          this.props.removeCombatant({combatant, index: index})
         }
       }>Delete</button>
 
