@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-// import {connect} from "react-redux";
-// import * as actions from "../actions/index"
+import {connect} from "react-redux";
+import * as actions from "../actions/index"
 
 class Combatant extends Component {
   constructor(props) {
@@ -15,8 +15,11 @@ class Combatant extends Component {
     const {combatant = {}} = this.props
     return (
       <div
-        onClick={() => {}}
-        // onClick={() => this.props.selectCombatant(combatant)}
+        // onClick={() => {}}
+        onClick={() => {
+          this.props.selectCombatant(combatant)
+          // debugger
+        }}
         >
         <p>{combatant.Name}</p>
       </div>
@@ -24,15 +27,20 @@ class Combatant extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  const {selectedMonster} = state.monsters;
+  return {selectedMonster};
+}
+
 function mapDispatchToProps(dispatch) {
   // Whenever selectCombatant is called, the result should be passed to all
   // of our reducers
   return {
-    selectCombatant: monster => dispatch(actions.selectCombatant(monster)),
+    selectCombatant: monster => dispatch(actions.selectCombatant(monster))
     // changeCombatantHp: monster => dispatch(actions.changeCombatantHp(monster)),
     // removeCombatant: monster => dispatch(actions.removeCombatant(monster))
   };
 }
 
 
-export default Combatant
+export default connect(mapStateToProps, mapDispatchToProps)(Combatant);

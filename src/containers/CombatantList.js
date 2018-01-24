@@ -33,7 +33,9 @@ class CombatantList extends Component {
 
           <Combatant combatant={combatant}/>
           {/* <Combatant /> */}
-          <li key={index} onClick={() => this.props.selectCombatant(combatant)} className="list-group-item">
+          <li key={index}
+            // onClick={() => this.props.selectCombatant(combatant)}
+            className="list-group-item">
             {combatant.Name}
             <div>
               {
@@ -121,7 +123,7 @@ function mapDispatchToProps(dispatch) {
   // Whenever selectCombatant is called, the result should be passed to all
   // of our reducers
   return {
-    selectCombatant: monster => dispatch(actions.selectCombatant(monster)),
+    // selectCombatant: monster => dispatch(actions.selectCombatant(monster)),
     changeCombatantHp: monster => dispatch(actions.changeCombatantHp(monster)),
     removeCombatant: monster => dispatch(actions.removeCombatant(monster))
   };
