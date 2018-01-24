@@ -29,58 +29,62 @@ class Combatant extends Component {
               onSubmit={(e) => this.handleSubmit(e)
               }
               >
-                <input type="text" autoFocus name="hpChange"
+                <input type="number" autoFocus name="hpChange"
                   onChange={(e) => this.handleChange(e)}
                 />
               </form>
               :
               <p onClick={this._onButtonClick}>Current: {combatant.currentHp}</p>
-          }
-          <p>Max: {combatant.HP.Value}</p>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              this.props.removeCombatant({combatant, index: index})
             }
-          }>Delete</button>
-        </div>
-      )
-    }
-    _onButtonClick(e) {
-      e.stopPropagation()
-      this.setState({showComponent: true});
-    }
-    handleSubmit(e) {
+            <p>Max: {combatant.HP.Value}</p>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                this.props.removeCombatant({combatant, index: index})
+              }
+            }>Delete</button>
+          </div>
+        )
+      }
+
+      _onButtonClick(e) {
+        e.stopPropagation()
+        this.setState({showComponent: true});
+      }
+
+      handleChange(e) {
+        // creates this.state.hpChange for use in handleSubmit
+        const newState = Object.assign({}, this.state, {
+          [e.target.name]: e.target.value
+        });
+        this.setState(newState)
+      }
+
+      handleSubmit(e) {
+        e.preventDefault();
         const {combatant = {}, index} = this.props;
-      e.preventDefault();
-      console.log('hpChange', this.state.hpChange);
-      this.props.changeCombatantHp({combatant, hpChange: this.state.hpChange, index: index})
-      this.setState({showComponent: false});
+        const {hpChange} = this.state
+        this.props.changeCombatantHp({combatant, hpChange, index})
+        this.setState({showComponent: false});
+      }
     }
-    handleChange(event) {
-      const newState = Object.assign({}, this.state, {
-        [event.target.name]: event.target.value
-      });
-      this.setState(newState)
+
+
+
+    function mapStateToProps(state) {
+      const {selectedMonster} = state.monsters;
+      return {selectedMonster};
     }
-  }
+
+    function mapDispatchToProps(dispatch) {
+      // Whenever selectCombatant is called, the result should be passed to all
+      // of our reducers
+      return {
+        selectCombatant: combatant => dispatch(actions.selectCombatant(combatant)),
+        changeCombatantHp: combatant => dispatch(actions.changeCombatantHp(combatant)),
+        removeCombatant: combatant => dispatch(actions.removeCombatant(combatant))
+      };
+    }
 
 
-
-  function mapStateToProps(state) {
-    const {selectedMonster} = state.monsters;
-    return {selectedMonster};
-  }
-
-  function mapDispatchToProps(dispatch) {
-    // Whenever selectCombatant is called, the result should be passed to all
-    // of our reducers
-    return {
-      selectCombatant: monster => dispatch(actions.selectCombatant(monster)),
-      changeCombatantHp: monster => dispatch(actions.changeCombatantHp(monster)),
-      removeCombatant: monster => dispatch(actions.removeCombatant(monster))
-    };
-  }
-
-
-  export default connect(mapStateToProps, mapDispatchToProps)(Combatant);
+    export default connect(mapStateToProps, mapDispatchToProps)(Combatant);
