@@ -8,7 +8,7 @@ class Combatant extends Component {
     this.state = {
       showComponent: false
     };
-    // this._onButtonClick = this._onButtonClick.bind(this);
+    this._onButtonClick = this._onButtonClick.bind(this);
     // this.focusTextInput = this.focusTextInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,23 +19,23 @@ class Combatant extends Component {
 
     return (
       <div
-        onClick={() => {
-          this.props.selectCombatant(combatant)
-        }}
+        onClick={() => this.props.selectCombatant(combatant)}
         >
-          <form
-            onClick={(e) => e.stopPropagation()}
-            onSubmit={(e) => {
-              this.handleSubmit(e)
-            }
-          }
-          >
-            <input type="text" name="hpChange"
-              onChange={(e) => this.handleChange(e)}
-            />
-          </form>
           <p>{combatant.Name}</p>
-          <p>Current: {combatant.currentHpchange}</p>
+          {
+            this.state.showComponent ?
+            <form
+              onClick={(e) => e.stopPropagation()}
+              onSubmit={(e) => this.handleSubmit(e)
+              }
+              >
+                <input type="text" autoFocus name="hpChange"
+                  onChange={(e) => this.handleChange(e)}
+                />
+              </form>
+              :
+              <p onClick={this._onButtonClick}>Current: {combatant.currentHp}</p>
+          }
           <p>Max: {combatant.HP.Value}</p>
           <button
             onClick={(e) => {
@@ -45,6 +45,10 @@ class Combatant extends Component {
           }>Delete</button>
         </div>
       )
+    }
+    _onButtonClick(e) {
+      e.stopPropagation()
+      this.setState({showComponent: true});
     }
     handleSubmit(e) {
         const {combatant = {}, index} = this.props;
