@@ -12,9 +12,10 @@ class CombatantList extends Component {
   constructor(props) {
     super(props);
   }
-
+// renders a list of Combatants
   renderList() {
-    return this.props.CombatantList.map((combatant, index) => {
+    const {CombatantList = []} = this.props
+    return CombatantList.map((combatant, index) => {
       return (
         <div>
           <li className="list-group-item">
@@ -24,13 +25,12 @@ class CombatantList extends Component {
       )
     });
   }
-
+// if there are no combatants Do not render the list
   render() {
-    if (!this.props.CombatantList) {
+    if (!CombatantList) {
       return <div>Select a CombatantList to get started</div>;
     }
-    // CombatantListArr.push(this.props.CombatantList);
-    // console.log(CombatantListArr);
+    // if there are combatants in Combatant list then render the list
     return <ul className="list-group col-sm-4">{this.renderList()}</ul>;
   }
 }
