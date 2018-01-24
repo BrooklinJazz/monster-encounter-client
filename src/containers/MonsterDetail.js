@@ -12,7 +12,7 @@ class MonsterDetail extends Component {
       <div>Name: {this.props.monster.Name}</div>
       <div>Source: {this.props.monster.Source}</div>
       <div>Type: {this.props.monster.Type}</div>
-      <div onClick={() => console.log('monster-detail.js', this.props.monster.HP.Value)}>Hp: {this.props.monster.HP.Value}</div>
+      <div onClick={() => console.log('MonsterDetail.js', this.props.monster.HP.Value)}>Hp: {this.props.monster.HP.Value}</div>
       <div>AC: {this.props.monster.AC.Value}</div>
       <div>Speed: {this.props.monster.Speed}</div>
       <hr/>

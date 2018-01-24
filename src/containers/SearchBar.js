@@ -7,7 +7,7 @@ import * as actions from "../actions/index"
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    // 
+    //
     // this.state = { term: '' };
   }
   render() {
@@ -27,11 +27,11 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  // Whenever SelectMonster is called, the result should be passed to all
+  // Whenever selectCombatant is called, the result should be passed to all
   // of our reducers
   return {
     updateSearchTerm: searchTerm => {
-      return dispatch(actions.filterMonsterLibrary(searchTerm))
+      return dispatch(actions.filterLibrary(searchTerm))
     }
   };
 }
