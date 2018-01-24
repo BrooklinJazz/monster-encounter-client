@@ -14,7 +14,7 @@ class Combatant extends Component {
   }
   render() {
 
-    const {combatant = {}} = this.props;
+    const {combatant = {}, index} = this.props;
     console.log("combatant >>>> ", combatant);
 
     return (
@@ -35,8 +35,14 @@ class Combatant extends Component {
             />
           </form>
           <p>{combatant.Name}</p>
-          <p>Current: {combatant.currentHp}</p>
+          <p>Current: {combatant.currentHpchange}</p>
           <p>Max: {combatant.HP.Value}</p>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              this.props.removeCombatant({combatant, index: index})
+            }
+          }>Delete</button>
         </div>
       )
     }
