@@ -1,7 +1,14 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import Stat from '../components/Stat';
+import SavesListing from '../components/SavesListing'
+// import SaveList from '../components/SaveList'
 
 class MonsterDetail extends Component {
+  constructor(props) {
+    super(props)
+    // this.renderSaves = this.renderSaves.bind(this);
+  }
   render() {
     const {monster = {}} = this.props
 
@@ -24,8 +31,6 @@ class MonsterDetail extends Component {
       ConditionImmunities = [],
       Senses = [],
       Languages = [],
-
-
 
       // an arr of obj
       // Saves (only the ones with extra modifiers)
@@ -53,78 +58,36 @@ class MonsterDetail extends Component {
     // )
     // console.log(InitiativeModifier);
     return (
-      <div class="monsterDetail">
-        {/* Top with AC, HP, Speed */}
-        <div className="statRow">
-          <strong className="statName">Armor Class</strong>
-          <div className="statValue">{AC.Value} {AC.Notes}</div>
-        </div>
-        <div className="statRow">
-          <strong className="statName">Hit Points</strong>
-          <div className="statValue">{HP.Value} {HP.Notes}</div>
-        </div>
-        <div className="statRow">
-          <strong className="statName">Speed</strong>
-          <div className="statValue">{Speed}</div>
+      <div className="monsterDetail">
+
+        <Stat Name="Armor Class" Value={AC.Value, AC.Notes} />
+        <Stat Name="Hit Points" Value={HP.Value, HP.Notes} />
+        <Stat Name="Speed" Value={Speed} />
+
+        <div className="Saves">
+          <SavesListing Saves={Saves} />
         </div>
 
-        <div className="Saves"></div>
 
         <div className="Skills"></div>
 
         <div className="Senses"></div>
 
-        <div class="abilities">
-          <div className="abilityContainer">
-            <strong className="abilityName">STR</strong>
-            <div className="abilityValue">{Str}</div>
-          </div>
-          <div className="abilityContainer">
-            <strong className="abilityName">DEX</strong>
-            <div className="abilityValue">{Dex}</div>
-          </div>
-          <div className="abilityContainer">
-            <strong className="abilityName">CON</strong>
-            <div className="abilityValue">{Con}</div>
-          </div>
-          <div className="abilityContainer">
-            <strong className="abilityName">INT</strong>
-            <div className="abilityValue">{Int}</div>
-          </div>
-          <div className="abilityContainer">
-            <strong className="abilityName">WIS</strong>
-            <div className="abilityValue">{Wis}</div>
-          </div>
-          <div className="abilityContainer">
-            <strong className="abilityName">CHA</strong>
-            <div className="abilityValue">{Cha}</div>
-          </div>
+        <div className="abilities">
+          <Stat Name="STR" Value={Str} />
+          <Stat Name="DEX" Value={Dex} />
+          <Stat Name="CON" Value={Con} />
+          <Stat Name="INT" Value={Int} />
+          <Stat Name="WIS" Value={Wis} />
+          <Stat Name="CHA" Value={Cha} />
         </div>
 
-        <div className="statRow">
-          <strong className="statName">Damage Immunities</strong>
-          <div className="statValue">{DamageImmunities}</div>
-        </div>
-        <div className="statRow">
-          <strong className="statName">Condition Immunities</strong>
-          <div className="statValue">{ConditionImmunities}</div>
-        </div>
-        <div className="statRow">
-          <strong className="statName">Senses</strong>
-          <div className="statValue">{Senses}</div>
-        </div>
-        <div className="statRow">
-          <strong className="statName">Languages</strong>
-          <div className="statValue">{Languages}</div>
-        </div>
-        <div className="statRow">
-          <strong className="statName">Challenge</strong>
-          <div className="statValue">{Challenge}</div>
-        </div>
-        <div className="statRow">
-          <strong className="statName"></strong>
-          <div className="statValue"></div>
-        </div>
+
+        <Stat Name="Damage Immunities" Value={DamageImmunities} />
+        <Stat Name="Condition Immunities" Value={ConditionImmunities} />
+        <Stat Name="Senses" Value={Senses} />
+        <Stat Name="Languages" Value={Languages} />
+        <Stat Name="Challenge" Value={Challenge} />
 
         <div className="traits"></div>
 
@@ -137,6 +100,7 @@ class MonsterDetail extends Component {
       </div>
     );
   }
+
 }
 
 // get selectedMonster from state and name as monster
