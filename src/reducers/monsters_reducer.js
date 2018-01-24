@@ -57,21 +57,21 @@ export default function(state = INITIAL_STATE, action) {
             return combatant
 
             // if healing applied to monster brings it above max health
-          } else if (action.payload.monster.currentHp - action.payload.hpChange > action.payload.monster.HP.Value) {
-            // set currentHp to maxHp `action.payload.monster.HP.Value`
-            action.payload.monster.currentHp = action.payload.monster.HP.Value
-            // return the monster with max hp
-            return action.payload.monster
+          } else if (action.payload.combatant.currentHp - action.payload.hpChange > action.payload.combatant.HP.Value) {
+            // set currentHp to maxHp `action.payload.combatant.HP.Value`
+            action.payload.combatant.currentHp = action.payload.combatant.HP.Value
+            // return the combatant with max hp
+            return action.payload.combatant
 
-          } else if (action.payload.monster.currentHp - action.payload.hpChange < 0) {
-            action.payload.monster.currentHp = 0
-            return action.payload.monster
+          } else if (action.payload.combatant.currentHp - action.payload.hpChange < 0) {
+            action.payload.combatant.currentHp = 0
+            return action.payload.combatant
           } else {
-            // we are applying damage to the monster so positive numbers reduce
-            // the monster's currentHp
-            action.payload.monster.currentHp -= action.payload.hpChange
-            // return the monster with changed HP
-            return action.payload.monster
+            // we are applying damage to the combatant so positive numbers reduce
+            // the combatant's currentHp
+            action.payload.combatant.currentHp -= action.payload.hpChange
+            // return the combatant with changed HP
+            return action.payload.combatant
           }
         })
         // console.log('reducer working', newCombatantsList);
