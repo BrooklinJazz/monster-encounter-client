@@ -15,8 +15,9 @@ class Combatant extends Component {
     const {combatant = {}} = this.props
     return (
       <div
+        onClick={() => {}}
         // onClick={() => this.props.selectCombatant(combatant)}
-        // >
+        >
         <p>{combatant.Name}</p>
       </div>
     )

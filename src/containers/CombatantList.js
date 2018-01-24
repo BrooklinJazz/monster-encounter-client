@@ -31,8 +31,8 @@ class CombatantList extends Component {
       return (
         <div>
 
-          {/* <Combatant combatant={combatant}/> */}
           <Combatant combatant={combatant}/>
+          {/* <Combatant /> */}
           <li key={index} onClick={() => this.props.selectCombatant(combatant)} className="list-group-item">
             {combatant.Name}
             <div>
