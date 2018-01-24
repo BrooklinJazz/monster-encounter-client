@@ -9,13 +9,12 @@ class Combatant extends Component {
       showComponent: false
     };
     this._onButtonClick = this._onButtonClick.bind(this);
-    // this.focusTextInput = this.focusTextInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // expected that I would need to bind function, but do not seem to.
+    // this._handleSubmit = this._handleSubmit.bind(this);
   }
   render() {
 
     const {combatant = {}, index} = this.props;
-    console.log("combatant >>>> ", combatant);
 
     return (
       <div
@@ -26,11 +25,11 @@ class Combatant extends Component {
             this.state.showComponent ?
             <form
               onClick={(e) => e.stopPropagation()}
-              onSubmit={(e) => this.handleSubmit(e)
+              onSubmit={(e) => this._handleSubmit(e)
               }
               >
                 <input type="number" autoFocus name="hpChange"
-                  onChange={(e) => this.handleChange(e)}
+                  onChange={(e) => this._handleChange(e)}
                 />
               </form>
               :
@@ -52,15 +51,15 @@ class Combatant extends Component {
         this.setState({showComponent: true});
       }
 
-      handleChange(e) {
-        // creates this.state.hpChange for use in handleSubmit
+      _handleChange(e) {
+        // creates this.state.hpChange for use in _handleSubmit
         const newState = Object.assign({}, this.state, {
           [e.target.name]: e.target.value
         });
         this.setState(newState)
       }
 
-      handleSubmit(e) {
+      _handleSubmit(e) {
         e.preventDefault();
         const {combatant = {}, index} = this.props;
         const {hpChange} = this.state
