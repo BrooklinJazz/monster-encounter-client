@@ -103,7 +103,7 @@ export default function(state = INITIAL_STATE, action) {
           rolls: state.rolls.concat(newRoll)
         }
         case Types.DELETE_ROLL:
-          console.log('DELETE_ROLL Action');
+          console.log('DELETE_ROLL Action', action.payload);
         return {
           ...state
         }

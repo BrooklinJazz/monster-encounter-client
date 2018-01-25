@@ -8,11 +8,11 @@ class Roll extends Component {
     super(props)
   }
   render() {
-    const {rolled, roll, result} = this.props
+    const {rolled, roll, result, index} = this.props
     return (
       <div>
         <div>{rolled} {roll} {result} <input type="number" defaultValue={result}></input> <button
-          onClick={() => this.props.deleteRoll()}
+          onClick={() => this.props.deleteRoll(index)}
           >Delete</button></div>
 
       </div>

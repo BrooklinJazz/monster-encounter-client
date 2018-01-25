@@ -11,7 +11,7 @@ class Rolls extends Component {
     return rolls.map( (obj, index) => {
       return (
         <div key={index}>
-          <Roll rolled={obj.rolled} roll={obj.roll} result={obj.result}/>
+          <Roll rolled={obj.rolled} roll={obj.roll} result={obj.result} index={index}/>
         </div>
       )
     })
