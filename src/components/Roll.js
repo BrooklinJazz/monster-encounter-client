@@ -1,10 +1,10 @@
 import React from 'react';
 
 function Roll(props) {
-  const {roll, value} = props
+  const {rolled, roll, result} = props
   return (
     <div>
-      <div>{roll} {value}</div>
+      <div>{rolled} {roll} {result}</div>
     </div>
   )
 }

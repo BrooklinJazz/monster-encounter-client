@@ -3,7 +3,7 @@
 import monstersData from "../data/monsters";
 import Types from "../types";
 import CombatantList from "../containers/CombatantList";
-import helpers from "../../helpers"
+import {d20, deepClone} from "../../helpers"
 // the array of monster objects exported as a function.
 // NOTE storing monsters in a local file currently
 const monsters = monstersData()
@@ -13,7 +13,7 @@ const INITIAL_STATE = {
   selectedMonster: null,
   CombatantList: [],
   searchTerm: '',
-  rolls: [{roll: '4d6 + 5', value: 20}, {roll: '4d6 + 5', value: 20}]
+  rolls: [{rolled: '4d6 + 5', roll: '[12] + 5', result: 20}, {rolled: '4d6 + 5', roll: '[12] + 5', result: 20}]
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -27,7 +27,7 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, selectedMonster: action.combatant };
       // add a Monster obj to the CombatantList
     case Types.ADD_MONSTER_TO_COMBATANTS:
-      const newCombatant = helpers.deepClone(action.monster);
+      const newCombatant = deepClone(action.monster);
       newCombatant.currentHp = newCombatant.HP.Value
       const newCombatantList = state.CombatantList.concat(
         newCombatant
@@ -89,10 +89,15 @@ export default function(state = INITIAL_STATE, action) {
           CombatantList: combatantsListAfterChange
         }
         case Types.D20_ROLLED:
-          console.log('D20_ROLLED', action.payload);
+          const rolled = `d20 + ${action.payload}`
+          const dtwenty = d20()
+          const roll = `[${dtwenty}] + ${action.payload}`
+          const result = action.payload + dtwenty
+          console.log('d20', action)
+          const newRoll = {rolled, roll, result}
         return {
           ...state,
-          rolls
+          rolls: state.rolls.concat(newRoll)
         }
 
   }

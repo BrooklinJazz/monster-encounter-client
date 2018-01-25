@@ -1,4 +1,4 @@
-const deepClone = (obj) => {
+export const deepClone = (obj) => {
    const result = Array.isArray(obj) ? [] : {};
    for (let key in obj) {
      result[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key];
@@ -7,11 +7,8 @@ const deepClone = (obj) => {
    return result;
  };
 
-export default {
-   deepClone,
-}
 
-function Rolld20() {
+export const d20 = () => {
   const result = Math.floor(Math.random() * 20) + 1
   return result
 }

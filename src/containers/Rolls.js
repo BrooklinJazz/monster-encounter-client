@@ -6,20 +6,18 @@ class Rolls extends Component {
   constructor(props) {
     super(props)
   }
-
-  render() {
-    const {rolls} = this.props
-    console.log(rolls);
-    const rollsMap = rolls.map( (obj, index) => {
+  renderList() {
+    const {rolls = []} = this.props
+    return rolls.map( (obj, index) => {
       return (
         <div key={index}>
-          <Roll roll={obj.roll} value={obj.value}/>
+          <Roll rolled={obj.rolled} roll={obj.roll} result={obj.result}/>
         </div>
       )
     })
-    return (
-      <div>{rollsMap}</div>
-    )
+  }
+  render() {
+    return <div>{this.renderList()}</div>
   }
 }
 function mapStateToProps(state) {
