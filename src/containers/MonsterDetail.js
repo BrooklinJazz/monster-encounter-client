@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import Stat from '../components/Stat';
-import SavesListing from '../components/SavesListing'
+import RollableListing from '../components/RollableListing'
 // import SaveList from '../components/SaveList'
 
 class MonsterDetail extends Component {
@@ -17,6 +17,7 @@ class MonsterDetail extends Component {
     }
     // this must be below if statement or it will be defined when monster is empty
     // NOTE InitiativeModifier is always 0 in JSON?
+    // TODO make a component for Senses and Speed. they currently render an array without spaces
     const {
       Name = '',
       Source = '',
@@ -62,16 +63,17 @@ class MonsterDetail extends Component {
 
         <Stat Name="Armor Class" Value={AC.Value, AC.Notes} />
         <Stat Name="Hit Points" Value={HP.Value, HP.Notes} />
-        <Stat Name="Speed" Value={Speed} />
+        <div className="Speed"><strong>Speed:</strong> {Speed}</div>
 
         <div className="Saves">
-          <SavesListing Saves={Saves}/>
+          <RollableListing Title="Saves" valuesArrOfObj={Saves}/>
         </div>
 
+        <div className="Skills">
+          <RollableListing Title="Skills" valuesArrOfObj={Skills}/>
+        </div>
 
-        <div className="Skills"></div>
-
-        <div className="Senses"></div>
+        <div className="Senses"><strong>Senses:</strong> {Senses}</div>
 
         <div className="abilities">
           <Stat Name="STR" Value={Str} />
