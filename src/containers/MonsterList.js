@@ -22,7 +22,7 @@ class MonsterList extends Component {
   }
 
   render() {
-    return <ul className="list-group col-sm-4">{this.renderList()}</ul>;
+    return <ul className="list-group">{this.renderList()}</ul>;
   }
 }
 function mapStateToProps(state) {

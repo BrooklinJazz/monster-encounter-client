@@ -31,7 +31,7 @@ class CombatantList extends Component {
       return <div>Select a CombatantList to get started</div>;
     }
     // if there are combatants in Combatant list then render the list
-    return <ul className="list-group col-sm-4">{this.renderList()}</ul>;
+    return <ul className="list-group">{this.renderList()}</ul>;
   }
 }
 
