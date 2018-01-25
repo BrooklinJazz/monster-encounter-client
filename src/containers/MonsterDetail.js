@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import Stat from '../components/Stat';
-import RollableListing from '../components/RollableListing'
+import RollableListing from '../components/RollableListing';
+import Power from '../components/Power'
 // import SaveList from '../components/SaveList'
 
 class MonsterDetail extends Component {
@@ -91,7 +92,8 @@ class MonsterDetail extends Component {
         <Stat Name="Languages" Value={Languages} />
         <Stat Name="Challenge" Value={Challenge} />
 
-        <div className="traits"></div>
+        <div className="traits">Traits</div>
+        <Power />
 
         <div className="actions"></div>
 
