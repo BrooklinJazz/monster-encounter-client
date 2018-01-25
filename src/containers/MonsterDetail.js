@@ -65,7 +65,7 @@ class MonsterDetail extends Component {
         <Stat Name="Speed" Value={Speed} />
 
         <div className="Saves">
-          <SavesListing Saves={Saves} />
+          <SavesListing Saves={Saves}/>
         </div>
 
 
