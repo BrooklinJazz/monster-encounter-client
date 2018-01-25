@@ -9,7 +9,7 @@ class Stat extends Component {
   }
   render() {
     const {Name = '', Value = 0} = this.props
-    console.log('STAT ROLL VALUE', Value);
+    // console.log('STAT ROLL VALUE', Value);
     return (
       <div className="statRow">
         <strong className="statName">{Name}</strong>

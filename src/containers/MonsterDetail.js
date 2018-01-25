@@ -53,7 +53,7 @@ class MonsterDetail extends Component {
       Wis = 0,
       Cha = 0,
     } = monster.Abilities
-    
+
     return (
       <div className="monsterDetail">
 
@@ -88,7 +88,7 @@ class MonsterDetail extends Component {
         <Stat Name="Challenge" Value={Challenge} />
 
         <Power Title="Traits" ArrOfObj={Traits} />
-        
+
         <Power Title="Actions" ArrOfObj={Actions} />
 
         <Power Title="Legendary Actions" ArrOfObj={LegendaryActions} />

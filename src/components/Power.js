@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {filterXDX} from '../../helpers'
 
 class Power extends Component {
   constructor(props) {
@@ -9,7 +10,10 @@ class Power extends Component {
     // (2d6 + 8) or +5 or +10. create a function that rolls dice on click.
     const {ArrOfObj = []} = this.props
     const {Title = ''} = this.props
+    // const filterTest = filterXDX(ArrOfObj[0].Content)
+    // console.log(filterTest);
     const ArrOfObjMap = ArrOfObj.map( obj => {
+      console.log(filterXDX(obj.Content));
       return (
         <div key={obj.Name}>
           <div >
