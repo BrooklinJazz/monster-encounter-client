@@ -22,5 +22,5 @@ export const removeCombatant = payload =>
 createAction(Types.REMOVE_COMBATANT, { payload })
 
 // Actions relating to Rolls
-export const d20Roll = combatant =>
-createAction(Types.MONSTER_SELECTED, { combatant });
+export const d20Roll = payload =>
+createAction(Types.D20_ROLLED, { payload });

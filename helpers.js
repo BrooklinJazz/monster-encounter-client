@@ -10,3 +10,8 @@ const deepClone = (obj) => {
 export default {
    deepClone,
 }
+
+function Rolld20() {
+  const result = Math.floor(Math.random() * 20) + 1
+  return result
+}

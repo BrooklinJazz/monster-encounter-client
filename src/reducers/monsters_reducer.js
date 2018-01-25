@@ -13,7 +13,7 @@ const INITIAL_STATE = {
   selectedMonster: null,
   CombatantList: [],
   searchTerm: '',
-  rolls: [{roll: '4d6 + 5', value: 20}]
+  rolls: [{roll: '4d6 + 5', value: 20}, {roll: '4d6 + 5', value: 20}]
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -87,6 +87,12 @@ export default function(state = INITIAL_STATE, action) {
         return {
           ...state,
           CombatantList: combatantsListAfterChange
+        }
+        case Types.D20_ROLLED:
+          console.log('D20_ROLLED', action.payload);
+        return {
+          ...state,
+          rolls
         }
 
   }
