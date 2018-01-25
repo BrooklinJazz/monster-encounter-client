@@ -17,7 +17,7 @@ class CombatantList extends Component {
     const {CombatantList = []} = this.props
     return CombatantList.map((combatant, index) => {
       return (
-        <div>
+        <div key={index}>
           <li className="list-group-item">
             <Combatant combatant={combatant} index={index}/>
           </li>

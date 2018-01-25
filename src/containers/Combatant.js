@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import * as actions from "../actions/index"
-
 class Combatant extends Component {
   constructor(props) {
     super(props);
@@ -84,6 +83,4 @@ class Combatant extends Component {
         removeCombatant: combatant => dispatch(actions.removeCombatant(combatant))
       };
     }
-
-
     export default connect(mapStateToProps, mapDispatchToProps)(Combatant);
