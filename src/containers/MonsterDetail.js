@@ -67,11 +67,11 @@ class MonsterDetail extends Component {
         <div className="Speed"><strong>Speed:</strong> {Speed}</div>
 
         <div className="Saves">
-          <RollableListing Title="Saves" valuesArrOfObj={Saves}/>
+          <RollableListing Title="Saves" ArrOfObj={Saves}/>
         </div>
 
         <div className="Skills">
-          <RollableListing Title="Skills" valuesArrOfObj={Skills}/>
+          <RollableListing Title="Skills" ArrOfObj={Skills}/>
         </div>
 
         <div className="Senses"><strong>Senses:</strong> {Senses}</div>
@@ -92,12 +92,11 @@ class MonsterDetail extends Component {
         <Stat Name="Languages" Value={Languages} />
         <Stat Name="Challenge" Value={Challenge} />
 
-        <div className="traits">Traits</div>
-        <Power />
+        <Power Title="Traits" ArrOfObj={Traits} />
+        
+        <Power Title="Actions" ArrOfObj={Actions} />
 
-        <div className="actions"></div>
-
-        <div className="legendaryActions"></div>
+        <Power Title="Legendary Actions" ArrOfObj={LegendaryActions} />
 
 
 

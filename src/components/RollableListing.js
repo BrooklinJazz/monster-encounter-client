@@ -8,8 +8,8 @@ class RollableListing extends Component {
   // TODO function for rolling saveObj.Value + d20
   render() {
     const {Title = ''} = this.props
-    const {valuesArrOfObj} = this.props
-    const valuesArrOfObjMap = valuesArrOfObj.map( obj => {
+    const {ArrOfObj} = this.props
+    const ArrOfObjMap = ArrOfObj.map( obj => {
       return (
         <div key={obj.Name}>
           <div >
@@ -20,7 +20,7 @@ class RollableListing extends Component {
       )
     })
     return (
-      <div><strong>{Title}:</strong>{valuesArrOfObjMap}</div>
+      <div><strong>{Title}:</strong>{ArrOfObjMap}</div>
     )
   }
 }
