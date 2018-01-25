@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   selectedMonster: null,
   CombatantList: [],
   searchTerm: '',
+  rolls: [{roll: '4d6 + 5', value: 20}]
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -40,9 +41,9 @@ export default function(state = INITIAL_STATE, action) {
         ...state,
         searchTerm: action.searchTerm
       };
-    /***************************************
-                CombatantList
-    /**************************************/
+      /****************************************
+                  CombatantList
+      ****************************************/
       case Types.REMOVE_COMBATANT:
       // assign a constant to be equal to CombatantList.
       // using map to avoid mutating state.
