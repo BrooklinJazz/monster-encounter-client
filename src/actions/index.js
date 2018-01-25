@@ -24,3 +24,6 @@ createAction(Types.REMOVE_COMBATANT, { payload })
 // Actions relating to Rolls
 export const d20Roll = payload =>
 createAction(Types.D20_ROLLED, { payload });
+
+export const deleteRoll = payload =>
+createAction(Types.DELETE_ROLL, { payload });

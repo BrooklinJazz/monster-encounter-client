@@ -88,6 +88,9 @@ export default function(state = INITIAL_STATE, action) {
           ...state,
           CombatantList: combatantsListAfterChange
         }
+        /****************************************
+                    Rolls
+        ****************************************/
         case Types.D20_ROLLED:
           const rolled = `d20 + ${action.payload}`
           const dtwenty = d20()
@@ -98,6 +101,11 @@ export default function(state = INITIAL_STATE, action) {
         return {
           ...state,
           rolls: state.rolls.concat(newRoll)
+        }
+        case Types.DELETE_ROLL:
+          console.log('DELETE_ROLL Action');
+        return {
+          ...state
         }
 
   }

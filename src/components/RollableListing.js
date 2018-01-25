@@ -33,7 +33,7 @@ class RollableListing extends Component {
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside of MonsterList
   // console.tron.log(state);
-  const { rolls} = state.monsters;
+  const { rolls } = state.monsters;
   return {
     rolls
   };
