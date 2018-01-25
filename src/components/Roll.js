@@ -7,6 +7,7 @@ class Roll extends Component {
   constructor(props) {
     super(props)
   }
+  // TODO change the Delete in the Delete button to be a check mark. style the number input
   render() {
     const {rolled, roll, result, index} = this.props
     return (
