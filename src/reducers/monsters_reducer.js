@@ -13,7 +13,7 @@ const INITIAL_STATE = {
   selectedMonster: null,
   CombatantList: [],
   searchTerm: '',
-  rolls: [{rolled: '4d6 + 5', roll: '[12] + 5', result: 20}, {rolled: '4d6 + 5', roll: '[12] + 5', result: 20}]
+  rolls: []
 };
 
 export default function(state = INITIAL_STATE, action) {
