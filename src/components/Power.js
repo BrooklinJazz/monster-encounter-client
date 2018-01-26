@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {filterXDX} from '../../helpers'
+import {replaceRollsRegex} from '../../helpers'
 
 class Power extends Component {
   constructor(props) {
@@ -10,14 +10,15 @@ class Power extends Component {
     // (2d6 + 8) or +5 or +10. create a function that rolls dice on click.
     const {ArrOfObj = []} = this.props
     const {Title = ''} = this.props
-    // const filterTest = filterXDX(ArrOfObj[0].Content)
+    // const filterTest = replaceRollsRegex(ArrOfObj[0].Content)
     // console.log(filterTest);
+    console.log('FILTER XDX', replaceRollsRegex('this (1d6) (1d5) (1d12) (1d4 + 2) (1d12) (1d4 + 2) is working'));
+    //   console.log('FILTER XDX FUNCTION', filterXDX(obj.Content));
     const ArrOfObjMap = ArrOfObj.map( obj => {
-      console.log('FILTER XDX FUNCTION', filterXDX(obj.Content));
       return (
         <div key={obj.Name}>
           <div >
-            <strong>{obj.Name}:</strong> {obj.Content}
+            <strong>{obj.Name}:</strong> {replaceRollsRegex(obj.Content)}
           </div>
 
         </div>

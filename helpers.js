@@ -19,33 +19,44 @@ export const convScoreToMod  = (n) => {
   return result
 }
 
-export const filterXDX = (str) => {
-  const expression = /\([1-9]d[1-9]\s\+\s[1-9]\)/
-  if (str.match(expression)) {
-    const rolled = str.match(expression)[0]
-    const numDice = str[str.search(expression)]
-    const newStr = str.replace(expression, `X${rolled}X`)
-    return newStr
-  }
-  else {
-    return str
-  }
+export const replaceRollsRegex = (str, replacement) => {
+  const xdx = /\([1-9]d[1-9]\)/g
+  // (1d6)
+  const xdxx = /\([1-9]d[1-9][1-9]\)/g
+  // (1d12)
+  const xxdx = /\([1-9][1-9]d[1-9]\)/g
+  // (12d6) \([1-9][1-9]d[1-9]\)
+  const xxdxx = /\([1-9][1-9]d[1-9][1-9]\)/g
+  // (12d12) \([1-9][1-9]d[1-9][1-9]\)
+  const xdxpx = /\([1-9]d[1-9]\s\+\s[1-9]\)/g
+  // (1d6 + 1) \([1-9]d[1-9]\s\+\s[1-9]\)
+  const xdxpxx = /\([1-9]d[1-9]\s\+\s[1-9][1-9]\)/g
+  // (1d6 + 12)  \([1-9]d[1-9]\s\+\s[1-9][1-9]\)
+  const xdxxpx = /\([1-9]d[1-9][1-9]\s\+\s[1-9]\)/g
+  // (1d12 + 1) \([1-9]d[1-9][1-9]\s\+\s[1-9]\)
+  const xdxxpxx = /\([1-9]d[1-9][1-9]\s\+\s[1-9][1-9]\)/g
+  // (1d12 + 12) \([1-9]d[1-9][1-9]\s\+\s[1-9][1-9]\)
+  const xxdxxpx = /\([1-9][1-9]d[1-9][1-9]\s\+\s[1-9]\)/g
+  // (12d12 + 1) \([1-9][1-9]d[1-9][1-9]\s\+\s[1-9]\)
+  const xxdxxpxx = /\([1-9][1-9]d[1-9][1-9]\s\+\s[1-9][1-9]\)/g
+  // (12d12 + 12) \([1-9][1-9]d[1-9][1-9]\s\+\s[1-9][1-9]\)
+  const regexArray = [xdx, xdxx, xxdx, xxdxx, xdxpx, xdxpxx, xdxxpx, xdxpxx, xdxxpx, xdxxpxx, xxdxxpx, xxdxxpxx]
+  // const newStr = str
+  // const testStr = str
+  // TODO
+  regexArray.map(exp => {
+    if (str.match(exp)) {
+      console.log('MATCH:', str.match(exp));
+      // let roll = str.match(exp)[0]
+      // console.log(str.match(exp));
+      // console.log(roll);
+      str = str.replace(exp, `WORKINGWORKING`)
+    }
+  })
+  return str
 }
-
 // var str = 'Twas the night before Xmas...';
 // var newstr = str.replace(/xmas/i, 'Christmas');
 // console.log(newstr);  // Twas the night before Christmas...
 
 // filter more complex expressions first?
-
-// (1d6) \([1-9]d[1-9]\)
-// (1d12) \([1-9]d[1-9][1-9]\)
-// (12d6) \([1-9][1-9]d[1-9]\)
-// (12d12) \([1-9][1-9]d[1-9][1-9]\)
-//
-// (1d6 + 1) \([1-9]d[1-9]\s\+\s[1-9]\)
-// (1d6 + 12)  \([1-9]d[1-9]\s\+\s[1-9][1-9]\)
-// (1d12 + 1) \([1-9]d[1-9][1-9]\s\+\s[1-9]\)
-// (1d12 + 12) \([1-9]d[1-9][1-9]\s\+\s[1-9][1-9]\)
-// (12d12 + 1) \([1-9][1-9]d[1-9][1-9]\s\+\s[1-9]\)
-// (12d12 + 12) \([1-9][1-9]d[1-9][1-9]\s\+\s[1-9][1-9]\)
