@@ -105,12 +105,11 @@ export default function(state = INITIAL_STATE, action) {
         case Types.DELETE_ROLL:
           console.log('DELETE_ROLL Action', action.payload);
           const rollsAfterDelete = state.rolls.map( (roll, i) => {
-            if (i !== action.payload) {
               return roll
-            }
           })
           rollsAfterDelete.splice(action.payload, 1)
           console.log('DELETE_ROLL rollsAfterDelete', rollsAfterDelete);
+          console.log('DELETE_ROLL rollsAfterDelete', state.rolls);
         return {
           ...state,
           rolls: rollsAfterDelete

@@ -13,7 +13,7 @@ class Power extends Component {
     // const filterTest = filterXDX(ArrOfObj[0].Content)
     // console.log(filterTest);
     const ArrOfObjMap = ArrOfObj.map( obj => {
-      console.log(filterXDX(obj.Content));
+      console.log('FILTER XDX FUNCTION', filterXDX(obj.Content));
       return (
         <div key={obj.Name}>
           <div >
