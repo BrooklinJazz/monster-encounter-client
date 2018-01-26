@@ -9,7 +9,6 @@
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
   },
-   "proxy": "http://localhost:3002",
   "author": "",
   "license": "ISC",
   "devDependencies": {
