@@ -1,13 +1,44 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { connect } from "react-redux";
+import * as actions from "../actions/index";
+import { convScoreToMod } from "../../helpers"
 
-function Stat(props) {
-  const {Name = '', Value = 0} = props
-  return (
-    <div className="statRow">
-      <strong className="statName">{Name}</strong>
-      <div className="statValue">{Value}</div>
-    </div>
-  )
+class Stat extends Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    const {Name = '', Value = 0} = this.props
+    // console.log('STAT ROLL VALUE', Value);
+    return (
+      <div className="statRow">
+        <strong className="statName">{Name}</strong>
+        <div className="statValue"
+          onClick={() => this.props.d20Roll(convScoreToMod(Value))}
+          >{Value}</div>
+      </div>
+    )
+  }
 }
 
-export default Stat
+function mapStateToProps(state) {
+  // Whatever is returned will show up as props inside of MonsterList
+  // console.tron.log(state);
+  const { rolls } = state.monsters;
+  return {
+    rolls
+  };
+}
+
+// Anything returned from this function will end up as props
+// on the MonsterList container
+function mapDispatchToProps(dispatch) {
+  // Whenever selectCombatant is called, the result should be passed to all
+  // of our reducers
+  return {
+    d20Roll: payload =>
+      dispatch(actions.d20Roll(payload)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Stat);

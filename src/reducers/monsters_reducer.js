@@ -3,7 +3,7 @@
 import monstersData from "../data/monsters";
 import Types from "../types";
 import CombatantList from "../containers/CombatantList";
-import helpers from "../../helpers"
+import {d20, deepClone} from "../../helpers"
 // the array of monster objects exported as a function.
 // NOTE storing monsters in a local file currently
 const monsters = monstersData()
@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   selectedMonster: null,
   CombatantList: [],
   searchTerm: '',
+  rolls: []
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -26,7 +27,7 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, selectedMonster: action.combatant };
       // add a Monster obj to the CombatantList
     case Types.ADD_MONSTER_TO_COMBATANTS:
-      const newCombatant = helpers.deepClone(action.monster);
+      const newCombatant = deepClone(action.monster);
       newCombatant.currentHp = newCombatant.HP.Value
       const newCombatantList = state.CombatantList.concat(
         newCombatant
@@ -40,9 +41,9 @@ export default function(state = INITIAL_STATE, action) {
         ...state,
         searchTerm: action.searchTerm
       };
-    /***************************************
-                CombatantList
-    /**************************************/
+      /****************************************
+                  CombatantList
+      ****************************************/
       case Types.REMOVE_COMBATANT:
       // assign a constant to be equal to CombatantList.
       // using map to avoid mutating state.
@@ -86,6 +87,33 @@ export default function(state = INITIAL_STATE, action) {
         return {
           ...state,
           CombatantList: combatantsListAfterChange
+        }
+        /****************************************
+                    Rolls
+        ****************************************/
+        case Types.D20_ROLLED:
+          const rolled = `d20 + ${action.payload}`
+          const dtwenty = d20()
+          const roll = `[${dtwenty}] + ${action.payload}`
+          const result = action.payload + dtwenty
+          console.log('d20', action)
+          const newRoll = {rolled, roll, result}
+        return {
+          ...state,
+          rolls: state.rolls.concat(newRoll)
+        }
+        case Types.DELETE_ROLL:
+          console.log('DELETE_ROLL Action', action.payload);
+          const rollsAfterDelete = state.rolls.map( (roll, i) => {
+            if (i !== action.payload) {
+              return roll
+            }
+          })
+          rollsAfterDelete.splice(action.payload, 1)
+          console.log('DELETE_ROLL rollsAfterDelete', rollsAfterDelete);
+        return {
+          ...state,
+          rolls: rollsAfterDelete
         }
 
   }

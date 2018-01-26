@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 
 class MonsterList extends Component {
   renderList() {
+    // TODO refactor this.props with ES6 syntax
     console.log(this.props);
     return this.props.monsters.filter(monster => monster.Name.toLowerCase().includes(this.props.searchTerm)).map(monster => {
       return (
@@ -22,7 +23,7 @@ class MonsterList extends Component {
   }
 
   render() {
-    return <ul className="list-group col-sm-4">{this.renderList()}</ul>;
+    return <ul className="list-group">{this.renderList()}</ul>;
   }
 }
 function mapStateToProps(state) {

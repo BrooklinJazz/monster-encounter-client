@@ -13,10 +13,17 @@ export const filterLibrary = searchTerm => {
 
 // Actions relating to CombatantList
 export const selectCombatant = combatant =>
-  createAction(Types.MONSTER_SELECTED, { combatant });
+createAction(Types.MONSTER_SELECTED, { combatant });
 
 export const changeCombatantHp = payload =>
-  createAction(Types.CHANGE_MONSTER_HP, { payload });
+createAction(Types.CHANGE_MONSTER_HP, { payload });
 
 export const removeCombatant = payload =>
-  createAction(Types.REMOVE_COMBATANT, { payload })
+createAction(Types.REMOVE_COMBATANT, { payload })
+
+// Actions relating to Rolls
+export const d20Roll = payload =>
+createAction(Types.D20_ROLLED, { payload });
+
+export const deleteRoll = payload =>
+createAction(Types.DELETE_ROLL, { payload });
