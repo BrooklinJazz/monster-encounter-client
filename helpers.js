@@ -19,7 +19,7 @@ export const convScoreToMod  = (n) => {
   return result
 }
 
-export const replaceRollsRegex = (str, replacement) => {
+export const replaceRollsRegex = (str) => {
   const xdx = /\([0-9]d[0-9]\)/g
   // (1d6)
   const xdxx = /\([0-9]d[0-9][0-9]\)/g
@@ -43,7 +43,6 @@ export const replaceRollsRegex = (str, replacement) => {
   const regexArray = [xdx, xdxx, xxdx, xxdxx, xdxpx, xdxpxx, xdxxpx, xdxpxx, xdxxpx, xdxxpxx, xxdxxpx, xxdxxpxx]
   // const newStr = str
   // const testStr = str
-  // TODO
   regexArray.map(exp => {
     if (str.match(exp)) {
       // let roll = str.match(exp)[0]
