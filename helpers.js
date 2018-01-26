@@ -20,33 +20,32 @@ export const convScoreToMod  = (n) => {
 }
 
 export const replaceRollsRegex = (str, replacement) => {
-  const xdx = /\([1-9]d[1-9]\)/g
+  const xdx = /\([0-9]d[0-9]\)/g
   // (1d6)
-  const xdxx = /\([1-9]d[1-9][1-9]\)/g
-  // (1d12)
-  const xxdx = /\([1-9][1-9]d[1-9]\)/g
-  // (12d6) \([1-9][1-9]d[1-9]\)
-  const xxdxx = /\([1-9][1-9]d[1-9][1-9]\)/g
-  // (12d12) \([1-9][1-9]d[1-9][1-9]\)
-  const xdxpx = /\([1-9]d[1-9]\s\+\s[1-9]\)/g
-  // (1d6 + 1) \([1-9]d[1-9]\s\+\s[1-9]\)
-  const xdxpxx = /\([1-9]d[1-9]\s\+\s[1-9][1-9]\)/g
-  // (1d6 + 12)  \([1-9]d[1-9]\s\+\s[1-9][1-9]\)
-  const xdxxpx = /\([1-9]d[1-9][1-9]\s\+\s[1-9]\)/g
-  // (1d12 + 1) \([1-9]d[1-9][1-9]\s\+\s[1-9]\)
-  const xdxxpxx = /\([1-9]d[1-9][1-9]\s\+\s[1-9][1-9]\)/g
-  // (1d12 + 12) \([1-9]d[1-9][1-9]\s\+\s[1-9][1-9]\)
-  const xxdxxpx = /\([1-9][1-9]d[1-9][1-9]\s\+\s[1-9]\)/g
-  // (12d12 + 1) \([1-9][1-9]d[1-9][1-9]\s\+\s[1-9]\)
-  const xxdxxpxx = /\([1-9][1-9]d[1-9][1-9]\s\+\s[1-9][1-9]\)/g
-  // (12d12 + 12) \([1-9][1-9]d[1-9][1-9]\s\+\s[1-9][1-9]\)
+  const xdxx = /\([0-9]d[0-9][0-9]\)/g
+  // (1d02)
+  const xxdx = /\([0-9][0-9]d[0-9]\)/g
+  // (12d6) \([0-9][0-9]d[0-9]\)
+  const xxdxx = /\([0-9][0-9]d[0-9][0-9]\)/g
+  // (12d02) \([0-9][0-9]d[0-9][0-9]\)
+  const xdxpx = /\([0-9]d[0-9]\s\+\s[0-9]\)/g
+  // (1d6 + 0) \([0-9]d[0-9]\s\+\s[0-9]\)
+  const xdxpxx = /\([0-9]d[0-9]\s\+\s[0-9][0-9]\)/g
+  // (1d6 + 02)  \([0-9]d[0-9]\s\+\s[0-9][0-9]\)
+  const xdxxpx = /\([0-9]d[0-9][0-9]\s\+\s[0-9]\)/g
+  // (1d02 + 0) \([0-9]d[0-9][0-9]\s\+\s[0-9]\)
+  const xdxxpxx = /\([0-9]d[0-9][0-9]\s\+\s[0-9][0-9]\)/g
+  // (1d02 + 02) \([0-9]d[0-9][0-9]\s\+\s[0-9][0-9]\)
+  const xxdxxpx = /\([0-9][0-9]d[0-9][0-9]\s\+\s[0-9]\)/g
+  // (12d02 + 0) \([0-9][0-9]d[0-9][0-9]\s\+\s[0-9]\)
+  const xxdxxpxx = /\([0-9][0-9]d[0-9][0-9]\s\+\s[0-9][0-9]\)/g
+  // (12d02 + 02) \([0-9][0-9]d[0-9][0-9]\s\+\s[0-9][0-9]\)
   const regexArray = [xdx, xdxx, xxdx, xxdxx, xdxpx, xdxpxx, xdxxpx, xdxpxx, xdxxpx, xdxxpxx, xxdxxpx, xxdxxpxx]
   // const newStr = str
   // const testStr = str
   // TODO
   regexArray.map(exp => {
     if (str.match(exp)) {
-      console.log('MATCH:', str.match(exp));
       // let roll = str.match(exp)[0]
       // console.log(str.match(exp));
       // console.log(roll);
