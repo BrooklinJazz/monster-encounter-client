@@ -120,3 +120,15 @@ export const getModifier = (roll) => {
   const modifier = roll.match(singleModExp)[0].match(singleModValue)[0]
   return modifier
 }
+
+const getRandomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+// return as an array
+export const rollSidedDice = (num, dice) => {
+  let rollArray = []
+  for (var i = 0; i < num; i++) {
+    rollArray[i] = getRandomInt(1, dice)
+  }
+  return rollArray
+}

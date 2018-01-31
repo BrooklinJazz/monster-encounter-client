@@ -6,6 +6,11 @@ import SearchBar from "../containers/SearchBar";
 import MonsterDetail from "../containers/MonsterDetail";
 import CombatantList from "../containers/CombatantList";
 import Rolls from "../containers/Rolls";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
 
 const testUrl = 'http://www.dnd5eapi.co/api/monsters/1'
 const serverUrl = 'http://localhost:3002'
@@ -33,19 +38,27 @@ export default class App extends Component {
 
   render() {
     return (
-        <div className="row">
-          <div className="col-sm-4">
-            <SearchBar />
-            <MonsterList />
+      <Router >
+        <Switch>
+          {/* Index */}
+          <Route path ="/">
+          <div className="row">
+            <div className="col-sm-4">
+              <SearchBar />
+              <MonsterList />
+            </div>
+            <div className="col-sm-4">
+              <CombatantList />
+              <Rolls />
+            </div>
+            <div className="col-sm-4">
+              <MonsterDetail />
+            </div>
           </div>
-          <div className="col-sm-4">
-            <CombatantList />
-            <Rolls />
-          </div>
-          <div className="col-sm-4">
-            <MonsterDetail />
-          </div>
-        </div>
+          </Route>
+          
+        </Switch>
+      </Router>
     );
   }
 }

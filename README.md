@@ -12,3 +12,19 @@
   - Roll.js divs
   - MonsterList.js
   - CombatantList.js
+
+# tech
+react-router
+```js
+npm install --save react-router-dom
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
+```
+react-string-replace
+npm install --sace react-string-replace
+```js
+const reactStringReplace = require('react-string-replace')
+```
