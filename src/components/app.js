@@ -6,6 +6,7 @@ import SearchBar from "../containers/SearchBar";
 import MonsterDetail from "../containers/MonsterDetail";
 import CombatantList from "../containers/CombatantList";
 import Rolls from "../containers/Rolls";
+import NotFoundPage from './NotFoundPage'
 import {
   BrowserRouter as Router,
   Route,
@@ -41,7 +42,7 @@ export default class App extends Component {
       <Router >
         <Switch>
           {/* Index */}
-          <Route path ="/">
+          <Route exact path="/">
           <div className="row">
             <div className="col-sm-4">
               <SearchBar />
@@ -56,7 +57,8 @@ export default class App extends Component {
             </div>
           </div>
           </Route>
-          
+          <Route component={NotFoundPage}/>
+
         </Switch>
       </Router>
     );
