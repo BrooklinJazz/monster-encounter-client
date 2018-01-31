@@ -6,23 +6,58 @@ import SearchBar from "../containers/SearchBar";
 import MonsterDetail from "../containers/MonsterDetail";
 import CombatantList from "../containers/CombatantList";
 import Rolls from "../containers/Rolls";
+import NotFoundPage from './NotFoundPage'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
+
+const testUrl = 'http://www.dnd5eapi.co/api/monsters/1'
+const serverUrl = 'http://localhost:3002'
 
 export default class App extends Component {
+  state = {monsterArray: []}
+
+  componentDidMount() {
+    // TODO set monsters redux state as response
+    fetch(
+      serverUrl,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    )
+    .then(res => res.json())
+    .then(res => this.setState({ monsterArray: res }))
+  }
+
   render() {
     return (
-        <div className="row">
-          <div className="col-sm-4">
-            <SearchBar />
-            <MonsterList />
+      <Router >
+        <Switch>
+          {/* Index */}
+          <Route exact path="/">
+          <div className="row">
+            <div className="col-sm-4">
+              <SearchBar />
+              <MonsterList />
+            </div>
+            <div className="col-sm-4">
+              <CombatantList />
+              <Rolls />
+            </div>
+            <div className="col-sm-4">
+              <MonsterDetail />
+            </div>
           </div>
-          <div className="col-sm-4">
-            <CombatantList />
-            <Rolls />
-          </div>
-          <div className="col-sm-4">
-            <MonsterDetail />
-          </div>
-        </div>
+          </Route>
+          <Route component={NotFoundPage}/>
+
+        </Switch>
+      </Router>
     );
   }
 }

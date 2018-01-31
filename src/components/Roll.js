@@ -8,13 +8,18 @@ class Roll extends Component {
     super(props)
   }
   // TODO change the Delete in the Delete button to be a check mark. style the number input
+
+
   render() {
     const {rolled, roll, result, index} = this.props
     return (
       <div>
-        <div>{rolled} {roll} {result} <input type="number" defaultValue={result}></input> <button
-          onClick={() => this.props.deleteRoll(index)}
-          >Delete</button></div>
+        <div>{rolled} {roll} {result}
+          <button
+            onClick={() => this.props.deleteRoll(index)}
+            >Delete
+          </button>
+        </div>
 
       </div>
     )
@@ -23,7 +28,6 @@ class Roll extends Component {
 
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside of MonsterList
-  // console.tron.log(state);
   const { rolls } = state.monsters;
   return {
     rolls
@@ -35,7 +39,7 @@ function mapDispatchToProps(dispatch) {
   // of our reducers
   return {
     deleteRoll: payload =>
-      dispatch(actions.deleteRoll(payload)),
+    dispatch(actions.deleteRoll(payload)),
   };
 }
 

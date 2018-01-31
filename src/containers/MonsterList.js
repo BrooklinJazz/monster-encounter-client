@@ -5,10 +5,10 @@ import Monster from "../components/Monster"
 import * as actions from "../actions/index";
 import { bindActionCreators } from "redux";
 
+
 class MonsterList extends Component {
   renderList() {
     // TODO refactor this.props with ES6 syntax
-    console.log(this.props);
     return this.props.monsters.filter(monster => monster.Name.toLowerCase().includes(this.props.searchTerm)).map(monster => {
       return (
         <li
