@@ -3,7 +3,7 @@
 import monstersData from "../data/monsters";
 import Types from "../types";
 import CombatantList from "../containers/CombatantList";
-import {d20, deepClone, getNumberOfDice} from "../../helpers"
+import {d20, deepClone, getNumberOfDice, getSidesOfDice, getModifier} from "../../helpers"
 // the array of monster objects exported as a function.
 // NOTE storing monsters in a local file currently
 const monsters = monstersData()
@@ -117,6 +117,8 @@ export default function(state = INITIAL_STATE, action) {
         case Types.SIDED_DICE_ROLLED:
           console.log('SIDED DICE ROLL ACTION', action.payload);
           console.log(getNumberOfDice(action.payload));
+          console.log(getSidesOfDice(action.payload));
+          console.log(getModifier(action.payload));
         return {
           ...state
         }
