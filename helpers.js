@@ -22,7 +22,6 @@ export const convScoreToMod  = (n) => {
 }
 
 // This function takes a string from the Power.js component's Content and replaces all regex instances of a dice roll with the PowerRoll.js component.
-// TODO there is a DEBUG to do for this where if the modifier is negative.
 export const replaceRollsRegex = (str) => {
   // Needed to wrap regex expressions with () group in order for fn reactStringReplace to work
   // (1d6)
@@ -72,16 +71,17 @@ export const replaceRollsRegex = (str) => {
   return replacedText
 }
 
+// return number of dice as a number. .match() returns an array so use [0] on array with one element to get number.
 export const getNumberOfDice = (roll) => {
   const singleNumberExp = /[0-9]d/g
   const singleNumberValue = /[0-9]/g
   const doubleNumberExp = /[0-9][0-9]d/g
   const doubleNumberValue = /[0-9][0-9]/g
   if (roll.match(doubleNumberExp)) {
-    const numberOfDice = roll.match(doubleNumberExp)[0].match(doubleNumberValue)
+    const numberOfDice = roll.match(doubleNumberExp)[0].match(doubleNumberValue)[0]
     return numberOfDice
   }
-  const numberOfDice = roll.match(singleNumberExp)[0].match(singleNumberValue)
+  const numberOfDice = roll.match(singleNumberExp)[0].match(singleNumberValue)[0]
   return numberOfDice
 }
 
@@ -91,10 +91,10 @@ export const getSidesOfDice = (roll) => {
   const doubleDieExp = /d[0-9][0-9]/g
   const doubleDieValue = /[0-9][0-9]/g
   if (roll.match(doubleDieExp)) {
-    const sidesOfDice = roll.match(doubleDieExp)[0].match(doubleDieValue)
+    const sidesOfDice = roll.match(doubleDieExp)[0].match(doubleDieValue)[0]
     return sidesOfDice
   }
-  const sidesOfDice = roll.match(singleDieExp)[0].match(singleDieValue)
+  const sidesOfDice = roll.match(singleDieExp)[0].match(singleDieValue)[0]
   return sidesOfDice
 }
 // Curently
@@ -103,10 +103,20 @@ export const getModifier = (roll) => {
   const singleModValue = /[0-9]/g
   const doubleModExp = /\+\s[0-9][0-9]/g
   const doubleModValue = /[0-9][0-9]/g
+
+  const negSingleModExp = /\-\s[0-9]/g
+  const negDoubleModExp = /\-\s[0-9][0-9]/g
+
   if (roll.match(doubleModExp)) {
-    const modifier = roll.match(doubleModExp)[0].match(doubleModValue)
+    const modifier = roll.match(doubleModExp)[0].match(doubleModValue)[0]
     return modifier
+  } else if (roll.match(negDoubleModExp)) {
+    const modifier = roll.match(negDoubleModExp)[0].match(doubleModValue)[0]
+    return 0 - modifier
+  } else if (roll.match(negSingleModExp)) {
+    const modifier = roll.match(negSingleModExp)[0].match(singleModValue)[0]
+    return 0 - modifier
   }
-  const modifier = roll.match(singleModExp)[0].match(singleModValue)
+  const modifier = roll.match(singleModExp)[0].match(singleModValue)[0]
   return modifier
 }
