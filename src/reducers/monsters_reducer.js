@@ -95,12 +95,23 @@ export default function(state = INITIAL_STATE, action) {
     /****************************************
     Rolls
     ****************************************/
+    // variable names that will be used more than once:
+
+    // a string in the form of a dice expression such as (1d6 + 2)
+    let toBeRolled
+    // the result of to be rolled show in a string that looks like an array
+    // i.e. [4] + 2
+    let roll
+    // the sum of the roll. i.e. 6
+    let result
+    // the newRoll object concatinated with the rolls array in redux store
+    let newRoll
     case Types.D20_ROLLED:
-    const rolled = `d20 + ${action.payload}`
+    toBeRolled = `(1d20 + ${action.payload})`
     const dtwenty = d20()
-    const roll = `[${dtwenty}] + ${action.payload}`
-    const result = action.payload + dtwenty
-    const newRoll = {rolled, roll, result}
+    roll = `[${dtwenty}] + ${action.payload}`
+    result = action.payload + dtwenty
+    newRoll = {rolled: toBeRolled, roll, result}
     return {
       ...state,
       rolls: state.rolls.concat(newRoll)
@@ -126,7 +137,7 @@ export default function(state = INITIAL_STATE, action) {
     // result: 10
     // }
     // the object is then concatinated with the rolls array in store
-    const toBeRolled = action.payload
+    toBeRolled = action.payload
     // the number of dice rolled i.e (2d6) will return 2
     const numberOfDice = getNumberOfDice(toBeRolled)
     // the type of dice rolled. i.e. (2d6) will return 6
