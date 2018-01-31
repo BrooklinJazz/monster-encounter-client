@@ -116,9 +116,11 @@ export const getModifier = (roll) => {
   } else if (roll.match(negSingleModExp)) {
     const modifier = roll.match(negSingleModExp)[0].match(singleModValue)[0]
     return 0 - modifier
+  } else if (roll.match(singleModExp)) {
+    const modifier = roll.match(singleModExp)[0].match(singleModValue)[0]
+    return modifier
   }
-  const modifier = roll.match(singleModExp)[0].match(singleModValue)[0]
-  return modifier
+  return 0
 }
 
 const getRandomInt = (min, max) => {

@@ -127,10 +127,11 @@ export default function(state = INITIAL_STATE, action) {
     console.log('SIDED DICE ROLL ACTION', toBeRolled);
     const numberOfDice = getNumberOfDice(toBeRolled)
     const sidesOfDice = getSidesOfDice(toBeRolled)
-    const modifier = getModifier(toBeRolled)
+    let modifier = getModifier(toBeRolled)
     const rollArray = rollSidedDice(numberOfDice, sidesOfDice)
-    const rollArrayReduced = rollArray.reduce((a, b) => a + b, 0)
-    const newSidedRoll = {rolled: action.payload, roll: rollArray, result: rollArrayReduced}
+    const rollArrayString = `[${rollArray}]`
+    const rollArrayReduced = parseInt(rollArray.reduce((a, b) => a + b, 0)) + parseInt(modifier)
+    const newSidedRoll = {rolled: action.payload, roll: rollArrayString, result: rollArrayReduced}
     console.log('newRoll', newSidedRoll);
     // NOTE there is an error with the look of rollArray being a single number
     return {
