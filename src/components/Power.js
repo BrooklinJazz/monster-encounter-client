@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {replaceRollsRegex} from '../../helpers'
 
+
 class Power extends Component {
   constructor(props) {
     super(props)

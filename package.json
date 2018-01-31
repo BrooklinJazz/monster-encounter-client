@@ -32,6 +32,7 @@
     "react-dom": "^0.14.3",
     "react-redux": "4.3.0",
     "react-router": "^2.0.1",
+    "react-string-replace": "^0.4.1",
     "reactotron-core-client": "^1.13.0",
     "reactotron-react-js": "^1.13.0",
     "reactotron-redux": "^1.13.0",

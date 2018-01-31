@@ -25,5 +25,8 @@ createAction(Types.REMOVE_COMBATANT, { payload })
 export const d20Roll = payload =>
 createAction(Types.D20_ROLLED, { payload });
 
+export const sidedDiceRoll = payload =>
+createAction(Types.SIDED_DICE_ROLLED, { payload });
+
 export const deleteRoll = payload =>
 createAction(Types.DELETE_ROLL, { payload });

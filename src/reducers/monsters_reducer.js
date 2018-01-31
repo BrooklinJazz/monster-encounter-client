@@ -114,6 +114,11 @@ export default function(state = INITIAL_STATE, action) {
           ...state,
           rolls: rollsAfterDelete
         }
+        case Types.SIDED_DICE_ROLLED:
+          console.log('SIDED DICE ROLL ACTION', action.payload);
+        return {
+          ...state
+        }
 
   }
   return state;
