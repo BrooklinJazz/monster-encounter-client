@@ -21,8 +21,8 @@ export const convScoreToMod  = (n) => {
   return result
 }
 
+// This function takes a string from the Power.js component's Content and replaces all regex instances of a dice roll with the PowerRoll.js component.
 export const replaceRollsRegex = (str) => {
-
   // Needed to wrap regex expressions with () group in order for fn reactStringReplace to work
   // (1d6)
   const xdx = /(\([0-9]d[0-9]\))/g
@@ -55,34 +55,19 @@ export const replaceRollsRegex = (str) => {
       <PowerRoll style={{ color: 'red' }} roll={match}></PowerRoll>
     ))
     console.log('replaced text', replacedText);
-    // console.log('replaced text join', replacedText.join(' '));
   }
-      // let rolls = str.match(exp)
-
-      // console.log('function', reactStringReplace('you (1d6) you', xdx, () => 'heeeey').join(''));
-      // let reactStringReplaceTest = reactStringReplace('you (1d6) you', /(1d6)/g, () => 'heeeey').join('')
-      // console.log('variable', reactStringReplaceTest);
-      // let beforeExp = str.split(roll)[0]
-      // let afterExp = str.split(roll)[1]
-      // str = str.split(roll)
-      // console.log('split str', str);
-      // console.log('splitStr', splitStr);
-      // console.log(str.match(exp));
-      // console.log('rolls:', rolls);
-      // console.log('first roll', roll);
-      // console.log('second roll', rolltwo); doesn't work
-      // console.log('str', str);
-      // console.log('before', beforeExp);
-      // console.log('expression', roll);
-      // console.log('after', afterExp);
-      // let result = 'working' + beforeExp + roll + afterExp + 'working'
-      // console.log(result);
-      // return result
-  // })
   return replacedText
 }
-// var str = 'Twas the night before Xmas...';
-// var newstr = str.replace(/xmas/i, 'Christmas');
-// console.log(newstr);  // Twas the night before Christmas...
 
-// filter more complex expressions first?
+export const getNumberOfDice = (roll) => {
+  const singleDieExp = /[0-9]d/g
+  const singleDieValue = /[0-9]/g
+  const doubleDieValue = /[0-9][0-9]/g
+  const doubleDieExp = /[0-9][0-9]d/g
+  if (roll.match(doubleDieExp)) {
+    const numberOfDice = roll.match(doubleDieExp)[0].match(doubleDieValue)
+    return numberOfDice
+  }
+  const numberOfDice = roll.match(singleDieExp)[0].match(singleDieValue)
+  return numberOfDice
+}

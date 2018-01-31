@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from "react-redux";
 import * as actions from "../actions/index";
 
+
 class PowerRoll extends Component {
   constructor(props) {
     super(props)
@@ -10,7 +11,7 @@ class PowerRoll extends Component {
     const {roll} = this.props
 
     return (
-      <div class="PowerRoll"
+      <div className="PowerRoll"
         onClick={() => this.props.sidedDiceRoll(roll)}
         >
           {roll}
