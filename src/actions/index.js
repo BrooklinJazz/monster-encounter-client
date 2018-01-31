@@ -14,6 +14,9 @@ export const filterLibrary = searchTerm => {
 export const selectCombatant = combatant =>
 createAction(Types.MONSTER_SELECTED, { combatant });
 
+export const clearCombatants = payload =>
+createAction(Types.CLEAR_COMBATANTS, { payload });
+
 export const changeCombatantHp = payload =>
 createAction(Types.CHANGE_MONSTER_HP, { payload });
 

@@ -37,6 +37,7 @@
     "reactotron-core-client": "^1.13.0",
     "reactotron-react-js": "^1.13.0",
     "reactotron-redux": "^1.13.0",
-    "redux": "^3.0.4"
+    "redux": "^3.0.4",
+    "redux-state-save": "^1.0.0"
   }
 }

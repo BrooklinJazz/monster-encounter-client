@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import Reactotron from "reactotron-react-js";
 
-import App from "./components/app";
+import App from "./components/App";
 import rootReducer from "./reducers";
 
 // const createStoreWithMiddleware = applyMiddleware()(createStore);

@@ -28,3 +28,18 @@ npm install --sace react-string-replace
 ```js
 const reactStringReplace = require('react-string-replace')
 ```
+NOT USING THIS
+npm install --save redux-state-save
+```js
+import Storage from "redux-state-save";
+
+var storage1 = new Storage();
+storage1.setConfig({
+    storage_type: "local_storage",
+    local_key: "redux-states"
+});
+var store = createStore(reducers, applyMiddleware(storage1.saveState()));
+
+// state data load from local storage
+store = storage1.loadState(store);
+```
