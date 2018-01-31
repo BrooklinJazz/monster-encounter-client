@@ -1,5 +1,6 @@
 import React from 'react'
 import PowerRoll from './src/containers/PowerRoll'
+
 export const deepClone = (obj) => {
   const result = Array.isArray(obj) ? [] : {};
   for (let key in obj) {
@@ -9,7 +10,7 @@ export const deepClone = (obj) => {
   return result;
 };
 
-
+// gets a random integer between 1 and 20
 export const d20 = () => {
   const result = Math.floor(Math.random() * 20) + 1
   return result
@@ -21,7 +22,7 @@ export const convScoreToMod  = (n) => {
   return result
 }
 
-// This function takes a string from the Power.js component's Content and replaces all regex instances of a dice roll with the PowerRoll.js component.
+// This function takes a string from the Power.js component's Content and replaces all regex instances of a dice roll with the PowerRoll.js component given props.roll as the matching regex instance.
 export const replaceRollsRegex = (str) => {
   // Needed to wrap regex expressions with () group in order for fn reactStringReplace to work
   // (1d6)
@@ -66,7 +67,6 @@ export const replaceRollsRegex = (str) => {
     replacedText = reactStringReplace(replacedText, exp, (match, i) => (
       <PowerRoll style={{ color: 'red' }} roll={match}></PowerRoll>
     ))
-    console.log('replaced text', replacedText);
   }
   return replacedText
 }
@@ -85,6 +85,8 @@ export const getNumberOfDice = (roll) => {
   return numberOfDice
 }
 
+// gets the sides of dice when passed a string i.e (1d6 + 4) returns 6
+// this also works for similar dice expressions retrieved by replaceRollsRegex
 export const getSidesOfDice = (roll) => {
   const singleDieExp = /d[0-9]/g
   const singleDieValue = /[0-9]/g
@@ -97,7 +99,8 @@ export const getSidesOfDice = (roll) => {
   const sidesOfDice = roll.match(singleDieExp)[0].match(singleDieValue)[0]
   return sidesOfDice
 }
-// Curently
+// gets the modifier when passed a string. i.e. (1d6 + 4) returns 4
+// this also works for similar dice expressions retrieved by replaceRollsRegex
 export const getModifier = (roll) => {
   const singleModExp = /\+\s[0-9]/g
   const singleModValue = /[0-9]/g
@@ -123,10 +126,14 @@ export const getModifier = (roll) => {
   return 0
 }
 
+// helper function to get random number between min and max inclusive.
 const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-// return as an array
+// return a roll of num number of die with dice sides. as an array
+// i.e. when passed (2, 6) the function rolls two dice with 6 sides.
+// the result will return like [x, y] where x and y
+// are random numbers between 1 and 6
 export const rollSidedDice = (num, dice) => {
   let rollArray = []
   for (var i = 0; i < num; i++) {

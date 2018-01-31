@@ -110,30 +110,31 @@ export default function(state = INITIAL_STATE, action) {
       rolls: state.rolls.concat(newRoll)
     }
     case Types.DELETE_ROLL:
-    console.log('DELETE_ROLL Action', action.payload);
     const rollsAfterDelete = state.rolls.map( (roll, i) => {
       return roll
     })
     rollsAfterDelete.splice(action.payload, 1)
-    console.log('DELETE_ROLL rollsAfterDelete', rollsAfterDelete);
-    console.log('DELETE_ROLL rollsAfterDelete', state.rolls);
     return {
       ...state,
       rolls: rollsAfterDelete
     }
     case Types.SIDED_DICE_ROLLED:
-    // TODO convert rollArray toString() and add brackets.
     const toBeRolled = action.payload
-    console.log('SIDED DICE ROLL ACTION', toBeRolled);
+    // console.log('SIDED DICE ROLL ACTION', toBeRolled);
+    // the number of dice rolled i.e (2d6) will return 2
     const numberOfDice = getNumberOfDice(toBeRolled)
+    // the type of dice rolled. i.e. (2d6) will return 6
     const sidesOfDice = getSidesOfDice(toBeRolled)
     let modifier = getModifier(toBeRolled)
+    // returns roll in format "1,3"
     const rollArray = rollSidedDice(numberOfDice, sidesOfDice)
-    const rollArrayString = `[${rollArray}]`
+    // roll converted from "1,3" to "[1,3] + 3"
+    const rollArrayString = `[${rollArray}] + ${modifier}`
+    // result the sum of rollArray plus modifier
     const rollArrayReduced = parseInt(rollArray.reduce((a, b) => a + b, 0)) + parseInt(modifier)
+    // the object to be added to the redux store in rolls:
     const newSidedRoll = {rolled: action.payload, roll: rollArrayString, result: rollArrayReduced}
-    console.log('newRoll', newSidedRoll);
-    // NOTE there is an error with the look of rollArray being a single number
+    // console.log('newRoll', newSidedRoll);
     return {
       ...state,
       rolls: state.rolls.concat(newSidedRoll)
