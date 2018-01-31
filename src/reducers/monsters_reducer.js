@@ -35,13 +35,11 @@ export default function(state = INITIAL_STATE, action) {
     // add a Monster obj to the CombatantList
     case Types.ADD_MONSTER_TO_COMBATANTS:
     const newCombatant = deepClone(action.monster);
+    // add the currentHp to combatant object to show current/max health
     newCombatant.currentHp = newCombatant.HP.Value
-    const newCombatantList = state.CombatantList.concat(
-      newCombatant
-    );
     return {
       ...state,
-      CombatantList: newCombatantList
+      CombatantList: state.CombatantList.concat(newCombatant)
     };
     case Types.FILTER_MONSTER_LIBRARY:
     return {
@@ -90,7 +88,6 @@ export default function(state = INITIAL_STATE, action) {
         return action.payload.combatant
       }
     })
-    // console.log('reducer working', newCombatantsList);
     return {
       ...state,
       CombatantList: combatantsListAfterChange
@@ -103,7 +100,6 @@ export default function(state = INITIAL_STATE, action) {
     const dtwenty = d20()
     const roll = `[${dtwenty}] + ${action.payload}`
     const result = action.payload + dtwenty
-    console.log('d20', action)
     const newRoll = {rolled, roll, result}
     return {
       ...state,
@@ -119,8 +115,18 @@ export default function(state = INITIAL_STATE, action) {
       rolls: rollsAfterDelete
     }
     case Types.SIDED_DICE_ROLLED:
+    // the action.payload should be a dice expression i.e. (2d6 + 2)
+
+    // this case creates a new object in the rolls array in store.
+    // for example, when passed 2d6 + 2, an object will be created
+    // that looks like
+    // object = {
+    // rolled: "(2d6 + 2)",
+    // roll: "[6][2] + 2",
+    // result: 10
+    // }
+    // the object is then concatinated with the rolls array in store
     const toBeRolled = action.payload
-    // console.log('SIDED DICE ROLL ACTION', toBeRolled);
     // the number of dice rolled i.e (2d6) will return 2
     const numberOfDice = getNumberOfDice(toBeRolled)
     // the type of dice rolled. i.e. (2d6) will return 6

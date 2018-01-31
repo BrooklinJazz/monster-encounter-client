@@ -7,7 +7,6 @@ export const addMonsterToCombatants = monster =>
 createAction(Types.ADD_MONSTER_TO_COMBATANTS, { monster });
 
 export const filterLibrary = searchTerm => {
-  console.log('in actions',searchTerm)
   return createAction(Types.FILTER_MONSTER_LIBRARY, { searchTerm });
 }
 

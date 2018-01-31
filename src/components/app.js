@@ -21,8 +21,6 @@ export default class App extends Component {
 
   componentDidMount() {
     // TODO set monsters redux state as response
-    // console.log('App Component Did Mount');
-    // console.log('http://dnd5eapi.co/api/monsters/');
     fetch(
       serverUrl,
       {
@@ -33,7 +31,6 @@ export default class App extends Component {
       }
     )
     .then(res => res.json())
-    // .then(res => console.log(res)) // this will bug
     .then(res => this.setState({ monsterArray: res }))
   }
 
