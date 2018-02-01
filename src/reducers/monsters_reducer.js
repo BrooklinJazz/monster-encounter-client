@@ -162,9 +162,9 @@ export default function(state = INITIAL_STATE, action) {
       rolls: state.rolls.concat(newSidedRoll)
     }
     case Types.CLEAR_ROLLS:
-    console.log('CLEAR_ROLLS REDUCER');
     return {
-      ...state
+      ...state,
+      rolls: []
     }
 
   }
