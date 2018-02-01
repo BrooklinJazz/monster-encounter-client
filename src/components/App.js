@@ -8,6 +8,7 @@ import CombatantList from "../containers/CombatantList";
 import Rolls from "../containers/Rolls";
 import NotFoundPage from './NotFoundPage';
 import ClearCombatant from '../containers/ClearCombatant'
+import CombatantModeList from '../containers/CombatantModeList'
 import {
   BrowserRouter as Router,
   Route,
@@ -39,7 +40,6 @@ export default class App extends Component {
     return (
       <Router >
         <Switch>
-          {/* Index */}
           <Route exact path="/">
           <div className="row">
             <div className="col-sm-4">
@@ -55,11 +55,21 @@ export default class App extends Component {
               <MonsterDetail />
             </div>
           </div>
-          </Route>
-          <Route component={NotFoundPage}/>
+        </Route>
+        <Route path="/combat">
+          <div className="row">
+            <div className="col-sm-8">
+              <CombatantModeList />
+            </div>
+            <div className="col-sm-4">
+              <MonsterDetail />
+            </div>
+          </div>
+        </Route>
+        <Route component={NotFoundPage}/>
 
-        </Switch>
-      </Router>
-    );
-  }
+      </Switch>
+    </Router>
+  );
+}
 }
