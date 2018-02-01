@@ -6,6 +6,7 @@ import CombatantList from "../containers/CombatantList";
 import {
   d20,
   deepClone,
+  convScoreToMod,
   getNumberOfDice,
   getSidesOfDice,
   getModifier,
@@ -34,7 +35,7 @@ export default function(state = INITIAL_STATE, action) {
     return { ...state, selectedMonster: action.combatant };
     // add a Monster obj to the CombatantList
     case Types.ADD_MONSTER_TO_COMBATANTS:
-    const newCombatant = deepClone(action.monster);
+    newCombatant = deepClone(action.monster);
     // add the currentHp to combatant object to show current/max health
     newCombatant.currentHp = newCombatant.HP.Value
     return {
@@ -49,6 +50,9 @@ export default function(state = INITIAL_STATE, action) {
     /****************************************
     CombatantList
     ****************************************/
+    // Variable names to be used:
+    // a deepClone of the current combatant
+    let newCombatant
     case Types.REMOVE_COMBATANT:
     // assign a constant to be equal to CombatantList.
     // using map to avoid mutating state.
@@ -64,6 +68,7 @@ export default function(state = INITIAL_STATE, action) {
     };
     case Types.CHANGE_MONSTER_HP:
     const combatantsListAfterChange = state.CombatantList.map( (combatant, i) => {
+      // TODO convert this logic to a function
       if (i !== action.payload.index || isNaN(action.payload.hpChange) ) {
         // if the input given by hpChange is not a number
         // or the index of the current monster doesn't match
@@ -99,8 +104,19 @@ export default function(state = INITIAL_STATE, action) {
     }
     case Types.ROLL_INITIATIVES:
     console.log('ROLL_INITIATIVES REDUCER');
+    // newCombatant = deepClone(action.monster);
+    const newCombatantList = state.CombatantList
+    const combatantsAfterInitiativeRoll = newCombatantList.map( monster => {
+      monster.InitiativeRoll = d20() + convScoreToMod(monster.Abilities.Dex)
+      return monster
+    }).sort(function(a, b) {
+      return b.InitiativeRoll - a.InitiativeRoll
+    })
+    console.log(combatantsAfterInitiativeRoll);
+    // add the currentHp to combatant object to show current/max health
     return {
-      ...state
+      ...state,
+      CombatantList: combatantsAfterInitiativeRoll
     }
     /****************************************
     Rolls
