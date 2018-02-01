@@ -103,7 +103,6 @@ export default function(state = INITIAL_STATE, action) {
       CombatantList: []
     }
     case Types.ROLL_INITIATIVES:
-    console.log('ROLL_INITIATIVES REDUCER');
     // newCombatant = deepClone(action.monster);
     const newCombatantList = state.CombatantList
     const combatantsAfterInitiativeRoll = newCombatantList.map( monster => {
@@ -112,8 +111,6 @@ export default function(state = INITIAL_STATE, action) {
     }).sort(function(a, b) {
       return b.InitiativeRoll - a.InitiativeRoll
     })
-    console.log(combatantsAfterInitiativeRoll);
-    // add the currentHp to combatant object to show current/max health
     return {
       ...state,
       CombatantList: combatantsAfterInitiativeRoll

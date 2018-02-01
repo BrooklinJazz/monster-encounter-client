@@ -19,6 +19,7 @@ class Combatant extends Component {
       <div
         onClick={() => this.props.selectCombatant(combatant)}
         >
+          <p>{combatant.InitiativeRoll}</p>
           <p>{combatant.Name}</p>
           {
             this.state.showComponent ?
