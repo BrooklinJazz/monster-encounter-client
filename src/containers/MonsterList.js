@@ -9,45 +9,60 @@ import { bindActionCreators } from "redux";
 class MonsterList extends Component {
   renderList() {
     // TODO refactor this.props with ES6 syntax
-    return this.props.monsters.filter(monster => monster.Name.toLowerCase().includes(this.props.searchTerm)).map(monster => {
+    const {
+      monsters = [],
+
+    } = this.props
+    return monsters
+    .filter(monster =>
+      monster.Name.toLowerCase().includes(this.props.searchTerm)
+    )
+    // .sort(function (a, b) {
+    //   if (true) {
+    //
+    //   } else {
+    //     return parseInt(b.Challenge) - parseInt(a.Challenge)
+    //   }
+    // })
+    .map(monster => {
       return (
         <li
           key={monster.Name}
           onClick={() => this.props.addMonsterToCombatants(monster)}
           className="list-group-item"
-        >
-          <Monster monster={monster}/>
-        </li>
-      );
-    });
+          >
+            <Monster monster={monster}/>
+          </li>
+        );
+      });
+    }
+
+    render() {
+      return <ul className="list-group">{this.renderList()}</ul>;
+    }
+  }
+  function mapStateToProps(state) {
+    // Whatever is returned will show up as props inside of MonsterList
+    // console.tron.log(state);
+    const { monsters, searchTerm } = state.monsters;
+    return {
+      monsters,
+      searchTerm
+    };
   }
 
-  render() {
-    return <ul className="list-group">{this.renderList()}</ul>;
-  }
-}
-function mapStateToProps(state) {
-  // Whatever is returned will show up as props inside of MonsterList
-  // console.tron.log(state);
-  const { monsters, searchTerm } = state.monsters;
-  return {
-    monsters,
-    searchTerm
-  };
-}
-
-// Anything returned from this function will end up as props
-// on the MonsterList container
-function mapDispatchToProps(dispatch) {
-  // Whenever selectCombatant is called, the result should be passed to all
-  // of our reducers
-  return {
-    addMonsterToCombatants: monster =>
+  // Anything returned from this function will end up as props
+  // on the MonsterList container
+  function mapDispatchToProps(dispatch) {
+    // Whenever selectCombatant is called, the result should be passed to all
+    // of our reducers
+    return {
+      addMonsterToCombatants: monster =>
       dispatch(actions.addMonsterToCombatants(monster)),
-  };
-}
+    };
+  }
 
-// Promote MonsterList from a component to a container - it needs to know
-// about this new dispatch method, selectCombatant. Make it available
-// as a prop.
-export default connect(mapStateToProps, mapDispatchToProps)(MonsterList);
+  // Promote MonsterList from a component to a container - it needs to know
+  // about this new dispatch method, selectCombatant. Make it available
+  // as a prop.
+  export default connect(mapStateToProps, mapDispatchToProps)(MonsterList);

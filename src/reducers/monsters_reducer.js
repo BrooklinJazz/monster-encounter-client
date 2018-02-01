@@ -97,6 +97,11 @@ export default function(state = INITIAL_STATE, action) {
       ...state,
       CombatantList: []
     }
+    case Types.ROLL_INITIATIVES:
+    console.log('ROLL_INITIATIVES REDUCER');
+    return {
+      ...state
+    }
     /****************************************
     Rolls
     ****************************************/

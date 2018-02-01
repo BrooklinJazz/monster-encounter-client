@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import ClearRolls from '../containers/ClearRolls'
 import ClearCombatant from '../containers/ClearCombatant';
 import { Button } from 'reactstrap';
+import InitiativeRoll from '../containers/InitiativeRoll'
 
 function NavBar(props) {
   return (
@@ -18,6 +19,7 @@ function NavBar(props) {
     <Link to="/combat">Combat Mode</Link>
     <ClearRolls />
     <ClearCombatant />
+    <InitiativeRoll />
     </nav>
   )
 }

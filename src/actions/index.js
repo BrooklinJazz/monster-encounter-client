@@ -23,6 +23,9 @@ createAction(Types.CHANGE_MONSTER_HP, { payload });
 export const removeCombatant = payload =>
 createAction(Types.REMOVE_COMBATANT, { payload })
 
+export const rollInitiatives = payload =>
+createAction(Types.ROLL_INITIATIVES, { payload })
+
 // Actions relating to Rolls
 export const d20Roll = payload =>
 createAction(Types.D20_ROLLED, { payload });
