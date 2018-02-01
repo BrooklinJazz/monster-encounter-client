@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import ClearRolls from '../containers/ClearRolls'
-import ClearCombatant from '../containers/ClearCombatant'
+import ClearCombatant from '../containers/ClearCombatant';
+import { Button } from 'reactstrap';
 
 function NavBar(props) {
   return (
@@ -11,7 +12,9 @@ function NavBar(props) {
         display: 'flex',
       }}
     >
-    <Link style={{marginRight: '20px'}} to="/">Home</Link>
+    <Button color="default">
+      <Link to="/">Home</Link>
+    </Button>
     <Link to="/combat">Combat Mode</Link>
     <ClearRolls />
     <ClearCombatant />

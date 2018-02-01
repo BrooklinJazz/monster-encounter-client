@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as actions from "../actions/index";
-
+import { Button } from 'reactstrap';
 
 class ClearRolls extends Component {
   constructor(props) {
@@ -9,10 +9,10 @@ class ClearRolls extends Component {
   }
   render() {
     return (
-      <button
-        className="btn btn-default"
+      <Button
+        color="default"
         onClick={() => this.props.clearRolls()}
-        >Clear Rolls</button>
+        >Clear Rolls</Button>
     )
   }
 }
