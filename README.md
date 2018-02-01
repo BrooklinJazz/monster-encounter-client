@@ -43,3 +43,7 @@ var store = createStore(reducers, applyMiddleware(storage1.saveState()));
 // state data load from local storage
 store = storage1.loadState(store);
 ```
+## redux-persist
+```js
+npm install --save redux-persist
+```
