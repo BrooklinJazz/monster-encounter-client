@@ -10,7 +10,8 @@ import {
   getNumberOfDice,
   getSidesOfDice,
   getModifier,
-  rollSidedDice
+  rollSidedDice,
+  limitMonsterHpChange
 } from "../../helpers"
 // the array of monster objects exported as a function.
 // NOTE storing monsters in a local file currently
@@ -67,31 +68,9 @@ export default function(state = INITIAL_STATE, action) {
       CombatantList: combatantsListAfterRemove
     };
     case Types.CHANGE_MONSTER_HP:
+    // NOTE DEBUG this function works, but when it changes the value of combatant.currentHp it may be pointing to the original state and mutating it.
     const combatantsListAfterChange = state.CombatantList.map( (combatant, i) => {
-      // TODO convert this logic to a function
-      if (i !== action.payload.index || isNaN(action.payload.hpChange) ) {
-        // if the input given by hpChange is not a number
-        // or the index of the current monster doesn't match
-        // the expected index of payload: return the combatant as it is
-        return combatant
-
-        // if healing applied to monster brings it above max health
-      } else if (action.payload.combatant.currentHp - action.payload.hpChange > action.payload.combatant.HP.Value) {
-        // set currentHp to maxHp `action.payload.combatant.HP.Value`
-        action.payload.combatant.currentHp = action.payload.combatant.HP.Value
-        // return the combatant with max hp
-        return action.payload.combatant
-
-      } else if (action.payload.combatant.currentHp - action.payload.hpChange < 0) {
-        action.payload.combatant.currentHp = 0
-        return action.payload.combatant
-      } else {
-        // we are applying damage to the combatant so positive numbers reduce
-        // the combatant's currentHp
-        action.payload.combatant.currentHp -= action.payload.hpChange
-        // return the combatant with changed HP
-        return action.payload.combatant
-      }
+      return limitMonsterHpChange(i, combatant, action.payload)
     })
     return {
       ...state,
