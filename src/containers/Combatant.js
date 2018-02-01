@@ -22,66 +22,67 @@ class Combatant extends Component {
           <p>{combatant.InitiativeRoll}</p>
           <p>{combatant.Name}</p>
           {
-            this.state.showComponent ?
+            this.state.showComponent
+            ?
             <form
               onClick={(e) => e.stopPropagation()}
-              onSubmit={(e) => this._handleSubmit(e)
-              }
-              >
-                <input type="number" autoFocus name="hpChange"
-                  onChange={(e) => this._handleChange(e)}
-                />
-              </form>
-              :
-              <p onClick={this._onButtonClick}>Current: {combatant.currentHp}</p>
+              onSubmit={(e) => this._handleSubmit(e)}>
+              <input type="number" autoFocus name="hpChange"
+                onChange={(e) => this._handleChange(e)}
+              />
+            </form>
+            :
+            <p onClick={this._onButtonClick}>Current: {combatant.currentHp}</p>
+          }
+          <p>Max: {combatant.HP.Value}</p>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              this.props.removeCombatant({combatant, index: index})
             }
-            <p>Max: {combatant.HP.Value}</p>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                this.props.removeCombatant({combatant, index: index})
-              }
-            }>Delete</button>
-          </div>
-        )
-      }
+          }>
+          Delete
+        </button>
+      </div>
+    )
+  }
 
-      _onButtonClick(e) {
-        e.stopPropagation()
-        this.setState({showComponent: true});
-      }
+  _onButtonClick(e) {
+    e.stopPropagation()
+    this.setState({showComponent: true});
+  }
 
-      _handleChange(e) {
-        // creates this.state.hpChange for use in _handleSubmit
-        const newState = Object.assign({}, this.state, {
-          [e.target.name]: e.target.value
-        });
-        this.setState(newState)
-      }
+  _handleChange(e) {
+    // creates this.state.hpChange for use in _handleSubmit
+    const newState = Object.assign({}, this.state, {
+      [e.target.name]: e.target.value
+    });
+    this.setState(newState)
+  }
 
-      _handleSubmit(e) {
-        e.preventDefault();
-        const {combatant = {}, index} = this.props;
-        const {hpChange} = this.state
-        this.props.changeCombatantHp({combatant, hpChange, index})
-        this.setState({showComponent: false});
-      }
-    }
+  _handleSubmit(e) {
+    e.preventDefault();
+    const {combatant = {}, index} = this.props;
+    const {hpChange} = this.state
+    this.props.changeCombatantHp({combatant, hpChange, index})
+    this.setState({showComponent: false});
+  }
+}
 
 
 
-    function mapStateToProps(state) {
-      const {selectedMonster} = state.monsters;
-      return {selectedMonster};
-    }
+function mapStateToProps(state) {
+  const {selectedMonster} = state.monsters;
+  return {selectedMonster};
+}
 
-    function mapDispatchToProps(dispatch) {
-      // Whenever selectCombatant is called, the result should be passed to all
-      // of our reducers
-      return {
-        selectCombatant: combatant => dispatch(actions.selectCombatant(combatant)),
-        changeCombatantHp: combatant => dispatch(actions.changeCombatantHp(combatant)),
-        removeCombatant: combatant => dispatch(actions.removeCombatant(combatant))
-      };
-    }
-    export default connect(mapStateToProps, mapDispatchToProps)(Combatant);
+function mapDispatchToProps(dispatch) {
+  // Whenever selectCombatant is called, the result should be passed to all
+  // of our reducers
+  return {
+    selectCombatant: combatant => dispatch(actions.selectCombatant(combatant)),
+    changeCombatantHp: combatant => dispatch(actions.changeCombatantHp(combatant)),
+    removeCombatant: combatant => dispatch(actions.removeCombatant(combatant))
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Combatant);

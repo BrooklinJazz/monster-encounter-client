@@ -103,11 +103,17 @@ export default function(state = INITIAL_STATE, action) {
       CombatantList: []
     }
     case Types.ROLL_INITIATIVES:
-    // newCombatant = deepClone(action.monster);
-    const newCombatantList = state.CombatantList
+    const newCombatantList = [...state.CombatantList]
     const combatantsAfterInitiativeRoll = newCombatantList.map( monster => {
-      monster.InitiativeRoll = d20() + convScoreToMod(monster.Abilities.Dex)
-      return monster
+      return {
+        ...monster,
+        InitiativeRoll: d20() + convScoreToMod(monster.Abilities.Dex)
+      }
+      // below was replaced with the above because the deeper values of each monster object
+      // were pointing to redux state. this was causing rendering issues and mutation of
+      // state.
+      // monster.InitiativeRoll = d20() + convScoreToMod(monster.Abilities.Dex)
+      // return monster
     }).sort(function(a, b) {
       return b.InitiativeRoll - a.InitiativeRoll
     })

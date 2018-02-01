@@ -12,6 +12,15 @@ class CombatantList extends Component {
   constructor(props) {
     super(props);
   }
+  componentWillUpdate() {
+    console.log('updating combatants list');
+    console.log(this.props.CombatantList);
+  }
+  componentDidUpdate() {
+    console.log('updated combatants list');
+    console.log(this.props.CombatantList);
+  }
+
 // renders a list of Combatants
   renderList() {
     const {CombatantList = []} = this.props
