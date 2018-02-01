@@ -1,26 +1,20 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import * as actions from "../actions/index"
-// import DamageInput from "../components/damage-input";
-import Combatant from "../containers/Combatant"
+import CombatantMode from "../containers/CombatantMode"
 
-// import { selectCombatant } from '../actions/index';
-// import { bindActionCreators} from 'redux';
-
-// let CombatantListArr = []
-class CombatantList extends Component {
+class CombatantModeList extends Component {
   constructor(props) {
     super(props);
   }
-
 // renders a list of Combatants
   renderList() {
     const {CombatantList = []} = this.props
     return CombatantList.map((combatant, index) => {
       return (
         <div key={index}>
-          <li className="list-group-item">
-            <Combatant combatant={combatant} index={index}/>
+          <li className="list-group-item col-sm-4">
+            <CombatantMode combatant={combatant} index={index}/>
           </li>
         </div>
       )
@@ -28,6 +22,7 @@ class CombatantList extends Component {
   }
 // if there are no combatants Do not render the list
   render() {
+    const {CombatantList = []} = this.props
     if (!CombatantList) {
       return <div>Select a CombatantList to get started</div>;
     }
@@ -36,21 +31,16 @@ class CombatantList extends Component {
   }
 }
 
-// anything in mapStateToProps will be this.props in the container above.
-// this.props.CombatantList is the array of monster combatants
 function mapStateToProps(state) {
   const {CombatantList} = state.monsters;
   return {CombatantList};
 }
 
 function mapDispatchToProps(dispatch) {
-  // Whenever selectCombatant is called, the result should be passed to all
-  // of our reducers
   return {
-    // selectCombatant: monster => dispatch(actions.selectCombatant(monster)),
     changeCombatantHp: monster => dispatch(actions.changeCombatantHp(monster)),
     removeCombatant: monster => dispatch(actions.removeCombatant(monster))
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CombatantList);
+export default connect(mapStateToProps, mapDispatchToProps)(CombatantModeList);

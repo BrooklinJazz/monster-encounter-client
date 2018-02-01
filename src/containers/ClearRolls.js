@@ -1,20 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import * as actions from "../actions/index"
+import * as actions from "../actions/index";
+import { Button } from 'reactstrap';
 
-class ClearCombatant extends Component {
+class ClearRolls extends Component {
   constructor(props) {
     super(props)
   }
   render() {
     return (
-      <button
-        className="btn btn-default"
-        onClick={() => this.props.clearCombatants()}
-        >Clear Combatants</button>
+      <Button
+        color="default"
+        onClick={() => this.props.clearRolls()}
+        >Clear Rolls</Button>
     )
   }
 }
+
 
 function mapStateToProps(state) {
   const {CombatantList} = state.monsters;
@@ -25,9 +27,9 @@ function mapDispatchToProps(dispatch) {
   // Whenever selectCombatant is called, the result should be passed to all
   // of our reducers
   return {
-    clearCombatants: payload => dispatch(actions.clearCombatants(payload))
+    clearRolls: payload => dispatch(actions.clearRolls(payload))
   };
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClearCombatant);
+export default connect(mapStateToProps, mapDispatchToProps)(ClearRolls);

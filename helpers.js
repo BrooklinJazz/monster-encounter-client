@@ -141,3 +141,29 @@ export const rollSidedDice = (num, dice) => {
   }
   return rollArray
 }
+
+export const limitMonsterHpChange = (i, combatant, payload) => {
+  if (i !== payload.index || isNaN(payload.hpChange) ) {
+    // if the input given by hpChange is not a number
+    // or the index of the current monster doesn't match
+    // the expected index of payload: return the combatant as it is
+    return combatant
+
+    // if healing applied to monster brings it above max health
+  } else if (payload.combatant.currentHp - payload.hpChange > payload.combatant.HP.Value) {
+    // set currentHp to maxHp `payload.combatant.HP.Value`
+    payload.combatant.currentHp = payload.combatant.HP.Value
+    // return the combatant with max hp
+    return payload.combatant
+
+  } else if (payload.combatant.currentHp - payload.hpChange < 0) {
+    payload.combatant.currentHp = 0
+    return payload.combatant
+  } else {
+    // we are applying damage to the combatant so positive numbers reduce
+    // the combatant's currentHp
+    payload.combatant.currentHp -= payload.hpChange
+    // return the combatant with changed HP
+    return payload.combatant
+  }
+}
