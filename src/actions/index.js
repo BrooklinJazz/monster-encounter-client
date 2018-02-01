@@ -32,3 +32,6 @@ createAction(Types.SIDED_DICE_ROLLED, { payload });
 
 export const deleteRoll = payload =>
 createAction(Types.DELETE_ROLL, { payload });
+
+export const clearRolls = payload =>
+createAction(Types.CLEAR_ROLLS, { payload })

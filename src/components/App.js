@@ -10,6 +10,7 @@ import NotFoundPage from './NotFoundPage';
 import ClearCombatant from '../containers/ClearCombatant'
 import NavBar from './NavBar'
 import CombatantModeList from '../containers/CombatantModeList'
+import ClearRolls from '../containers/ClearRolls'
 import {
   BrowserRouter as Router,
   Route,
@@ -50,6 +51,7 @@ export default class App extends Component {
                 <MonsterList />
               </div>
               <div className="col-sm-4">
+                <ClearRolls />
                 <ClearCombatant />
                 <CombatantList />
                 <Rolls />

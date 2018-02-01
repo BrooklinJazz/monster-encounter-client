@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as actions from "../actions/index"
-// NOTE rename this component?
-class ClearCombatant extends Component {
+
+class ClearRolls extends Component {
   constructor(props) {
     super(props)
   }
@@ -10,8 +10,8 @@ class ClearCombatant extends Component {
     return (
       <button
         className="btn btn-default"
-        onClick={() => this.props.clearCombatants()}
-        >Clear Combatants</button>
+        onClick={() => this.props.clearRolls()}
+        >Clear Rolls</button>
     )
   }
 }
@@ -26,9 +26,9 @@ function mapDispatchToProps(dispatch) {
   // Whenever selectCombatant is called, the result should be passed to all
   // of our reducers
   return {
-    clearCombatants: payload => dispatch(actions.clearCombatants(payload))
+    clearRolls: payload => dispatch(actions.clearRolls(payload))
   };
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClearCombatant);
+export default connect(mapStateToProps, mapDispatchToProps)(ClearRolls);
