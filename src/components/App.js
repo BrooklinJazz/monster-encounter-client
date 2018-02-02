@@ -1,5 +1,7 @@
 import React from "react";
 import { Component } from "react";
+import * as actions from "../actions/index";
+import { connect } from "react-redux";
 
 import MonsterList from "../containers/MonsterList";
 import SearchBar from "../containers/SearchBar";
@@ -20,11 +22,12 @@ import {
 // const testUrl = 'http://www.dnd5eapi.co/api/monsters/1'
 const serverUrl = 'http://localhost:3002'
 
-export default class App extends Component {
-  state = {monsterArray: []}
+class App extends Component {
+  constructor(props) {
+    super(props)
+  }
 
   componentDidMount() {
-    // TODO set monsters redux state as response
     fetch(
       serverUrl,
       {
@@ -35,27 +38,28 @@ export default class App extends Component {
       }
     )
     .then(res => res.json())
-    .then(res => this.setState({ monsterArray: res }))
+    .then(res => this.props.fetchMonsters(res))
   }
 
   render() {
     return (
       <Router >
         <div className="App">
-          <NavBar />
+          <NavBar/>
           <Switch>
             <Route exact path="/">
             <div className="row">
               <div className="col-sm-4">
-                <SearchBar />
-                <MonsterList />
+                <SearchBar/>
+                <MonsterList/>
               </div>
               <div className="col-sm-4">
-                <CombatantList />
+                <CombatantList/>
                 <Rolls />
               </div>
               <div className="col-sm-4">
-                <MonsterDetail />
+                <MonsterDetail
+                />
               </div>
             </div>
           </Route>
@@ -71,8 +75,30 @@ export default class App extends Component {
         </Route>
         <Route component={NotFoundPage}/>
       </Switch>
-        </div>
-    </Router>
-  );
+    </div>
+  </Router>
+);
 }
 }
+function mapStateToProps(state) {
+  // Whatever is returned will show up as props inside of MonsterList
+  // console.tron.log(state);
+  const { monsters, searchTerm } = state.monsters;
+  return {
+    monsters
+  };
+}
+
+// Anything returned from this function will end up as props
+// on the MonsterList container
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchMonsters: monsters =>
+    dispatch(actions.fetchMonsters(monsters)),
+  };
+}
+
+// Promote MonsterList from a component to a container - it needs to know
+// about this new dispatch method, selectCombatant. Make it available
+// as a prop.
+export default connect(mapStateToProps, mapDispatchToProps)(App);

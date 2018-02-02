@@ -128,7 +128,7 @@ export const getModifier = (roll) => {
 
 // helper function to get random number between min and max inclusive.
 const getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 // return a roll of num number of die with dice sides. as an array
 // i.e. when passed (2, 6) the function rolls two dice with 6 sides.
