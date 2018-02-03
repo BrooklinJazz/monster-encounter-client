@@ -11,6 +11,6 @@ export const types = {
   CLEAR_ROLLS: "CLEAR_ROLLS",
   ROLL_INITIATIVES: "ROLL_INITIATIVES",
   FETCH_MONSTERS: "FETCH_MONSTERS"
-};
+}
 
 export default types;

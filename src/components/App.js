@@ -19,12 +19,38 @@ import {
   Switch
 } from 'react-router-dom';
 
+import {Token} from '../requests/tokens';
+import jwtDecode from 'jwt-decode';
+import SignInPage from '../containers/SignInPage'
+
 // const testUrl = 'http://www.dnd5eapi.co/api/monsters/1'
 const serverUrl = 'http://localhost:3002'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      user: null,
+      loading: true
+    };
+    this.signIn = this.signIn.bind(this);
+    this.signOut = this.signOut.bind(this);
+  }
+
+  signOut () {
+    localStorage.removeItem('jwt');
+    this.setState({user: null});
+  }
+
+  signIn () {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      const payload = jwtDecode(jwt);
+      this.setState({user: payload, loading: false});
+    } else {
+      this.setState({loading: false});
+    }
   }
 
   componentDidMount() {
@@ -40,6 +66,9 @@ class App extends Component {
     .then(res => res.json())
     .then(res => this.props.fetchMonsters(res))
   }
+  componentDidMount () {
+    this.signIn();
+  }
 
   render() {
     return (
@@ -47,6 +76,9 @@ class App extends Component {
         <div className="App">
           <NavBar/>
           <Switch>
+            <Route path="/sign_in" render={props => {
+              return <SignInPage {...props} onSignIn={this.signIn} />
+            }} />
             <Route exact path="/">
             <div className="row">
               <div className="col-sm-4">
