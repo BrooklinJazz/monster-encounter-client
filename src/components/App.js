@@ -71,10 +71,23 @@ class App extends Component {
   }
 
   render() {
+    const {user, loading} = this.state;
+
+    if (loading) {
+      return (
+        <div>
+          Loading...
+        </div>
+      );
+    }
+
     return (
       <Router >
         <div className="App">
-          <NavBar/>
+          <NavBar
+            user={user}
+            onSignOutClick={this.signOut}
+          />
           <Switch>
             <Route path="/sign_in" render={props => {
               return <SignInPage {...props} onSignIn={this.signIn} />
