@@ -2,6 +2,9 @@ import Types from "../types";
 
 const createAction = (type, params = null) => ({ type, ...params });
 
+export const fetchMonsters = payload =>
+createAction(Types.FETCH_MONSTERS, { payload })
+
 // Actions relating to MonsterList
 export const addMonsterToCombatants = monster =>
 createAction(Types.ADD_MONSTER_TO_COMBATANTS, { monster });

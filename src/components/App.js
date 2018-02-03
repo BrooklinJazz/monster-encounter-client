@@ -1,5 +1,7 @@
 import React from "react";
 import { Component } from "react";
+import * as actions from "../actions/index";
+import { connect } from "react-redux";
 
 import MonsterList from "../containers/MonsterList";
 import SearchBar from "../containers/SearchBar";
@@ -17,14 +19,41 @@ import {
   Switch
 } from 'react-router-dom';
 
+import {Token} from '../requests/tokens';
+import jwtDecode from 'jwt-decode';
+import SignInPage from '../containers/SignInPage'
+
 // const testUrl = 'http://www.dnd5eapi.co/api/monsters/1'
-const serverUrl = 'http://localhost:3002'
+const serverUrl = 'http://localhost:3000/api/v1/monsters'
 
-export default class App extends Component {
-  state = {monsterArray: []}
+class App extends Component {
+  constructor (props) {
+    super(props);
 
-  componentDidMount() {
-    // TODO set monsters redux state as response
+    this.state = {
+      user: null,
+      loading: true
+    };
+    this.signIn = this.signIn.bind(this);
+    this.signOut = this.signOut.bind(this);
+  }
+
+  signOut () {
+    localStorage.removeItem('jwt');
+    this.setState({user: null});
+  }
+
+  signIn () {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      const payload = jwtDecode(jwt);
+      this.setState({user: payload, loading: false});
+    } else {
+      this.setState({loading: false});
+    }
+  }
+
+  componentWillMount() {
     fetch(
       serverUrl,
       {
@@ -35,27 +64,47 @@ export default class App extends Component {
       }
     )
     .then(res => res.json())
-    .then(res => this.setState({ monsterArray: res }))
+    .then(res => this.props.fetchMonsters(res))
+  }
+  componentDidMount () {
+    this.signIn();
   }
 
   render() {
+    const {user, loading} = this.state;
+
+    if (loading) {
+      return (
+        <div>
+          Loading...
+        </div>
+      );
+    }
+
     return (
       <Router >
         <div className="App">
-          <NavBar />
+          <NavBar
+            user={user}
+            onSignOutClick={this.signOut}
+          />
           <Switch>
+            <Route path="/sign_in" render={props => {
+              return <SignInPage {...props} onSignIn={this.signIn} />
+            }} />
             <Route exact path="/">
             <div className="row">
               <div className="col-sm-4">
-                <SearchBar />
-                <MonsterList />
+                <SearchBar/>
+                <MonsterList/>
               </div>
               <div className="col-sm-4">
-                <CombatantList />
+                <CombatantList/>
                 <Rolls />
               </div>
               <div className="col-sm-4">
-                <MonsterDetail />
+                <MonsterDetail
+                />
               </div>
             </div>
           </Route>
@@ -71,8 +120,30 @@ export default class App extends Component {
         </Route>
         <Route component={NotFoundPage}/>
       </Switch>
-        </div>
-    </Router>
-  );
+    </div>
+  </Router>
+);
 }
 }
+function mapStateToProps(state) {
+  // Whatever is returned will show up as props inside of MonsterList
+  // console.tron.log(state);
+  const { monsters, searchTerm } = state.monsters;
+  return {
+    monsters
+  };
+}
+
+// Anything returned from this function will end up as props
+// on the MonsterList container
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchMonsters: monsters =>
+    dispatch(actions.fetchMonsters(monsters)),
+  };
+}
+
+// Promote MonsterList from a component to a container - it needs to know
+// about this new dispatch method, selectCombatant. Make it available
+// as a prop.
+export default connect(mapStateToProps, mapDispatchToProps)(App);

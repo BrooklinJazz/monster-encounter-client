@@ -18,7 +18,7 @@ import {
 const monsters = monstersData()
 
 const INITIAL_STATE = {
-  monsters,
+  monsters: [],
   selectedMonster: null,
   CombatantList: [],
   searchTerm: '',
@@ -29,6 +29,12 @@ export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     // Select combatant to show detailed stats
     // coming from Combatant.js
+    case Types.FETCH_MONSTERS:
+    console.log('FETCH_MONSTERS');
+    return {
+      ...state,
+      monsters: action.payload
+    }
     /****************************************
     MonsterList
     ****************************************/
