@@ -24,7 +24,7 @@ import jwtDecode from 'jwt-decode';
 import SignInPage from '../containers/SignInPage'
 
 // const testUrl = 'http://www.dnd5eapi.co/api/monsters/1'
-const serverUrl = 'http://localhost:3002'
+const serverUrl = 'http://localhost:3000/api/v1/monsters'
 
 class App extends Component {
   constructor (props) {
@@ -53,7 +53,7 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     fetch(
       serverUrl,
       {
