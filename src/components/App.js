@@ -23,6 +23,7 @@ import {Token} from '../requests/tokens';
 import jwtDecode from 'jwt-decode';
 import SignInPage from '../containers/SignInPage'
 import Fights from '../containers/Fights'
+import SaveFight from '../containers/SaveFight'
 
 // const testUrl = 'http://www.dnd5eapi.co/api/monsters/1'
 const serverUrl = 'http://localhost:3000/api/v1/monsters'
@@ -97,6 +98,7 @@ class App extends Component {
             <div className="row">
               <div className="col-sm-4">
                 <Fights user={user} />
+                <SaveFight user={user} />
                 <SearchBar/>
                 <MonsterList/>
               </div>
