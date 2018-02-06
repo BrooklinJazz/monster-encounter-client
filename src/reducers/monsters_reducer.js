@@ -106,6 +106,12 @@ export default function(state = INITIAL_STATE, action) {
       ...state,
       CombatantList: combatantsAfterInitiativeRoll
     }
+    case Types.RENDER_SAVED_COMBAT:
+    // console.log('RENDER_SAVED_COMBAT', action.payload);
+    return {
+      ...state,
+      CombatantList: action.payload
+    }
     /****************************************
     Rolls
     ****************************************/

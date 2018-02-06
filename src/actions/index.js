@@ -29,6 +29,9 @@ createAction(Types.REMOVE_COMBATANT, { payload })
 export const rollInitiatives = payload =>
 createAction(Types.ROLL_INITIATIVES, { payload })
 
+export const renderSavedCombat = payload =>
+createAction(Types.RENDER_SAVED_COMBAT, { payload })
+
 // Actions relating to Rolls
 export const d20Roll = payload =>
 createAction(Types.D20_ROLLED, { payload });
