@@ -9,33 +9,22 @@ class Fights extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      fights: []
-    }
     this.getFights = this.getFights.bind(this);
 
   }
 
   componentWillMount() {
-    const {user = []} = this.props
-    fetch(
-      `${BASE_URL}/users/${user.id}/combats`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      }
-    )
-    .then(res => res.json())
-    // .then(res => console.log(res))
-    .then(res => this.setState({fights: res}))
-    // TODO replace with action and change global state
+    this.getFights()
+    console.log(this.props.fights);
+  }
+  componentDidMount() {
+    console.log(this.props.fights);
   }
 
   // NOTE make this fetch request without a local function?
   getFights() {
     const {user = []} = this.props
+    console.log('GET FIGHTS CALLED');
     fetch(
       `${BASE_URL}/users/${user.id}/combats`,
       {
@@ -48,7 +37,6 @@ class Fights extends Component {
     .then(res => res.json())
     .then(res => this.props.updateFights(res))
   }
-
 
   getFightJSON(fightId) {
     const {user = []} = this.props
