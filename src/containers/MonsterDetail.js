@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import Stat from '../components/Stat';
 import RollableListing from '../components/RollableListing';
 import Power from '../components/Power'
-// import SaveList from '../components/SaveList'
 
 class MonsterDetail extends Component {
   constructor(props) {
@@ -56,7 +55,7 @@ class MonsterDetail extends Component {
 
     return (
       <div className="monsterDetail">
-
+        
         <Stat Name="Armor Class" Value={AC.Value, AC.Notes} />
         <Stat Name="Hit Points" Value={HP.Value, HP.Notes} />
         <div className="Speed"><strong>Speed:</strong> {Speed}</div>
