@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import * as actions from "../actions/index"
+import Moment from 'react-moment';
 
 const BASE_URL = 'http://localhost:3000/api/v1'
 
@@ -28,6 +29,7 @@ class Fights extends Component {
     // .then(res => console.log(res))
     .then(res => this.setState({fights: res}))
   }
+
 
   getFightJSON(fightId) {
     const {user = []} = this.props
@@ -58,7 +60,9 @@ class Fights extends Component {
               <button
                 onClick={() => this.getFightJSON(fight.id)}
                 >
-                {fight.name}
+                  {
+                    fight.name ? fight.name :<div>Save File: <Moment format="MMMM Do YYYY, h:mm:ss a">{fight.created_at}</Moment></div> 
+                  }
               </button>
             )
           })}

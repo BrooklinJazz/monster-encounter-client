@@ -8,7 +8,7 @@ import Power from '../components/Power'
 class MonsterDetail extends Component {
   constructor(props) {
     super(props)
-    // this.renderSaves = this.renderSaves.bind(this);
+    // this.renderSaves = this.renderSaves.bind(this)
   }
   render() {
     const {monster = {}} = this.props
