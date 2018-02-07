@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import {Combat} from '../requests/combats'
 import { connect } from "react-redux";
+import * as actions from "../actions/index"
+const BASE_URL = 'http://localhost:3000/api/v1'
+
 
 class SaveFight extends Component {
   constructor(props) {
@@ -11,11 +14,30 @@ class SaveFight extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getFights = this.getFights.bind(this);
+
   }
 
   handleChange(event) {
     this.setState({name: event.target.value});
   }
+
+
+  getFights() {
+    const {user = []} = this.props
+    fetch(
+      `${BASE_URL}/users/${user.id}/combats`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    )
+    .then(res => res.json())
+    .then(res => this.props.updateFights(res))
+  }
+
 
 
   handleSubmit(event) {
@@ -27,18 +49,9 @@ class SaveFight extends Component {
 
     Combat
       .create(newCombat)
-      .then(data => {
-        if (data.errors) {
-          this.setState({
-            validationErrors: data
-              .errors
-              .filter(e => e.type === 'ActiveRecord::RecordInvalid')
-          });
-        } else {
-          // TODO show the user an error properly
-          console.error('Something went wrong');
-        }
-      });
+      .then(dataDoesNotMatter => {
+        this.getFights()
+      })
   }
 
   render() {
@@ -65,4 +78,11 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(SaveFight);
+function mapDispatchToProps(dispatch) {
+  return {
+    updateFights: payload =>
+    dispatch(actions.updateFights(payload)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SaveFight);
