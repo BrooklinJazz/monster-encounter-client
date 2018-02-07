@@ -6,17 +6,19 @@ import CombatantList from "../containers/CombatantList";
 import {
   d20,
   deepClone,
+  convScoreToMod,
   getNumberOfDice,
   getSidesOfDice,
   getModifier,
-  rollSidedDice
+  rollSidedDice,
+  limitMonsterHpChange
 } from "../../helpers"
 // the array of monster objects exported as a function.
 // NOTE storing monsters in a local file currently
 const monsters = monstersData()
 
 const INITIAL_STATE = {
-  monsters,
+  monsters: [],
   selectedMonster: null,
   CombatantList: [],
   searchTerm: '',
@@ -27,6 +29,12 @@ export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     // Select combatant to show detailed stats
     // coming from Combatant.js
+    case Types.FETCH_MONSTERS:
+    console.log('FETCH_MONSTERS');
+    return {
+      ...state,
+      monsters: action.payload
+    }
     /****************************************
     MonsterList
     ****************************************/
@@ -34,7 +42,7 @@ export default function(state = INITIAL_STATE, action) {
     return { ...state, selectedMonster: action.combatant };
     // add a Monster obj to the CombatantList
     case Types.ADD_MONSTER_TO_COMBATANTS:
-    const newCombatant = deepClone(action.monster);
+    newCombatant = deepClone(action.monster);
     // add the currentHp to combatant object to show current/max health
     newCombatant.currentHp = newCombatant.HP.Value
     return {
@@ -49,6 +57,9 @@ export default function(state = INITIAL_STATE, action) {
     /****************************************
     CombatantList
     ****************************************/
+    // Variable names to be used:
+    // a deepClone of the current combatant
+    let newCombatant
     case Types.REMOVE_COMBATANT:
     // assign a constant to be equal to CombatantList.
     // using map to avoid mutating state.
@@ -63,30 +74,9 @@ export default function(state = INITIAL_STATE, action) {
       CombatantList: combatantsListAfterRemove
     };
     case Types.CHANGE_MONSTER_HP:
+    // NOTE DEBUG this function works, but when it changes the value of combatant.currentHp it may be pointing to the original state and mutating it.
     const combatantsListAfterChange = state.CombatantList.map( (combatant, i) => {
-      if (i !== action.payload.index || isNaN(action.payload.hpChange) ) {
-        // if the input given by hpChange is not a number
-        // or the index of the current monster doesn't match
-        // the expected index of payload: return the combatant as it is
-        return combatant
-
-        // if healing applied to monster brings it above max health
-      } else if (action.payload.combatant.currentHp - action.payload.hpChange > action.payload.combatant.HP.Value) {
-        // set currentHp to maxHp `action.payload.combatant.HP.Value`
-        action.payload.combatant.currentHp = action.payload.combatant.HP.Value
-        // return the combatant with max hp
-        return action.payload.combatant
-
-      } else if (action.payload.combatant.currentHp - action.payload.hpChange < 0) {
-        action.payload.combatant.currentHp = 0
-        return action.payload.combatant
-      } else {
-        // we are applying damage to the combatant so positive numbers reduce
-        // the combatant's currentHp
-        action.payload.combatant.currentHp -= action.payload.hpChange
-        // return the combatant with changed HP
-        return action.payload.combatant
-      }
+      return limitMonsterHpChange(i, combatant, action.payload)
     })
     return {
       ...state,
@@ -96,6 +86,31 @@ export default function(state = INITIAL_STATE, action) {
     return {
       ...state,
       CombatantList: []
+    }
+    case Types.ROLL_INITIATIVES:
+    const newCombatantList = [...state.CombatantList]
+    const combatantsAfterInitiativeRoll = newCombatantList.map( monster => {
+      return {
+        ...monster,
+        InitiativeRoll: d20() + convScoreToMod(monster.Abilities.Dex)
+      }
+      // below was replaced with the above because the deeper values of each monster object
+      // were pointing to redux state. this was causing rendering issues and mutation of
+      // state.
+      // monster.InitiativeRoll = d20() + convScoreToMod(monster.Abilities.Dex)
+      // return monster
+    }).sort(function(a, b) {
+      return b.InitiativeRoll - a.InitiativeRoll
+    })
+    return {
+      ...state,
+      CombatantList: combatantsAfterInitiativeRoll
+    }
+    case Types.RENDER_SAVED_COMBAT:
+    // console.log('RENDER_SAVED_COMBAT', action.payload);
+    return {
+      ...state,
+      CombatantList: action.payload
     }
     /****************************************
     Rolls
@@ -160,6 +175,11 @@ export default function(state = INITIAL_STATE, action) {
     return {
       ...state,
       rolls: state.rolls.concat(newSidedRoll)
+    }
+    case Types.CLEAR_ROLLS:
+    return {
+      ...state,
+      rolls: []
     }
 
   }

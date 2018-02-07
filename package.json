@@ -18,7 +18,7 @@
     "babel-preset-react": "^6.1.18",
     "chai": "^3.5.0",
     "chai-jquery": "^2.0.0",
-    "jquery": "^2.2.1",
+    "jquery": "^3.3.1",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
     "react-addons-test-utils": "^0.14.7",
@@ -27,9 +27,12 @@
   },
   "dependencies": {
     "babel-preset-stage-1": "^6.1.18",
+    "jwt-decode": "^2.2.0",
     "lodash": "^3.10.1",
+    "moment": "^2.20.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-moment": "^0.7.0",
     "react-redux": "4.3.0",
     "react-router": "^2.0.1",
     "react-router-dom": "^4.2.2",
@@ -37,7 +40,9 @@
     "reactotron-core-client": "^1.13.0",
     "reactotron-react-js": "^1.13.0",
     "reactotron-redux": "^1.13.0",
+    "reactstrap": "^5.0.0-beta",
     "redux": "^3.0.4",
+    "redux-persist": "^4.10.2",
     "redux-state-save": "^1.0.0"
   }
 }

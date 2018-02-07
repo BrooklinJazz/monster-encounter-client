@@ -23,6 +23,7 @@ export const convScoreToMod  = (n) => {
 }
 
 // This function takes a string from the Power.js component's Content and replaces all regex instances of a dice roll with the PowerRoll.js component given props.roll as the matching regex instance.
+const reactStringReplace = require('react-string-replace')
 export const replaceRollsRegex = (str) => {
   // Needed to wrap regex expressions with () group in order for fn reactStringReplace to work
   // (1d6)
@@ -61,7 +62,6 @@ export const replaceRollsRegex = (str) => {
   const regexArray = [xdx, xdxx, xxdx, xxdxx, xdxpx, xdxmx, xdxpxx, xdxmxx, xdxxpx, xdxxmx, xdxpxx, xdxxmxx, xdxxpx, xdxxpxx, xxdxxmx, xxdxxpx, xxdxxpxx, xxdxxmxx]
   // const newStr = str
   // const testStr = str
-  const reactStringReplace = require('react-string-replace')
   let replacedText = str
   for (let exp of regexArray) {
     replacedText = reactStringReplace(replacedText, exp, (match, i) => (
@@ -128,7 +128,7 @@ export const getModifier = (roll) => {
 
 // helper function to get random number between min and max inclusive.
 const getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 // return a roll of num number of die with dice sides. as an array
 // i.e. when passed (2, 6) the function rolls two dice with 6 sides.
@@ -140,4 +140,30 @@ export const rollSidedDice = (num, dice) => {
     rollArray[i] = getRandomInt(1, dice)
   }
   return rollArray
+}
+
+export const limitMonsterHpChange = (i, combatant, payload) => {
+  if (i !== payload.index || isNaN(payload.hpChange) ) {
+    // if the input given by hpChange is not a number
+    // or the index of the current monster doesn't match
+    // the expected index of payload: return the combatant as it is
+    return combatant
+
+    // if healing applied to monster brings it above max health
+  } else if (payload.combatant.currentHp - payload.hpChange > payload.combatant.HP.Value) {
+    // set currentHp to maxHp `payload.combatant.HP.Value`
+    payload.combatant.currentHp = payload.combatant.HP.Value
+    // return the combatant with max hp
+    return payload.combatant
+
+  } else if (payload.combatant.currentHp - payload.hpChange < 0) {
+    payload.combatant.currentHp = 0
+    return payload.combatant
+  } else {
+    // we are applying damage to the combatant so positive numbers reduce
+    // the combatant's currentHp
+    payload.combatant.currentHp -= payload.hpChange
+    // return the combatant with changed HP
+    return payload.combatant
+  }
 }

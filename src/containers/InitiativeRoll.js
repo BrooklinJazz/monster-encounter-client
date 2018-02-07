@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import * as actions from "../actions/index"
+import * as actions from "../actions/index";
+import {Button} from 'reactstrap'
 
-class ClearCombatant extends Component {
+class InitiativeRoll extends Component {
   constructor(props) {
     super(props)
   }
   render() {
     return (
-      <button
-        className="btn btn-default"
-        onClick={() => this.props.clearCombatants()}
-        >Clear Combatants</button>
+      <Button color="default"
+        onClick={() => this.props.rollInitiatives()}
+        >InitiativeRoll</Button>
     )
   }
 }
@@ -25,9 +25,9 @@ function mapDispatchToProps(dispatch) {
   // Whenever selectCombatant is called, the result should be passed to all
   // of our reducers
   return {
-    clearCombatants: payload => dispatch(actions.clearCombatants(payload))
+    rollInitiatives: payload => dispatch(actions.rollInitiatives(payload))
   };
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClearCombatant);
+export default connect(mapStateToProps, mapDispatchToProps)(InitiativeRoll);

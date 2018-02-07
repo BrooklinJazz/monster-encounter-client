@@ -2,6 +2,9 @@ import Types from "../types";
 
 const createAction = (type, params = null) => ({ type, ...params });
 
+export const fetchMonsters = payload =>
+createAction(Types.FETCH_MONSTERS, { payload })
+
 // Actions relating to MonsterList
 export const addMonsterToCombatants = monster =>
 createAction(Types.ADD_MONSTER_TO_COMBATANTS, { monster });
@@ -23,6 +26,12 @@ createAction(Types.CHANGE_MONSTER_HP, { payload });
 export const removeCombatant = payload =>
 createAction(Types.REMOVE_COMBATANT, { payload })
 
+export const rollInitiatives = payload =>
+createAction(Types.ROLL_INITIATIVES, { payload })
+
+export const renderSavedCombat = payload =>
+createAction(Types.RENDER_SAVED_COMBAT, { payload })
+
 // Actions relating to Rolls
 export const d20Roll = payload =>
 createAction(Types.D20_ROLLED, { payload });
@@ -32,3 +41,6 @@ createAction(Types.SIDED_DICE_ROLLED, { payload });
 
 export const deleteRoll = payload =>
 createAction(Types.DELETE_ROLL, { payload });
+
+export const clearRolls = payload =>
+createAction(Types.CLEAR_ROLLS, { payload })
