@@ -30,7 +30,6 @@ import SignInPage from '../containers/SignInPage'
 import Fights from '../containers/Fights'
 import SaveFight from '../containers/SaveFight'
 
-// const testUrl = 'http://www.dnd5eapi.co/api/monsters/1'
 const serverUrl = 'http://localhost:3000/api/v1/monsters'
 
 class App extends Component {
@@ -65,6 +64,7 @@ class App extends Component {
   }
 
   componentWillMount() {
+    // get monster data for MonsterList
     fetch(
       serverUrl,
       {
@@ -79,7 +79,6 @@ class App extends Component {
   }
   componentDidMount () {
     this.signIn();
-    // console.log('APP state', this.state);
   }
 
   render() {
