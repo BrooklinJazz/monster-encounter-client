@@ -14,6 +14,10 @@ import NavBar from './NavBar'
 import CombatantModeList from '../containers/CombatantModeList'
 import ClearRolls from '../containers/ClearRolls'
 import SignUpPage from '../containers/SignUpPage'
+import SavePage from './pages/SavePage'
+import CombatPage from './pages/CombatPage'
+import {AuthRoute} from './AuthRoute';
+import HomePage from './pages/HomePage';
 import {
   BrowserRouter as Router,
   Route,
@@ -56,6 +60,10 @@ class App extends Component {
     }
   }
 
+  isAuth () {
+    return !!this.state.user
+  }
+
   componentWillMount() {
     fetch(
       serverUrl,
@@ -71,6 +79,7 @@ class App extends Component {
   }
   componentDidMount () {
     this.signIn();
+    // console.log('APP state', this.state);
   }
 
   render() {
@@ -98,40 +107,29 @@ class App extends Component {
             <Route path="/sign_up" render={props => {
               return <SignUpPage {...props} onSignIn={this.signIn}/>
             }} />
-            <Route exact path="/">
-            <div className="row">
-              <div className="col-sm-4">
-                <Fights user={user} />
-                <SaveFight user={user} />
-                <SearchBar/>
-                <MonsterList/>
-              </div>
-              <div className="col-sm-4">
-                <CombatantList/>
-                <Rolls />
-              </div>
-              <div className="col-sm-4">
-                <MonsterDetail
-                />
-              </div>
-            </div>
-          </Route>
-          <Route path="/combat">
-          <div className="row">
-            <div className="col-sm-8">
-              <CombatantModeList />
-            </div>
-            <div className="col-sm-4">
-              <MonsterDetail />
-            </div>
-          </div>
-        </Route>
-        <Route component={NotFoundPage}/>
-      </Switch>
-    </div>
-  </Router>
-);
-}
+            <AuthRoute
+              isAuthenticated={this.isAuth()}
+              path="/"
+              exact
+              component={HomePage}
+            />
+            <AuthRoute
+              isAuthenticated={this.isAuth()}
+              path="/saves"
+              user={user}
+              component={SavePage}
+            />
+            <AuthRoute
+              isAuthenticated={this.isAuth()}
+              path="/combat"
+              component={CombatPage}
+            />
+            <Route component={NotFoundPage}/>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
 }
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside of MonsterList
