@@ -23,12 +23,16 @@ class SignInPage extends Component {
   createToken (event) {
     event.preventDefault();
     const {email, password} = this.state;
+    const {onSignIn = () => {}} = this.props;
+    console.log(this.props.history);
     Token
       .create({email, password})
       .then(data => {
         if (!data.error) {
           const {jwt} = data;
           localStorage.setItem('jwt', jwt);
+          onSignIn();
+          this.setState({email: "", password: ""});
           this.props.history.push("/");
         }
       });
