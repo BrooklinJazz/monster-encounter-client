@@ -101,10 +101,10 @@ class App extends Component {
           />
           <Switch>
             <Route path="/sign_in" render={props => {
-              return <SignInPage {...props} onSignIn={this.signIn} />
+              return <SignInPage {...props} user={user} onSignIn={this.signIn} />
             }} />
             <Route path="/sign_up" render={props => {
-              return <SignUpPage {...props} onSignIn={this.signIn}/>
+              return <SignUpPage {...props} user={user} onSignIn={this.signIn}/>
             }} />
             <AuthRoute
               isAuthenticated={this.isAuth()}

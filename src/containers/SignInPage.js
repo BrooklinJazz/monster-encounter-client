@@ -40,6 +40,16 @@ class SignInPage extends Component {
 
   render () {
     const {email, password} = this.state;
+    const {user} = this.props;
+
+    // TODO, change this to redirect
+    if (user) {
+      return (
+        <div>
+          You've already signed in, sign out to access this page.
+        </div>
+      );
+    }
     return (
       <main
         className="SignInPage"
