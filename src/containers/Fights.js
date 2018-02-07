@@ -11,6 +11,7 @@ class Fights extends Component {
 
     this.getFights = this.getFights.bind(this);
     this.deleteFightSave = this.deleteFightSave.bind(this);
+    this.loadSave = this.loadSave.bind(this);
 
   }
 
@@ -39,9 +40,14 @@ class Fights extends Component {
     .then(res => this.props.updateFights(res))
   }
 
+  loadSave(fightId) {
+    this.getFightJSON(fightId)
+    .then(() => this.props.history.push('/'))
+  }
+
   getFightJSON(fightId) {
     const {user = []} = this.props
-    fetch(
+    return fetch(
       `${BASE_URL}/users/${user.id}/combats/${fightId}`,
       {
         method: 'GET',
@@ -87,7 +93,11 @@ class Fights extends Component {
                 fight.name ? fight.name :<div>Save File: <Moment format="MMMM Do YYYY, h:mm:ss a">{fight.created_at}</Moment></div>
               }
               <button
-                onClick={() => this.getFightJSON(fight.id)}>
+                onClick={() => {
+                  this.loadSave(fight.id)
+                  // this.getFightJSON(fight.id)
+                }
+                } >
                 Load Save
               </button>
               <button

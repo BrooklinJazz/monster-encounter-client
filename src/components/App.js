@@ -112,12 +112,17 @@ class App extends Component {
               exact
               component={HomePage}
             />
-            <AuthRoute
-              isAuthenticated={this.isAuth()}
-              path="/saves"
-              user={user}
-              component={SavePage}
-            />
+            <Route path="/saves" render={props => {
+              console.log(props.history);
+              return (
+                <AuthRoute
+                  history={props.history}
+                  isAuthenticated={this.isAuth()}
+                  path="/saves"
+                  user={user}
+                  component={SavePage}/>
+              )
+            }} />
             <AuthRoute
               isAuthenticated={this.isAuth()}
               path="/combat"
