@@ -15,33 +15,16 @@ class SaveFight extends Component {
 
   handleChange(event) {
     this.setState({name: event.target.value});
-    // console.log(this.state);
-    // console.log('change started');
   }
 
-  // componentDidRecieveProps(nextProps) {
-  //   // this.setState({newCombat: {name: this.state.newCombat.name, fight:nextProps.CombatantList, user_id:nextProps.user.id}})
-  //   console.log('cDRP', this.state);
-  // }
 
   handleSubmit(event) {
     event.preventDefault()
 
-    // alert('A name was submitted: ' + this.state.value);
-    // console.log('save fight submitted', this.state.newCombat);
-    // console.log(this.props.user.id);
-    // console.log(this.props.CombatantList);
-    // this.setState({...this.state.newCombat, user_id: this.props.user.id, fight:this.props.CombatantList});
-    // this.setState({newCombat: {name: this.state.newCombat.name, fight:this.props.CombatantList, user_id:this.props.user.id}})
     const newCombat = {
       name: this.state.name, fight:this.props.CombatantList, user_id:this.props.user.id
     }
-    // this.setState({fight: this.props.CombatantList});
-    const {history} = this.props;
-    // console.log(newCombat);
-    // const {newCombat} = this.state;
-    // console.log('passing to post:', newCombat);
-    // TODO see why I'm getting an error on submit
+
     Combat
       .create(newCombat)
       .then(data => {
@@ -52,15 +35,11 @@ class SaveFight extends Component {
               .filter(e => e.type === 'ActiveRecord::RecordInvalid')
           });
         } else {
-          history.push(`/`)
+          // TODO show the user an error properly
+          console.error('Something went wrong');
         }
       });
-    event.preventDefault();
   }
-
-  // setLocalState() {
-  //   this.setState({newCombat: {...this.state.newCombat, name: this.state.newCombat.name, fight:this.props.CombatantList, user_id: this.props.user.id}});
-  // }
 
   render() {
     return (
@@ -79,8 +58,7 @@ class SaveFight extends Component {
 }
 
 function mapStateToProps(state) {
-  // Whatever is returned will show up as props inside of MonsterList
-  // console.tron.log(state);
+  // file has access to this.props.CombatantList
   const { CombatantList } = state.monsters;
   return {
     CombatantList
