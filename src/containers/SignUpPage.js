@@ -10,7 +10,7 @@ class SignUpPage extends Component {
       first_name: "",
       last_name: "",
       email: "",
-      password_digest: "",
+      password: "",
     };
 
     // this.createToken = this.createToken.bind(this);
@@ -28,6 +28,8 @@ class SignUpPage extends Component {
     event.preventDefault()
     const params = this.state
     console.log(params);
+    // TODO sign up is not saving user password has encrypted
+    const {email, password} = this.state;
     fetch(
       `${BASE_URL}/api/v1/users/`,
       {
@@ -35,28 +37,28 @@ class SignUpPage extends Component {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(params)
+        body: JSON.stringify({user: params})
       }
     )
-    .then(res => res.json())
+    .then((data)=>{
+      Token
+      .create({email, password})
+      .then(data => {
+        if (!data.error) {
+          const {jwt} = data;
+          localStorage.setItem('jwt', jwt);
+          // this changes the url but the page doesn't load
+        }
+      })
+      .then(data => this.props.onSignIn())
+      .then(data => {
+        this.props.history.push("/");
+      })
+    })
   }
 
-  // createToken (event) {
-  //   event.preventDefault();
-  //   const {email, password_digest} = this.state;
-  //   Token
-  //     .create({email, password_digest})
-  //     .then(data => {
-  //       if (!data.error) {
-  //         const {jwt} = data;
-  //         localStorage.setItem('jwt', jwt);
-  //         this.props.history.push("/");
-  //       }
-  //     });
-  // }
-
   render () {
-    const {first_name, last_name, email, password_digest} = this.state;
+    const {first_name, last_name, email, password} = this.state;
     return (
       <main
         className="SignUpPage"
@@ -99,13 +101,13 @@ class SignUpPage extends Component {
           </div>
 
           <div>
-            <label htmlFor='password_digest'>Password</label> <br />
+            <label htmlFor='password'>Password</label> <br />
             <input
-              value={password_digest}
-              onChange={this.handleChange('password_digest')}
-              type='password_digest'
-              id='password_digest'
-              name='password_digest'
+              value={password}
+              onChange={this.handleChange('password')}
+              type='password'
+              id='password'
+              name='password'
             />
           </div>
 

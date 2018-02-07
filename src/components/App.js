@@ -96,7 +96,7 @@ class App extends Component {
               return <SignInPage {...props} onSignIn={this.signIn} />
             }} />
             <Route path="/sign_up" render={props => {
-              return <SignUpPage {...props}/>
+              return <SignUpPage {...props} onSignIn={this.signIn}/>
             }} />
             <Route exact path="/">
             <div className="row">
