@@ -22,7 +22,8 @@ const INITIAL_STATE = {
   selectedMonster: null,
   CombatantList: [],
   searchTerm: '',
-  rolls: []
+  rolls: [],
+  fights: []
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -180,6 +181,15 @@ export default function(state = INITIAL_STATE, action) {
     return {
       ...state,
       rolls: []
+    }
+    /****************************************
+    Rolls
+    ****************************************/
+    case Types.UPDATE_FIGHTS:
+    // console.log('UPDATE FIGHTS', action.payload);
+    return {
+      ...state,
+      fights: action.payload
     }
 
   }

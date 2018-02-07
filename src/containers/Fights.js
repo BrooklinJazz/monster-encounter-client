@@ -12,6 +12,8 @@ class Fights extends Component {
     this.state = {
       fights: []
     }
+    this.getFights = this.getFights.bind(this);
+
   }
 
   componentWillMount() {
@@ -28,6 +30,23 @@ class Fights extends Component {
     .then(res => res.json())
     // .then(res => console.log(res))
     .then(res => this.setState({fights: res}))
+    // TODO replace with action and change global state
+  }
+
+  // NOTE make this fetch request without a local function?
+  getFights() {
+    const {user = []} = this.props
+    fetch(
+      `${BASE_URL}/users/${user.id}/combats`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    )
+    .then(res => res.json())
+    .then(res => this.props.updateFights(res))
   }
 
 
@@ -48,22 +67,29 @@ class Fights extends Component {
 
   render() {
 
-    if(this.state.fights.length === 0){
+    if(this.props.fights.length === 0){
       return false //return false or a <Loader/> when you don't have anything in your message[]
     }
 
     return (
       <div>
         <h1>Fights</h1>
-          {this.state.fights.map(fight => {
+          {this.props.fights.map(fight => {
             return (
-              <button
-                onClick={() => this.getFightJSON(fight.id)}
-                >
-                  {
-                    fight.name ? fight.name :<div>Save File: <Moment format="MMMM Do YYYY, h:mm:ss a">{fight.created_at}</Moment></div> 
-                  }
-              </button>
+              <div>
+                <button
+                  onClick={() => this.getFightJSON(fight.id)}
+                  >
+                    {
+                      fight.name ? fight.name :<div>Save File: <Moment format="MMMM Do YYYY, h:mm:ss a">{fight.created_at}</Moment></div>
+                    }
+                  </button>
+                  <button
+                    onClick={this.getFights}
+                    >
+                      GetFights
+                    </button>
+              </div>
             )
           })}
       </div>
@@ -73,9 +99,10 @@ class Fights extends Component {
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside of MonsterList
   // console.tron.log(state);
-  const { CombatantList} = state.monsters;
+  const { CombatantList, fights} = state.monsters;
   return {
-    CombatantList
+    CombatantList,
+    fights
   };
 }
 
@@ -85,6 +112,8 @@ function mapDispatchToProps(dispatch) {
   return {
     renderSavedCombat: payload =>
     dispatch(actions.renderSavedCombat(payload)),
+    updateFights: payload =>
+    dispatch(actions.updateFights(payload)),
   };
 }
 
