@@ -23,6 +23,7 @@ export const convScoreToMod  = (n) => {
 }
 
 // This function takes a string from the Power.js component's Content and replaces all regex instances of a dice roll with the PowerRoll.js component given props.roll as the matching regex instance.
+const reactStringReplace = require('react-string-replace')
 export const replaceRollsRegex = (str) => {
   // Needed to wrap regex expressions with () group in order for fn reactStringReplace to work
   // (1d6)
@@ -61,7 +62,6 @@ export const replaceRollsRegex = (str) => {
   const regexArray = [xdx, xdxx, xxdx, xxdxx, xdxpx, xdxmx, xdxpxx, xdxmxx, xdxxpx, xdxxmx, xdxpxx, xdxxmxx, xdxxpx, xdxxpxx, xxdxxmx, xxdxxpx, xxdxxpxx, xxdxxmxx]
   // const newStr = str
   // const testStr = str
-  const reactStringReplace = require('react-string-replace')
   let replacedText = str
   for (let exp of regexArray) {
     replacedText = reactStringReplace(replacedText, exp, (match, i) => (
