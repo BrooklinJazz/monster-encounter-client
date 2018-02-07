@@ -13,6 +13,7 @@ import ClearCombatant from '../containers/ClearCombatant'
 import NavBar from './NavBar'
 import CombatantModeList from '../containers/CombatantModeList'
 import ClearRolls from '../containers/ClearRolls'
+import SignUpPage from '../containers/SignUpPage'
 import {
   BrowserRouter as Router,
   Route,
@@ -93,6 +94,9 @@ class App extends Component {
           <Switch>
             <Route path="/sign_in" render={props => {
               return <SignInPage {...props} onSignIn={this.signIn} />
+            }} />
+            <Route path="/sign_up" render={props => {
+              return <SignUpPage {...props}/>
             }} />
             <Route exact path="/">
             <div className="row">
