@@ -1,13 +1,13 @@
 /* IMPORTED STATBLOCK STYLING */
-.property-line{
+.propertyLine{
   text-indent: -1em;
   padding-left: 1.1em;
   line-height: 1.4em;
 }
-.property-line.first{
+.propertyLine.first{
   margin: 8px 0 0
 }
-.property-line.last{
+.propertyLine.last{
   margin: 0 0 10px;
 }
 .abilities{
@@ -33,23 +33,23 @@
   margin: 0 0 10px;
   line-height: 1.2em;
 }
-.property-block h4,
-.property-block p{
+.propertyBlock h4,
+.propertyBlock p{
   font-size: 15px;
   line-height: 1.2em;
   display: inline;
   margin: 0;
 }
-.property-block-text * {
+.propertyBlock-text * {
   font-size: 15px;
   line-height: 1.2em;
   display: inline;
   margin: 0;
 }
-.property-block h4{
+.propertyBlock h4{
   font-style: italic;
 }
-.property-block{
+.propertyBlock{
   /* padding: 10px 2px 0; */
 }
 .actions h3{
@@ -71,41 +71,41 @@
 }
 
 @media print{
-	.orange-border{
-		display: none;
-	}
-	.stat-block,
-	.stat-block.wide,
-	.stat-block.wide .section-left,
-	.stat-block.wide .section-right,
-	.property-line,
-	.property-block{
+	.statBlock,
+	.statBlock.wide,
+	.statBlock.wide .section-left,
+	.statBlock.wide .section-right,
+	.propertyLine,
+	.propertyBlock{
 		width: 100%;
 		display: block;
 	}
-	.stat-block.wide .section-left{
+	.statBlock.wide .section-left{
 	  margin: 0;
 	}
-	.stat-block.wide .section-right{
+	.statBlock.wide .section-right{
 	  margin: 0;
 	}
-	.stat-block{
+	.statBlock{
 		width: 40%;
 		display: inline-block;
 		vertical-align: top;
 	}
-	.stat-block.wide{
+	.statBlock.wide{
 		page-break-after: always;
 	}
 }
 @media screen and (max-width: 575px){
-	.stat-block{
+	.statBlock{
 		margin: 20px 0;
 	}
 }
 
 /* CUSTOM STYLING FOR MONSTER DETAIL */
-/* TODO animation for rollable highlight and more styling */
+/*
+TODO animation for rollable highlight and more styling
+TODO subtract the height of the navbar
+*/
 .MonsterDetail {
   background-color: #FCF0DB;
   overflow: scroll;
@@ -120,7 +120,7 @@
   border: solid 1px black;
   background-color: #E3982B;
 }
-.creature-heading {
+.creatureHeading {
   padding-top:5px;
 }
 .listing * {

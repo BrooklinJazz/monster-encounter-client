@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchBar from '../../containers/SearchBar'
+// import SearchBar from '../../containers/SearchBar'
 import MonsterList from '../../containers/MonsterList'
 import CombatantList from '../../containers/CombatantList'
 import Rolls from '../../containers/Rolls'
@@ -9,7 +9,7 @@ function HomePage(props) {
   return (
     <div className="row">
       <div className="col-sm-4">
-        <SearchBar/>
+
         <MonsterList/>
       </div>
       <div className="col-sm-4">
