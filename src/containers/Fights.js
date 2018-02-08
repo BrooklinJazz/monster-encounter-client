@@ -11,6 +11,9 @@ class Fights extends Component {
 
     this.getFights = this.getFights.bind(this);
 
+    this.deleteFightSave = this.deleteFightSave.bind(this);
+    this.loadSave = this.loadSave.bind(this);
+
   }
 
   componentWillMount() {
@@ -24,7 +27,7 @@ class Fights extends Component {
   // NOTE make this fetch request without a local function?
   getFights() {
     const {user = []} = this.props
-    console.log('GET FIGHTS CALLED');
+
     fetch(
       `${BASE_URL}/users/${user.id}/combats`,
       {
@@ -38,9 +41,16 @@ class Fights extends Component {
 
     .then(res => this.props.updateFights(res))
   }
+
+  loadSave(fightId) {
+    this.getFightJSON(fightId)
+    .then(() => this.props.history.push('/'))
+  }
+
   getFightJSON(fightId) {
     const {user = []} = this.props
-    fetch(
+    return fetch(
+
       `${BASE_URL}/users/${user.id}/combats/${fightId}`,
       {
         method: 'GET',
@@ -53,6 +63,22 @@ class Fights extends Component {
     .then(res => this.props.renderSavedCombat(res))
   }
 
+  deleteFightSave(fightId) {
+    const {user = []} = this.props
+    fetch(
+      `${BASE_URL}/users/${user.id}/combats/${fightId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    )
+    // .then(res => console.log('hey'))
+    .then(res => this.getFights())
+    // .then(res => this.props.renderSavedCombat(res))
+  }
+
   render() {
 
     if(this.props.fights.length === 0){
@@ -62,24 +88,28 @@ class Fights extends Component {
     return (
       <div>
         <h1>Fights</h1>
-          {this.props.fights.map(fight => {
-            return (
-              <div>
-                <button
-                  onClick={() => this.getFightJSON(fight.id)}
-                  >
-                    {
-                      fight.name ? fight.name :<div>Save File: <Moment format="MMMM Do YYYY, h:mm:ss a">{fight.created_at}</Moment></div>
-                    }
-                  </button>
-                  <button
-                    onClick={this.getFights}
-                    >
-                      GetFights
-                    </button>
-              </div>
-            )
-          })}
+        {this.props.fights.map(fight => {
+          console.log(fight);
+          return (
+            <div>
+              {
+                fight.name ? fight.name :<div>Save File: <Moment format="MMMM Do YYYY, h:mm:ss a">{fight.created_at}</Moment></div>
+              }
+              <button
+                onClick={() => {
+                  this.loadSave(fight.id)
+                  // this.getFightJSON(fight.id)
+                }
+                } >
+                Load Save
+              </button>
+              <button
+                onClick={() => this.deleteFightSave(fight.id)}>
+                Delete Save
+              </button>
+            </div>
+          )
+        })}
       </div>
     )
   }

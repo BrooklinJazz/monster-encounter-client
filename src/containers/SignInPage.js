@@ -23,12 +23,16 @@ class SignInPage extends Component {
   createToken (event) {
     event.preventDefault();
     const {email, password} = this.state;
+    const {onSignIn = () => {}} = this.props;
     Token
       .create({email, password})
       .then(data => {
         if (!data.error) {
           const {jwt} = data;
           localStorage.setItem('jwt', jwt);
+          onSignIn();
+          this.setState({email: "", password: ""});
+
           this.props.history.push("/");
         }
       });
@@ -36,6 +40,17 @@ class SignInPage extends Component {
 
   render () {
     const {email, password} = this.state;
+    const {user} = this.props;
+
+    // TODO, change this to redirect
+    if (user) {
+      return (
+        <div>
+          You've already signed in, sign out to access this page.
+        </div>
+      );
+    }
+
     return (
       <main
         className="SignInPage"

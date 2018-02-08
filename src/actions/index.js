@@ -49,4 +49,3 @@ createAction(Types.CLEAR_ROLLS, { payload })
 // Actions related to Fights (Save Files)
 export const updateFights = payload =>
 createAction(Types.UPDATE_FIGHTS, { payload })
-

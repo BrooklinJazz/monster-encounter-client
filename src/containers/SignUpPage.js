@@ -25,8 +25,11 @@ class SignUpPage extends Component {
   }
 
   signUp(event) {
+    // create the user
     event.preventDefault()
     const params = this.state
+    const {onSignIn = () => {}} = this.props;
+
     console.log(params);
     // TODO sign up is not saving user password has encrypted
     const {email, password} = this.state;
@@ -50,7 +53,7 @@ class SignUpPage extends Component {
           // this changes the url but the page doesn't load
         }
       })
-      .then(data => this.props.onSignIn())
+      .then(data => onSignIn())
       .then(data => {
         this.props.history.push("/");
       })
@@ -59,6 +62,17 @@ class SignUpPage extends Component {
 
   render () {
     const {first_name, last_name, email, password} = this.state;
+    const {user} = this.props;
+
+    // TODO, change this to redirect
+    if (user) {
+      return (
+        <div>
+          You've already signed in, sign out to access this page.
+        </div>
+      );
+    }
+
     return (
       <main
         className="SignUpPage"

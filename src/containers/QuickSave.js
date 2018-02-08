@@ -4,21 +4,12 @@ import { connect } from "react-redux";
 import * as actions from "../actions/index"
 const BASE_URL = 'http://localhost:3000/api/v1'
 
-class SaveFight extends Component {
+class QuickSave extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-        name: ''
-    }
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.getFights = this.getFights.bind(this);
-
-  }
-
-  handleChange(event) {
-    this.setState({name: event.target.value});
   }
 
   getFights() {
@@ -37,12 +28,11 @@ class SaveFight extends Component {
   }
 
 
-
-  handleSubmit(event) {
+  handleClick(event) {
     event.preventDefault()
 
     const newCombat = {
-      name: this.state.name, fight:this.props.CombatantList, user_id:this.props.user.id
+      name: '', fight:this.props.CombatantList, user_id:this.props.user.id
     }
 
     Combat
@@ -55,14 +45,9 @@ class SaveFight extends Component {
   render() {
     return (
       <div>
-        <h2>SaveFight</h2>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-            <input type="text" name="name" onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Submit"/>
-        </form>
+        <div onClick={this.handleClick}>
+          Quick Save
+        </div>
       </div>
     )
   }
@@ -83,4 +68,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SaveFight);
+export default connect(mapStateToProps, mapDispatchToProps)(QuickSave);
