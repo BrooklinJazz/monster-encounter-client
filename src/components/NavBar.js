@@ -6,6 +6,7 @@ import { Button } from 'reactstrap';
 import InitiativeRoll from '../containers/InitiativeRoll'
 import QuickSave from '../containers/QuickSave'
 
+
 function NavBar(props) {
   const {user, onSignOutClick = () => {}} = props;
 
@@ -23,10 +24,12 @@ function NavBar(props) {
     <Button color="default">
       <Link to="/">Home</Link>
     </Button>
+
     <Button color="default">
       <Link to="/saves">Save Files</Link>
     </Button>
     <QuickSave user={user} />
+    
     <Link to="/combat">Combat Mode</Link>
     <ClearRolls />
     <ClearCombatant />

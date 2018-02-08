@@ -29,6 +29,7 @@ class SignUpPage extends Component {
     event.preventDefault()
     const params = this.state
     const {onSignIn = () => {}} = this.props;
+
     console.log(params);
     // TODO sign up is not saving user password has encrypted
     const {email, password} = this.state;
@@ -71,6 +72,7 @@ class SignUpPage extends Component {
         </div>
       );
     }
+
     return (
       <main
         className="SignUpPage"

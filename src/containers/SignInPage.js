@@ -24,7 +24,6 @@ class SignInPage extends Component {
     event.preventDefault();
     const {email, password} = this.state;
     const {onSignIn = () => {}} = this.props;
-    console.log(this.props.history);
     Token
       .create({email, password})
       .then(data => {
@@ -33,6 +32,7 @@ class SignInPage extends Component {
           localStorage.setItem('jwt', jwt);
           onSignIn();
           this.setState({email: "", password: ""});
+
           this.props.history.push("/");
         }
       });
@@ -50,6 +50,7 @@ class SignInPage extends Component {
         </div>
       );
     }
+
     return (
       <main
         className="SignInPage"

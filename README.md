@@ -43,17 +43,20 @@ import {
 } from 'react-router-dom';
 ```
 ### react-moment
+
 ```js
 // import:
 import Moment from 'react-moment';
 ```
 
 ### react-string-replace
+
 ```js
-const reactStringReplace = require('react-string-replace')
+// import:
+import Moment from 'react-moment';
 ```
 ### reactstrap
 ```js
 // import Where Button is the Component that you want to import
 import { Button } from 'reactstrap';
-```
+
