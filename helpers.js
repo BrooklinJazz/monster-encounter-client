@@ -68,6 +68,7 @@ export const replaceRollsRegex = (str) => {
       <PowerRoll style={{ color: 'red' }} roll={match}></PowerRoll>
     ))
   }
+  console.log('rea', replacedText);
   return replacedText
 }
 

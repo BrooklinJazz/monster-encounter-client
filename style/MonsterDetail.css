@@ -1,3 +1,4 @@
+/* IMPORTED STATBLOCK STYLING */
 .property-line{
   text-indent: -1em;
   padding-left: 1.1em;
@@ -34,7 +35,13 @@
 }
 .property-block h4,
 .property-block p{
-  font-size: 13.5px;
+  font-size: 15px;
+  line-height: 1.2em;
+  display: inline;
+  margin: 0;
+}
+.property-block-text * {
+  font-size: 15px;
   line-height: 1.2em;
   display: inline;
   margin: 0;
@@ -43,7 +50,7 @@
   font-style: italic;
 }
 .property-block{
-  padding: 10px 2px 0;
+  /* padding: 10px 2px 0; */
 }
 .actions h3{
   border-bottom: 1px solid #7A200D;
@@ -52,12 +59,12 @@
   font-variant: small-caps;
   font-weight: normal;
   letter-spacing: 1px;
-  margin: 20px 0 0;
+  /* margin: 20px 0 0; */
   padding: 0 0 10px;
   text-indent: 5px;
 }
-.actions{
-  margin: 0 0 20px;
+.actions * div{
+  display:inline;
 }
 .actions:last-child{
   margin: 0;
@@ -95,4 +102,36 @@
 	.stat-block{
 		margin: 20px 0;
 	}
+}
+
+/* CUSTOM STYLING FOR MONSTER DETAIL */
+/* TODO animation for rollable highlight and more styling */
+.MonsterDetail {
+  background-color: #FCF0DB;
+  overflow: scroll;
+  max-height: 100vh;
+  border-radius: 10px;
+  padding:10px;
+}
+
+.OrangeBar {
+  width:100%;
+  height:10px;
+  border: solid 1px black;
+  background-color: #E3982B;
+}
+.creature-heading {
+  padding-top:5px;
+}
+.rollable {
+  font-weight: bold;
+}
+.listing * {
+  display: inline;
+}
+/* TODO change the decoration style and add a hover style */
+.rollableUnderline {
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-style: dotted;
 }

@@ -10,11 +10,12 @@ class Stat extends Component {
   render() {
     const {Name = '', Value = 0} = this.props
     return (
-      <div className="statRow">
-        <strong className="statName">{Name}</strong>
-        <div className="statValue"
-          onClick={() => this.props.d20Roll(convScoreToMod(Value))}
-          >{Value}</div>
+      <div
+        onClick={() => this.props.d20Roll(convScoreToMod(Value))}>
+        <h4>{Name}</h4>
+        <p>
+          {Value}
+        </p>
       </div>
     )
   }
@@ -36,7 +37,7 @@ function mapDispatchToProps(dispatch) {
   // of our reducers
   return {
     d20Roll: payload =>
-      dispatch(actions.d20Roll(payload)),
+    dispatch(actions.d20Roll(payload)),
   };
 }
 
