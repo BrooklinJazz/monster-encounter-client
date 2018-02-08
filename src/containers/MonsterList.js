@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import Monster from "../components/Monster"
 import * as actions from "../actions/index";
 import { bindActionCreators } from "redux";
+import { ListGroup, ListGroupItem } from 'reactstrap';
+
 
 
 class MonsterList extends Component {
@@ -26,19 +28,16 @@ class MonsterList extends Component {
     // })
     .map(monster => {
       return (
-        <li
-          key={monster.Name}
-          onClick={() => this.props.addMonsterToCombatants(monster)}
-          className="list-group-item"
-          >
-            <Monster monster={monster}/>
-          </li>
+            <Monster
+              monster={monster}
+              key={monster.Name}
+              onClick={() => this.props.addMonsterToCombatants(monster)}/>
         );
       });
     }
 
     render() {
-      return <ul className="list-group">{this.renderList()}</ul>;
+      return <ListGroup>{this.renderList()}</ListGroup>
     }
   }
   function mapStateToProps(state) {

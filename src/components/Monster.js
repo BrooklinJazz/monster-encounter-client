@@ -3,13 +3,14 @@ import React from "react";
 // import { selectCombatant } from "../actions/index";
 // import * as actions from "../actions/index";
 // import { bindActionCreators } from "redux";
+import {ListGroup, ListGroupItem} from 'reactstrap'
 
 function Monster(props) {
   const {monster = {}} = props
   return (
-    <div>
+    <ListGroupItem>
       {monster.Name}
-    </div>
+    </ListGroupItem>
   )
 }
 
