@@ -65,8 +65,8 @@ class MonsterDetail extends Component {
 				<OrangeBar />
 
 				<div className="creature-heading">
-					<h1>{Name}</h1>
-					<h2>{Type}</h2>
+					<h3><strong>{Name}</strong></h3>
+					<div>{Type}</div>
 				</div>
 
 

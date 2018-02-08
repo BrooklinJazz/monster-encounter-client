@@ -11,7 +11,7 @@ class PowerRoll extends Component {
     const {roll} = this.props
 
     return (
-      <div className="PowerRoll rollable"
+      <div className="PowerRoll rollableUnderline"
         onClick={() => this.props.sidedDiceRoll(roll)}
         >
           {roll}
