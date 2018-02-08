@@ -14,6 +14,7 @@ class SaveFight extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getFights = this.getFights.bind(this);
+
   }
 
   handleChange(event) {
@@ -34,6 +35,7 @@ class SaveFight extends Component {
     .then(res => res.json())
     .then(res => this.props.updateFights(res))
   }
+
 
 
   handleSubmit(event) {

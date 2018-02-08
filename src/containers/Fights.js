@@ -10,6 +10,7 @@ class Fights extends Component {
     super(props)
 
     this.getFights = this.getFights.bind(this);
+
     this.deleteFightSave = this.deleteFightSave.bind(this);
     this.loadSave = this.loadSave.bind(this);
 
@@ -26,7 +27,7 @@ class Fights extends Component {
   // NOTE make this fetch request without a local function?
   getFights() {
     const {user = []} = this.props
-    // console.log('GET FIGHTS CALLED');
+
     fetch(
       `${BASE_URL}/users/${user.id}/combats`,
       {
@@ -37,6 +38,7 @@ class Fights extends Component {
       }
     )
     .then(res => res.json())
+
     .then(res => this.props.updateFights(res))
   }
 
@@ -48,6 +50,7 @@ class Fights extends Component {
   getFightJSON(fightId) {
     const {user = []} = this.props
     return fetch(
+
       `${BASE_URL}/users/${user.id}/combats/${fightId}`,
       {
         method: 'GET',
