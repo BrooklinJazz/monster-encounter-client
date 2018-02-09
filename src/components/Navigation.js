@@ -29,7 +29,7 @@ function NavBar(props) {
   return (
     <div>
       <Navbar color="faded" light expand="md">
-        <NavbarBrand tag={Link} to="/">Roll Initiative</NavbarBrand>
+        <NavbarBrand tag={Link} to="/">D&D Battle Master</NavbarBrand>
         <Nav className="ml-auto" navbar>
           <NavItem className="navItem">
             <NavLink tag={Link} to="/">Home</NavLink>

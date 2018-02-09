@@ -99,3 +99,7 @@ class ExampleComponent extends React.Component {
   }
 }
 ```
+### reactstrap
+```js
+// import Where Button is the Component that you want to import
+import { Button } from 'reactstrap';

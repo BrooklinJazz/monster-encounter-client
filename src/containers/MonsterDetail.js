@@ -19,7 +19,6 @@ class MonsterDetail extends Component {
 		if (!monster) {
 			return <div>Select a monster to get started</div>;
 		}
-		console.log(monster);
 		// this must be below if statement or it will be defined when monster is empty
 		// NOTE InitiativeModifier is always 0 in JSON?
 		// TODO make a component for Senses and Speed. they currently render an array without spaces
