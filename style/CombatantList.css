@@ -1,0 +1,22 @@
+.clearCombatants {
+  color: red;
+}
+.clearCombatant {
+  color: orange;
+}
+.initiativeRoll {
+  color: green;
+}
+.monsterDamageInput {
+  width: 60px;
+}
+.monsterDamageSelect {
+  color:green;
+  text-align: center;
+  margin: 0 25px 0 25px;
+  border-radius: 10px;
+}
+.monsterDamageSelect:hover {
+  text-decoration: underline;
+  text-decoration-style: solid;
+}

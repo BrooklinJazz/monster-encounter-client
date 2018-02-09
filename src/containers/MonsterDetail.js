@@ -64,16 +64,16 @@ class MonsterDetail extends Component {
 
 				<OrangeBar />
 
-				<div className="creature-heading">
-					<h1>{Name}</h1>
-					<h2>{Type}</h2>
+				<div className="creatureHeading">
+					<h3><strong>{Name}</strong></h3>
+					<div>{Type}</div>
 				</div>
 
 
 
 				<SvgLine />
 
-				<PropertyLine Name="Armor Class" Value={HP.Value} Notes={HP.Notes} />
+				<PropertyLine Name="Armor Class" Value={AC.Value} Notes={AC.Notes} />
 				<PropertyLine Name="Hit Points" Value={HP.Value} Notes={HP.Notes} />
 				<PropertyLine Name="Speed" Value={Speed} />
 

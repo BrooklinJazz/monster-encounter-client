@@ -17,6 +17,7 @@
 
 ## Packages:
 ### redux-persist
+- no longer using
 ```js
 import {persistStore, autoRehydrate} from 'redux-persist'
 
@@ -57,6 +58,48 @@ import Moment from 'react-moment';
 ```
 ### reactstrap
 ```js
+import { Button } from 'reactstrap';
+// import Where Button is the Component that you want to import
+```
+### react-fontawesome
+```js
+var React = require('react')
+var FontAwesome = require('react-fontawesome')
+
+var MyComponent = React.createClass({
+  render: function() {
+    return (
+      <FontAwesome
+        className="super-crazy-colors"
+        name="rocket"
+        size="2x"
+        spin
+        style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+      />
+    )
+  },
+})
+```
+## react-onclickout
+```js
+const ClickOutHandler = require('react-onclickout');
+
+class ExampleComponent extends React.Component {
+
+  onClickOut(e) {
+    alert('user clicked outside of the component!');
+  }
+
+  render() {
+    return (
+      <ClickOutHandler onClickOut={this.onClickOut}>
+        <div>Click outside of me!</div>
+      </ClickOutHandler>
+    );
+  }
+}
+```
+### reactstrap
+```js
 // import Where Button is the Component that you want to import
 import { Button } from 'reactstrap';
-

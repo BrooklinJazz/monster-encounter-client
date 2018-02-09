@@ -1,0 +1,10 @@
+.navItem {
+  list-style: none !important;
+  list-style-type: none !important;
+}
+.userName {
+  color:grey !important;
+}
+.signing {
+  color:#1E63B7 !important;
+}

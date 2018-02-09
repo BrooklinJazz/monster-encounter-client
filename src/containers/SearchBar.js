@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions/index"
+import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 
 
 class SearchBar extends Component {
@@ -12,11 +13,15 @@ class SearchBar extends Component {
   }
   render() {
      return (
-       <div>
-       <input
+       <InputGroup
+         className="searchBar"
+         >
+       <Input
+         className="searchBarInput"
          value={this.props.searchTerm}
+         placeholder="Filter..."
          onChange={event => this.props.updateSearchTerm(event.target.value)} />
-       </div>
+       </InputGroup>
      )
    }
 }

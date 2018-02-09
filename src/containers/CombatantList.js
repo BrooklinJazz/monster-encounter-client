@@ -3,6 +3,12 @@ import {connect} from "react-redux";
 import * as actions from "../actions/index"
 // import DamageInput from "../components/damage-input";
 import Combatant from "../containers/Combatant"
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Table } from 'reactstrap';
+import InitiativeRoll from './InitiativeRoll'
+import ClearCombatant from './ClearCombatant'
+import FontAwesome from 'react-fontawesome'
+
 
 // import { selectCombatant } from '../actions/index';
 // import { bindActionCreators} from 'redux';
@@ -18,11 +24,7 @@ class CombatantList extends Component {
     const {CombatantList = []} = this.props
     return CombatantList.map((combatant, index) => {
       return (
-        <div key={index}>
-          <li className="list-group-item">
-            <Combatant combatant={combatant} index={index}/>
-          </li>
-        </div>
+            <Combatant key={index} combatant={combatant} index={index}/>
       )
     });
   }
@@ -32,7 +34,46 @@ class CombatantList extends Component {
       return <div>Select a CombatantList to get started</div>;
     }
     // if there are combatants in Combatant list then render the list
-    return <ul className="list-group">{this.renderList()}</ul>;
+    return (
+      <div>
+        <Table hover striped>
+          <thead>
+            <tr>
+              <th className="col-xs-1"><InitiativeRoll /></th>
+              <th className="col-xs-4">
+                <FontAwesome
+                  name="optin-monster"
+                  size="2x"
+                  style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                />
+              </th>
+              <th className="col-xs-3 textCenter">
+                <FontAwesome
+                  name="heart"
+                  size="2x"
+                  style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                />
+              </th>
+              <th className="col-xs-2">
+                <FontAwesome
+                  className="text-center"
+                  name="shield"
+                  size="2x"
+                  style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                />
+              </th>
+              {/* this table head allows space for delete button */}
+              <th className="col-xs-2"><ClearCombatant /></th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderList()}
+          </tbody>
+        </Table>
+
+      </div>
+    )
+    // return <ListGroup>{this.renderList()}</ListGroup>;
   }
 }
 

@@ -1,0 +1,12 @@
+
+.container {
+    max-width: 90vw !important;
+}
+@media (min-width: 1350px) {
+    .container {
+        max-width: 100vw !important;
+    }
+}
+.textCenter {
+  text-align: center;
+}

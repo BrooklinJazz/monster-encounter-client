@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as actions from "../actions/index"
+import FontAwesome from 'react-fontawesome'
 
 class ClearCombatant extends Component {
   constructor(props) {
@@ -8,10 +9,13 @@ class ClearCombatant extends Component {
   }
   render() {
     return (
-      <button
-        className="btn btn-default"
+      <FontAwesome
         onClick={() => this.props.clearCombatants()}
-        >Clear Combatants</button>
+        className="clearCombatants"
+        name='trash'
+        size='2x'
+        style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+      />
     )
   }
 }

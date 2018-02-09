@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import * as actions from "../actions/index"
+import FontAwesome from 'react-fontawesome'
+import ClickOutHandler from 'react-onclickout'
 class Combatant extends Component {
   constructor(props) {
     super(props);
@@ -8,42 +10,72 @@ class Combatant extends Component {
       showComponent: false
     };
     this._onButtonClick = this._onButtonClick.bind(this);
+    this.onClickOut = this.onClickOut.bind(this);
     // expected that I would need to bind function, but do not seem to.
     // this._handleSubmit = this._handleSubmit.bind(this);
   }
+
+  onClickOut(e) {
+    this.setState({showComponent: false});
+  }
+
   render() {
 
     const {combatant = {}, index} = this.props;
 
     return (
-      <div
-        onClick={() => this.props.selectCombatant(combatant)}
-        >
-          <p>{combatant.InitiativeRoll}</p>
-          <p>{combatant.Name}</p>
-          {
-            this.state.showComponent
-            ?
-            <form
-              onClick={(e) => e.stopPropagation()}
-              onSubmit={(e) => this._handleSubmit(e)}>
-              <input type="number" autoFocus name="hpChange"
-                onChange={(e) => this._handleChange(e)}
-              />
-            </form>
-            :
-            <p onClick={this._onButtonClick}>Current: {combatant.currentHp}</p>
-          }
-          <p>Max: {combatant.HP.Value}</p>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              this.props.removeCombatant({combatant, index: index})
+      <tr
+        onClick={() => this.props.selectCombatant(combatant)}>
+        <th
+          className="col-xs-1"
+          scope="row">{combatant.InitiativeRoll || '#'}</th>
+          <td className="col-xs-4">
+            {combatant.Name}
+          </td>
+          <td
+            className="col-xs-3 textCenter">
+            {
+              this.state.showComponent
+              ?
+              <form
+                onClick={(e) => e.stopPropagation()}
+                onSubmit={(e) => this._handleSubmit(e)}>
+                <ClickOutHandler onClickOut={this.onClickOut}>
+                  <input
+                    className="monsterDamageInput"
+                    type="number"
+                    autoFocus
+                    name="hpChange"
+                    onChange={(e) => this._handleChange(e)}/>
+                  </ClickOutHandler>
+                </form>
+                :
+                <div
+                  className="monsterDamageSelect"
+                  onClick={this._onButtonClick}>
+                  {combatant.currentHp}/{combatant.HP.Value}
+              </div>
             }
-          }>
-          Delete
-        </button>
-      </div>
+          </td>
+          <td
+            className="col-xs-2">
+            {combatant.AC.Value}
+          </td>
+          <td className="col-xs-2">
+            <FontAwesome
+              onClick={() => this.props.clearCombatants()}
+              className="clearCombatant"
+              name='minus-circle'
+              size='2x'
+              style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+              onClick={ (e) => {
+                e.stopPropagation();
+                this.props.removeCombatant({combatant, index: index})
+              }
+            }
+          />
+        </td>
+      </tr>
     )
   }
 

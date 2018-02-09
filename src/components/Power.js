@@ -11,10 +11,10 @@ class Power extends Component {
     const {Title = ''} = this.props
     const ArrOfObjMap = ArrOfObj.map( obj => {
       return (
-        <div className="property-block" key={obj.Name}>
+        <div className="propertyBlock" key={obj.Name}>
           {/* <div > */}
           <h4><strong>{obj.Name} </strong></h4>
-          <div className="property-block-text">
+          <div className="propertyBlock-text">
             {replaceRollsRegex(obj.Content)}
           </div>
           {/* </div> */}

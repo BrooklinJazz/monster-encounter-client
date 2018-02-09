@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { selectCombatant } from "../actions/index";
-import Monster from "../components/Monster"
+// import Monster from "../components/Monster"
 import * as actions from "../actions/index";
 import { bindActionCreators } from "redux";
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import SearchBar from './SearchBar'
+
 
 
 class MonsterList extends Component {
@@ -15,7 +18,7 @@ class MonsterList extends Component {
     } = this.props
     return monsters
     .filter(monster =>
-      monster.Name.toLowerCase().includes(this.props.searchTerm)
+      monster.Name.toLowerCase().includes(this.props.searchTerm.toLowerCase())
     )
     // .sort(function (a, b) {
     //   if (true) {
@@ -26,19 +29,25 @@ class MonsterList extends Component {
     // })
     .map(monster => {
       return (
-        <li
+        <ListGroupItem
           key={monster.Name}
           onClick={() => this.props.addMonsterToCombatants(monster)}
-          className="list-group-item"
+          className="monsterListGroupItem"
           >
-            <Monster monster={monster}/>
-          </li>
+            {monster.Name}
+          </ListGroupItem>
         );
       });
     }
 
     render() {
-      return <ul className="list-group">{this.renderList()}</ul>;
+      return (
+        <div className="monsterList">
+          <h2>Library</h2>
+          <SearchBar/>
+          <ListGroup className="monsterListGroup">{this.renderList()}</ListGroup>
+        </div>
+      )
     }
   }
   function mapStateToProps(state) {
