@@ -130,5 +130,10 @@ TODO subtract the height of the navbar
 .rollableUnderline {
   font-weight: bold;
   text-decoration: underline;
-  text-decoration-style: dotted;
+  text-decoration-style: solid;
+}
+.rollableUnderline:hover {
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-style: dashed;
 }

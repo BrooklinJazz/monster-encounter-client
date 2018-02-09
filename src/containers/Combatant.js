@@ -42,6 +42,7 @@ class Combatant extends Component {
                 onSubmit={(e) => this._handleSubmit(e)}>
                 <ClickOutHandler onClickOut={this.onClickOut}>
                   <input
+                    className="monsterDamageInput"
                     type="number"
                     autoFocus
                     name="hpChange"
@@ -49,7 +50,10 @@ class Combatant extends Component {
                   </ClickOutHandler>
                 </form>
                 :
-                <div onClick={this._onButtonClick}> {combatant.currentHp}/{combatant.HP.Value}
+                <div
+                  className="monsterDamageSelect"
+                  onClick={this._onButtonClick}>
+                  {combatant.currentHp}/{combatant.HP.Value}
               </div>
             }
           </td>
