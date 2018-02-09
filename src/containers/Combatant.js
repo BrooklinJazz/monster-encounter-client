@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import * as actions from "../actions/index"
+import FontAwesome from 'react-fontawesome'
 class Combatant extends Component {
   constructor(props) {
     super(props);
@@ -16,12 +17,17 @@ class Combatant extends Component {
     const {combatant = {}, index} = this.props;
 
     return (
-      <tbody>
-          <tr
-            onClick={() => this.props.selectCombatant(combatant)}>
-            <th scope="row">{combatant.InitiativeRoll || '#'}</th>
-            <td>{combatant.Name}</td>
-            <td>
+        <tr
+          onClick={() => this.props.selectCombatant(combatant)}>
+        <th
+          className="col-xs-1"
+           scope="row">{combatant.InitiativeRoll || '#'}</th>
+            <td
+              className="col-xs-4"
+              >{combatant.Name}</td>
+            <td
+              className="col-xs-3 textCenter"
+              >
               {
               this.state.showComponent
               ?
@@ -37,21 +43,31 @@ class Combatant extends Component {
         }
 
             </td>
-            <td>
+            <td
+              className="col-xs-2"
+              >
               {combatant.AC.Value}
             </td>
-            <td>
-              <button
-              onClick={(e) => {
-              e.stopPropagation();
-              this.props.removeCombatant({combatant, index: index})
-            }
+            <td
+              className="col-xs-2"
+              >
+              <FontAwesome
+                onClick={() => this.props.clearCombatants()}
+                className="clearCombatant"
+                name='minus-circle'
+                size='2x'
+                style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                onClick={(e) => {
+                e.stopPropagation();
+                this.props.removeCombatant({combatant, index: index})}}
+              />
+              {/* <button
+
           }>
           Delete
-        </button>
+        </button> */}
             </td>
           </tr>
-          </tbody>
     )
   }
 

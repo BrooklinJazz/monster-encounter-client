@@ -12,8 +12,8 @@ class InitiativeRoll extends Component {
     return (
         <FontAwesome
           onClick={() => this.props.rollInitiatives()}
-          className="super-crazy-colors"
-          name="play-circle"
+          className="initiativeRoll"
+          name="sort"
           size="2x"
           style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
         />

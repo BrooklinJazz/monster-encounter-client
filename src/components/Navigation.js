@@ -47,9 +47,9 @@ function NavBar(props) {
           <NavItem className="navItem">
             <NavLink><ClearRolls /></NavLink>
           </NavItem>
-          <NavItem className="navItem">
+          {/* <NavItem className="navItem">
             <NavLink><ClearCombatant /></NavLink>
-          </NavItem>
+          </NavItem> */}
 
         {
           user ? ([

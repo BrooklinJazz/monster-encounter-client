@@ -6,6 +6,8 @@ import Combatant from "../containers/Combatant"
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Table } from 'reactstrap';
 import InitiativeRoll from './InitiativeRoll'
+import ClearCombatant from './ClearCombatant'
+import FontAwesome from 'react-fontawesome'
 
 
 // import { selectCombatant } from '../actions/index';
@@ -37,15 +39,36 @@ class CombatantList extends Component {
         <Table>
           <thead>
             <tr>
-              <th>Initiative</th>
-              <th>Combatant</th>
-              <th>Health</th>
-              <th>AC</th>
+              <th className="col-xs-1"><InitiativeRoll /></th>
+              <th className="col-xs-4">
+                <FontAwesome
+                  name="optin-monster"
+                  size="2x"
+                  style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                />
+              </th>
+              <th className="col-xs-3 textCenter">
+                <FontAwesome
+                  name="heart"
+                  size="2x"
+                  style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                />
+              </th>
+              <th className="col-xs-2">
+                <FontAwesome
+                  className="text-center"
+                  name="shield"
+                  size="2x"
+                  style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                />
+              </th>
               {/* this table head allows space for delete button */}
-              <th><InitiativeRoll /></th>
+              <th className="col-xs-2"><ClearCombatant /></th>
             </tr>
           </thead>
-          {this.renderList()}
+          <tbody>
+            {this.renderList()}
+          </tbody>
         </Table>
 
       </div>

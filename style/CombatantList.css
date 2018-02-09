@@ -1,0 +1,12 @@
+.clearCombatants {
+  color: red;
+}
+.clearCombatant {
+  color: orange;
+}
+.initiativeRoll {
+  color: green;
+}
+.textCenter {
+  text-align: center;
+}
