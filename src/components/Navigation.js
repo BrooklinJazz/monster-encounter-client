@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import ClearRolls from '../containers/ClearRolls'
 import ClearCombatant from '../containers/ClearCombatant';
 import { Button } from 'reactstrap';
-import InitiativeRoll from '../containers/InitiativeRoll'
 import QuickSave from '../containers/QuickSave'
 import {
   Collapse,
@@ -51,9 +50,7 @@ function NavBar(props) {
           <NavItem className="navItem">
             <NavLink><ClearCombatant /></NavLink>
           </NavItem>
-          {/* <NavItem className="navItem">
-          <NavLink><InitiativeRoll /></NavLink>
-        </NavItem> */}
+
         {
           user ? ([
             <div>

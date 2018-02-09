@@ -5,6 +5,8 @@ import * as actions from "../actions/index"
 import Combatant from "../containers/Combatant"
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Table } from 'reactstrap';
+import InitiativeRoll from './InitiativeRoll'
+
 
 // import { selectCombatant } from '../actions/index';
 // import { bindActionCreators} from 'redux';
@@ -39,7 +41,8 @@ class CombatantList extends Component {
               <th>Combatant</th>
               <th>Health</th>
               <th>AC</th>
-              <th>Delete</th>
+              {/* this table head allows space for delete button */}
+              <th><InitiativeRoll /></th>
             </tr>
           </thead>
           {this.renderList()}

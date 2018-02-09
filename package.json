@@ -34,6 +34,7 @@
     "moment": "^2.20.1",
     "react": "^0.14.9",
     "react-dom": "^0.14.9",
+    "react-fontawesome": "^1.6.1",
     "react-moment": "^0.7.0",
     "react-redux": "4.3.0",
     "react-router": "^2.0.1",
