@@ -12,7 +12,7 @@ class CombatantList extends Component {
   constructor(props) {
     super(props);
   }
-
+  
 // renders a list of Combatants
   renderList() {
     const {CombatantList = []} = this.props

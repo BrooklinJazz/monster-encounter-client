@@ -73,7 +73,7 @@ class MonsterDetail extends Component {
 
 				<SvgLine />
 
-				<PropertyLine Name="Armor Class" Value={HP.Value} Notes={HP.Notes} />
+				<PropertyLine Name="Armor Class" Value={AC.Value} Notes={AC.Notes} />
 				<PropertyLine Name="Hit Points" Value={HP.Value} Notes={HP.Notes} />
 				<PropertyLine Name="Speed" Value={Speed} />
 
