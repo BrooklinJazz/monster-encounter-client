@@ -9,8 +9,8 @@ function SavePage(props) {
   return (
     <div className="row">
       <div className="col-sm-10">
-        <Fights user={user} history={history} />
         <SaveFight user={user} />
+        <Fights user={user} history={history} />
       </div>
     </div>
   )

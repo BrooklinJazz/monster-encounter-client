@@ -30,23 +30,27 @@ class QuickSave extends Component {
 
   handleClick(event) {
     event.preventDefault()
+    if (this.props.CombatantList.length === 0) {
+      alert('add some combatants before saving!')
+    } else {
 
-    const newCombat = {
-      name: '', fight:this.props.CombatantList, user_id:this.props.user.id
-    }
+      const newCombat = {
+        name: '', fight:this.props.CombatantList, user_id:this.props.user.id
+      }
 
-    Combat
+      Combat
       .create(newCombat)
       .then(dataDoesNotMatter => {
         this.getFights()
       })
+    }
   }
 
   render() {
     return (
-        <div onClick={this.handleClick}>
-          Quick Save
-        </div>
+      <div onClick={this.handleClick}>
+        Quick Save
+      </div>
     )
   }
 }
