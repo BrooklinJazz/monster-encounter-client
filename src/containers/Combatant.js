@@ -24,59 +24,54 @@ class Combatant extends Component {
     const {combatant = {}, index} = this.props;
 
     return (
-        <tr
-          onClick={() => this.props.selectCombatant(combatant)}>
+      <tr
+        onClick={() => this.props.selectCombatant(combatant)}>
         <th
           className="col-xs-1"
-           scope="row">{combatant.InitiativeRoll || '#'}</th>
-            <td
-              className="col-xs-4"
-              >{combatant.Name}</td>
-            <td
-              className="col-xs-3 textCenter"
-              >
-              {
+          scope="row">{combatant.InitiativeRoll || '#'}</th>
+          <td className="col-xs-4">
+            {combatant.Name}
+          </td>
+          <td
+            className="col-xs-3 textCenter">
+            {
               this.state.showComponent
               ?
               <form
-              onClick={(e) => e.stopPropagation()}
-              onSubmit={(e) => this._handleSubmit(e)}>
-              <ClickOutHandler onClickOut={this.onClickOut}>
-              <input type="number" autoFocus name="hpChange"
-              onChange={(e) => this._handleChange(e)}/>
-            </ClickOutHandler>
-          </form>
-          :
-          <div onClick={this._onButtonClick}> {combatant.currentHp}/{combatant.HP.Value}
-        </div>
-        }
-
-            </td>
-            <td
-              className="col-xs-2"
-              >
-              {combatant.AC.Value}
-            </td>
-            <td
-              className="col-xs-2"
-              >
-              <FontAwesome
-                onClick={() => this.props.clearCombatants()}
-                className="clearCombatant"
-                name='minus-circle'
-                size='2x'
-                style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-                onClick={(e) => {
+                onClick={(e) => e.stopPropagation()}
+                onSubmit={(e) => this._handleSubmit(e)}>
+                <ClickOutHandler onClickOut={this.onClickOut}>
+                  <input
+                    type="number"
+                    autoFocus
+                    name="hpChange"
+                    onChange={(e) => this._handleChange(e)}/>
+                  </ClickOutHandler>
+                </form>
+                :
+                <div onClick={this._onButtonClick}> {combatant.currentHp}/{combatant.HP.Value}
+              </div>
+            }
+          </td>
+          <td
+            className="col-xs-2">
+            {combatant.AC.Value}
+          </td>
+          <td className="col-xs-2">
+            <FontAwesome
+              onClick={() => this.props.clearCombatants()}
+              className="clearCombatant"
+              name='minus-circle'
+              size='2x'
+              style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+              onClick={ (e) => {
                 e.stopPropagation();
-                this.props.removeCombatant({combatant, index: index})}}
-              />
-              {/* <button
-
-          }>
-          Delete
-        </button> */}
-            </td>
-          </tr>
+                this.props.removeCombatant({combatant, index: index})
+              }
+            }
+          />
+        </td>
+      </tr>
     )
   }
 
