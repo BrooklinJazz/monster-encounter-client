@@ -80,3 +80,22 @@ var MyComponent = React.createClass({
   },
 })
 ```
+## react-onclickout
+```js
+const ClickOutHandler = require('react-onclickout');
+
+class ExampleComponent extends React.Component {
+
+  onClickOut(e) {
+    alert('user clicked outside of the component!');
+  }
+
+  render() {
+    return (
+      <ClickOutHandler onClickOut={this.onClickOut}>
+        <div>Click outside of me!</div>
+      </ClickOutHandler>
+    );
+  }
+}
+```

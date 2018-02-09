@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import * as actions from "../actions/index"
 import FontAwesome from 'react-fontawesome'
+import ClickOutHandler from 'react-onclickout'
 class Combatant extends Component {
   constructor(props) {
     super(props);
@@ -9,9 +10,15 @@ class Combatant extends Component {
       showComponent: false
     };
     this._onButtonClick = this._onButtonClick.bind(this);
+    this.onClickOut = this.onClickOut.bind(this);
     // expected that I would need to bind function, but do not seem to.
     // this._handleSubmit = this._handleSubmit.bind(this);
   }
+
+  onClickOut(e) {
+    this.setState({showComponent: false});
+  }
+
   render() {
 
     const {combatant = {}, index} = this.props;
@@ -34,8 +41,10 @@ class Combatant extends Component {
               <form
               onClick={(e) => e.stopPropagation()}
               onSubmit={(e) => this._handleSubmit(e)}>
+              <ClickOutHandler onClickOut={this.onClickOut}>
               <input type="number" autoFocus name="hpChange"
               onChange={(e) => this._handleChange(e)}/>
+            </ClickOutHandler>
           </form>
           :
           <div onClick={this._onButtonClick}> {combatant.currentHp}/{combatant.HP.Value}

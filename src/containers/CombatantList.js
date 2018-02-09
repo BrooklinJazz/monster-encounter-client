@@ -36,7 +36,7 @@ class CombatantList extends Component {
     // if there are combatants in Combatant list then render the list
     return (
       <div>
-        <Table>
+        <Table hover striped>
           <thead>
             <tr>
               <th className="col-xs-1"><InitiativeRoll /></th>
