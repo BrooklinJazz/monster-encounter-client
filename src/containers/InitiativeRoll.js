@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as actions from "../actions/index";
-import {Button} from 'reactstrap'
+// import {Button} from 'reactstrap'
 
 class InitiativeRoll extends Component {
   constructor(props) {
@@ -9,9 +9,9 @@ class InitiativeRoll extends Component {
   }
   render() {
     return (
-      <Button color="default"
+      <div
         onClick={() => this.props.rollInitiatives()}
-        >InitiativeRoll</Button>
+        >InitiativeRoll</div>
     )
   }
 }

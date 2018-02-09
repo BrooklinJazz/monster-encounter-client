@@ -10,7 +10,7 @@ import CombatantList from "../containers/CombatantList";
 import Rolls from "../containers/Rolls";
 import NotFoundPage from './NotFoundPage';
 import ClearCombatant from '../containers/ClearCombatant'
-import NavBar from './NavBar'
+import Navigation from './Navigation'
 import CombatantModeList from '../containers/CombatantModeList'
 import ClearRolls from '../containers/ClearRolls'
 
@@ -96,7 +96,7 @@ class App extends Component {
     return (
       <Router >
         <div className="App">
-          <NavBar
+          <Navigation
             user={user}
             onSignOutClick={this.signOut}
           />

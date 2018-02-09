@@ -44,11 +44,9 @@ class QuickSave extends Component {
 
   render() {
     return (
-      <div>
         <div onClick={this.handleClick}>
           Quick Save
         </div>
-      </div>
     )
   }
 }

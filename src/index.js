@@ -8,6 +8,7 @@ import Reactotron from "reactotron-react-js";
 
 import App from "./components/App";
 import rootReducer from "./reducers";
+// import 'bootstrap/dist/css/bootstrap.css';
 
 // const createStoreWithMiddleware = applyMiddleware()(createStore);
 const middleware = applyMiddleware();

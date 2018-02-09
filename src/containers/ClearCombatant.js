@@ -8,10 +8,9 @@ class ClearCombatant extends Component {
   }
   render() {
     return (
-      <button
-        className="btn btn-default"
+      <div
         onClick={() => this.props.clearCombatants()}
-        >Clear Combatants</button>
+        >Clear Combatants</div>
     )
   }
 }
