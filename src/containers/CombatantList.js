@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import * as actions from "../actions/index"
 // import DamageInput from "../components/damage-input";
 import Combatant from "../containers/Combatant"
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Table } from 'reactstrap';
 
 // import { selectCombatant } from '../actions/index';
 // import { bindActionCreators} from 'redux';
@@ -12,17 +14,13 @@ class CombatantList extends Component {
   constructor(props) {
     super(props);
   }
-  
+
 // renders a list of Combatants
   renderList() {
     const {CombatantList = []} = this.props
     return CombatantList.map((combatant, index) => {
       return (
-        <div key={index}>
-          <li className="list-group-item">
-            <Combatant combatant={combatant} index={index}/>
-          </li>
-        </div>
+            <Combatant key={index} combatant={combatant} index={index}/>
       )
     });
   }
@@ -32,7 +30,24 @@ class CombatantList extends Component {
       return <div>Select a CombatantList to get started</div>;
     }
     // if there are combatants in Combatant list then render the list
-    return <ul className="list-group">{this.renderList()}</ul>;
+    return (
+      <div>
+        <Table>
+          <thead>
+            <tr>
+              <th>Initiative</th>
+              <th>Combatant</th>
+              <th>Health</th>
+              <th>AC</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          {this.renderList()}
+        </Table>
+
+      </div>
+    )
+    // return <ListGroup>{this.renderList()}</ListGroup>;
   }
 }
 

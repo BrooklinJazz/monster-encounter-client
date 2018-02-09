@@ -16,34 +16,42 @@ class Combatant extends Component {
     const {combatant = {}, index} = this.props;
 
     return (
-      <div
-        onClick={() => this.props.selectCombatant(combatant)}
-        >
-          <p>{combatant.InitiativeRoll}</p>
-          <p>{combatant.Name}</p>
-          {
-            this.state.showComponent
-            ?
-            <form
+      <tbody>
+          <tr
+            onClick={() => this.props.selectCombatant(combatant)}>
+            <th scope="row">{combatant.InitiativeRoll || '#'}</th>
+            <td>{combatant.Name}</td>
+            <td>
+              {
+              this.state.showComponent
+              ?
+              <form
               onClick={(e) => e.stopPropagation()}
               onSubmit={(e) => this._handleSubmit(e)}>
               <input type="number" autoFocus name="hpChange"
-                onChange={(e) => this._handleChange(e)}
-              />
-            </form>
-            :
-            <p onClick={this._onButtonClick}>Current: {combatant.currentHp}</p>
-          }
-          <p>Max: {combatant.HP.Value}</p>
-          <button
-            onClick={(e) => {
+              onChange={(e) => this._handleChange(e)}/>
+          </form>
+          :
+          <div onClick={this._onButtonClick}> {combatant.currentHp}/{combatant.HP.Value}
+        </div>
+        }
+
+            </td>
+            <td>
+              {combatant.AC.Value}
+            </td>
+            <td>
+              <button
+              onClick={(e) => {
               e.stopPropagation();
               this.props.removeCombatant({combatant, index: index})
             }
           }>
           Delete
         </button>
-      </div>
+            </td>
+          </tr>
+          </tbody>
     )
   }
 
