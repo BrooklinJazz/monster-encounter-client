@@ -17,7 +17,6 @@ class MonsterList extends Component {
     }
     this.showMonsters = this.showMonsters.bind(this);
     this.showPlayers = this.showPlayers.bind(this);
-
   }
 
   showPlayers() {
