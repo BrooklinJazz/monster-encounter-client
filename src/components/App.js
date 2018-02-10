@@ -33,6 +33,7 @@ import Fights from '../containers/Fights'
 import SaveFight from '../containers/SaveFight'
 
 const serverUrl = 'http://localhost:3000/api/v1/monsters'
+const BASE_URL = 'http://localhost:3000/api/v1'
 
 class App extends Component {
   constructor (props) {
@@ -65,7 +66,7 @@ class App extends Component {
     return !!this.state.user
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // get monster data for MonsterList
     fetch(
       serverUrl,
@@ -79,22 +80,22 @@ class App extends Component {
     .then(res => res.json())
     .then(res => this.props.fetchMonsters(res))
 
-    const {user = []} = this.props
+    const {user = []} = this.state
     this.props.fetchPlayers()
-    // fetch(
-    //   `${BASE_URL}/users/${user.id}/players`,
-    //   {
-    //     method: 'GET',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //   }
-    // )
-    // .then(res => res.json())
-    // .then(res => this.props.updatePlayers(res))
+    fetch(
+      `${BASE_URL}/users/${user.id}/players`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    )
+    .then(res => res.json())
+    .then(res => this.props.fetchPlayers(res))
   }
 
-  componentDidMount () {
+  componentWillMount () {
     this.signIn();
   }
 

@@ -60,9 +60,10 @@ export default function(state = INITIAL_STATE, action) {
     Players
     ****************************************/
     case Types.FETCH_PLAYERS:
-    console.log("FETCH PLAYERS REDUCER");
+    console.log("FETCH PLAYERS REDUCER", action.payload);
     return {
-      ...state
+      ...state,
+      players: action.payload
     }
     /****************************************
     CombatantList
