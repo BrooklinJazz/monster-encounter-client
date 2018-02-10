@@ -19,6 +19,7 @@ import SavePage from './pages/SavePage'
 import CombatPage from './pages/CombatPage'
 import {AuthRoute} from './AuthRoute';
 import HomePage from './pages/HomePage';
+import NewPlayer from './pages/NewPlayer'
 import {
   BrowserRouter as Router,
   Route,
@@ -114,7 +115,6 @@ class App extends Component {
               component={HomePage}
             />
             <Route path="/saves" render={props => {
-              console.log(props.history);
               return (
                 <AuthRoute
                   history={props.history}
@@ -122,6 +122,16 @@ class App extends Component {
                   path="/saves"
                   user={user}
                   component={SavePage}/>
+              )
+            }} />
+            <Route path="/new_player" render={props => {
+              return (
+                <AuthRoute
+                  history={props.history}
+                  isAuthenticated={this.isAuth()}
+                  path="/new_player"
+                  user={user}
+                  component={NewPlayer}/>
               )
             }} />
             <AuthRoute
