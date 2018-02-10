@@ -31,20 +31,7 @@ class NewPlayer extends Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  // getPlayers() {
-  //   const {user = []} = this.props
-  //   fetch(
-  //     `${BASE_URL}/users/${user.id}/players`,
-  //     {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //     }
-  //   )
-  //   .then(res => res.json())
-  //   .then(res => this.props.updatePlayers(res))
-  // }
+
 
 
 
@@ -70,8 +57,7 @@ class NewPlayer extends Component {
           }
         },
         user_id:this.props.user.id
-      },
-      user_id:this.props.user.id
+      }
     }
 
     fetch(

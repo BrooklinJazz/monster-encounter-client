@@ -23,7 +23,8 @@ const INITIAL_STATE = {
   CombatantList: [],
   searchTerm: '',
   rolls: [],
-  fights: []
+  fights: [],
+  players: []
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -55,6 +56,14 @@ export default function(state = INITIAL_STATE, action) {
       ...state,
       searchTerm: action.searchTerm
     };
+    /****************************************
+    Players
+    ****************************************/
+    case Types.FETCH_PLAYERS:
+    console.log("FETCH PLAYERS REDUCER");
+    return {
+      ...state
+    }
     /****************************************
     CombatantList
     ****************************************/
