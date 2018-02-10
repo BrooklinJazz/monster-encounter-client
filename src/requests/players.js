@@ -22,6 +22,6 @@ export const Player = {
     )
     // NOTE commented this out because it prevented other .then statements
     // from running in SaveFight.js
-    // .then(res => res.json())
+    .then(res => res.json())
   }
 }

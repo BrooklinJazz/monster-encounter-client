@@ -49,27 +49,43 @@ class NewPlayer extends Component {
 
 
   handleSubmit(event) {
+    function getJwt () {
+      return `JWT ${localStorage.getItem('jwt')}`;
+    }
     event.preventDefault()
-
+    console.log('submi');
     const newPlayer = {
-      stats: {
-        Name: this.state.Name,
-        AC: {Value: this.state.AC},
-        HP: {Value: this.state.HP},
-        Abilities: {
-          Str: this.state.Str,
-          Dex: this.state.Dex,
-          Con: this.state.Con,
-          Int: this.state.Int,
-          Wis: this.state.Wis,
-          Cha: this.state.Cha
-        }
+      player: {
+        stats: {
+          Name: this.state.Name,
+          AC: {Value: this.state.AC},
+          HP: {Value: this.state.HP},
+          Abilities: {
+            Str: this.state.Str,
+            Dex: this.state.Dex,
+            Con: this.state.Con,
+            Int: this.state.Int,
+            Wis: this.state.Wis,
+            Cha: this.state.Cha
+          }
+        },
+        user_id:this.props.user.id
       },
       user_id:this.props.user.id
     }
 
-    Combat
-    .create(newPlayer)
+    fetch(
+      `${BASE_URL}/users/${newPlayer.user_id}/players`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': getJwt(),
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newPlayer)
+      }
+    )
+    .then(res => console.log(res))
     // .then(dataDoesNotMatter => {
     //   this.getFights()
     // })
