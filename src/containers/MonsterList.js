@@ -10,40 +10,89 @@ import SearchBar from './SearchBar'
 
 
 class MonsterList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showComponent: "monsters"
+    }
+    this.showMonsters = this.showMonsters.bind(this);
+    this.showPlayers = this.showPlayers.bind(this);
+
+  }
+
+  showPlayers() {
+    const {showComponent} = this.state
+    this.setState({showComponent: "players"})
+  }
+
+  showMonsters() {
+    const {showComponent} = this.state
+    this.setState({showComponent: "monsters"})
+  }
+
   renderList() {
     // TODO refactor this.props with ES6 syntax
-    const {
-      monsters = [],
-
-    } = this.props
-    return monsters
-    .filter(monster =>
-      monster.Name.toLowerCase().includes(this.props.searchTerm.toLowerCase())
-    )
-    // .sort(function (a, b) {
-    //   if (true) {
-    //
-    //   } else {
-    //     return parseInt(b.Challenge) - parseInt(a.Challenge)
-    //   }
-    // })
-    .map(monster => {
-      return (
-        <ListGroupItem
-          key={monster.Name}
-          onClick={() => this.props.addMonsterToCombatants(monster)}
-          className="monsterListGroupItem"
-          >
-            {monster.Name}
-          </ListGroupItem>
-        );
-      });
+    const { showComponent } = this.state
+    if (showComponent === "monsters") {
+      const {
+        monsters = [],
+      } = this.props
+      return monsters
+      .filter(monster =>
+        monster.Name.toLowerCase().includes(this.props.searchTerm.toLowerCase())
+      )
+      // .sort(function (a, b) {
+      //   if (true) {
+      //
+      //   } else {
+      //     return parseInt(b.Challenge) - parseInt(a.Challenge)
+      //   }
+      // })
+      .map(monster => {
+        return (
+          <ListGroupItem
+            key={monster.Name}
+            onClick={() => this.props.addMonsterToCombatants(monster)}
+            className="monsterListGroupItem"
+            >
+              {monster.Name}
+            </ListGroupItem>
+          );
+        })
+    } else if ( showComponent === "players") {
+      const {
+        players = [],
+      } = this.props
+      return players
+      .filter(player => player.stats.Name.toLowerCase().includes(this.props.searchTerm.toLowerCase()))
+      // .sort(function (a, b) {
+      //   if (true) {
+      //
+      //   } else {
+      //     return parseInt(b.Challenge) - parseInt(a.Challenge)
+      //   }
+      // })
+      .map(player => {
+        const {stats} = player
+        return (
+          <ListGroupItem
+            key={stats.Name}
+            onClick={() => this.props.addMonsterToCombatants(stats)}
+            className="monsterListGroupItem"
+            >
+              {stats.Name}
+            </ListGroupItem>
+          );
+        })
+    }
     }
 
     render() {
       return (
         <div className="monsterList">
           <h2>Library</h2>
+          <button onClick={() => this.showMonsters()}>Monsters</button>
+          <button onClick={() => this.showPlayers()}> Players</button>
           <SearchBar/>
           <ListGroup className="monsterListGroup">{this.renderList()}</ListGroup>
         </div>
@@ -53,10 +102,11 @@ class MonsterList extends Component {
   function mapStateToProps(state) {
     // Whatever is returned will show up as props inside of MonsterList
     // console.tron.log(state);
-    const { monsters, searchTerm } = state.monsters;
+    const { monsters, searchTerm, players } = state.monsters;
     return {
       monsters,
-      searchTerm
+      searchTerm,
+      players
     };
   }
 
