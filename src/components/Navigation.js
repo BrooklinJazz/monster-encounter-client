@@ -42,7 +42,6 @@ function NavBar(props) {
           <NavItem className="navItem">
             <NavLink className="navItem" tag={Link} to="/new_player">Create Player</NavLink>
           </NavItem>
-          {/* TODO fix the hover on QuickSave and Clear Rolls.*/}
           <NavItem className="navItem">
             <NavLink><QuickSave user={user} /></NavLink>
           </NavItem>
