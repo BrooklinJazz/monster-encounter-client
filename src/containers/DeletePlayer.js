@@ -10,7 +10,8 @@ class DeletePlayer extends Component {
     // this.getPlayers = this.getPlayers.bind(this);
 
   }
-  deletePlayer() {
+  deletePlayer(e) {
+    e.stopPropagation()
     const {id, user} = this.props
     console.log('deletePlayer', id, user.id);
     fetch(
@@ -44,7 +45,7 @@ class DeletePlayer extends Component {
   render() {
     return (
       <FontAwesome
-        onClick={() => this.deletePlayer()}
+        onClick={(e) => this.deletePlayer(e)}
         className="deletePlayer"
         name='trash'
         size='2x'

@@ -77,7 +77,7 @@ class MonsterList extends Component {
         const {stats} = player
         return (
           <ListGroupItem
-            key={stats.Name}
+            key={player.id}
             onClick={() => this.props.addMonsterToCombatants(stats)}
             className="monsterListGroupItem"
             >

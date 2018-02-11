@@ -13,12 +13,12 @@ class NewPlayer extends Component {
       Name: '',
       AC: 0,
       HP: 0,
-      Str: 0,
-      Dex: 0,
-      Con: 0,
-      Int: 0,
-      Wis: 0,
-      Cha: 0
+      Str: 10,
+      Dex: 10,
+      Con: 10,
+      Int: 10,
+      Wis: 10,
+      Cha: 10
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -50,46 +50,49 @@ class NewPlayer extends Component {
 
 
   handleSubmit(event) {
-    function getJwt () {
-      return `JWT ${localStorage.getItem('jwt')}`;
-    }
-    event.preventDefault()
-    console.log('submi');
-    const newPlayer = {
-      player: {
-        stats: {
-          Name: this.state.Name,
-          AC: {Value: this.state.AC},
-          HP: {Value: this.state.HP},
-          Abilities: {
-            Str: this.state.Str,
-            Dex: this.state.Dex,
-            Con: this.state.Con,
-            Int: this.state.Int,
-            Wis: this.state.Wis,
-            Cha: this.state.Cha
-          }
-        },
-        user_id:this.props.user.id
-      }
-    }
 
-    fetch(
-      `${BASE_URL}/users/${newPlayer.user_id}/players`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': getJwt(),
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newPlayer)
+    const { Name, AC, HP, Str, Dex, Con, Int, Wis, Cha} = this.state
+    if (Name.length === 0 || AC.length === 0 || HP.length === 0) {
+      alert('You must fill in Name, Hit Points, and Armor Class')
+    } else {
+      function getJwt () {
+        return `JWT ${localStorage.getItem('jwt')}`;
       }
-    )
-    .then(res => this.getPlayers())
-    .then(res => this.props.history.push('/'))
-    // .then(dataDoesNotMatter => {
-    //   this.getFights()
-    // })
+      event.preventDefault()
+
+      const newPlayer = {
+        player: {
+          stats: {
+            Name: Name,
+            AC: {Value: AC},
+            HP: {Value: HP},
+            Abilities: {
+              Str: Str,
+              Dex: Dex,
+              Con: Con,
+              Int: Int,
+              Wis: Wis,
+              Cha: Cha
+            }
+          },
+          user_id:this.props.user.id
+        }
+      }
+
+      fetch(
+        `${BASE_URL}/users/${newPlayer.user_id}/players`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': getJwt(),
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newPlayer)
+        }
+      )
+      .then(res => this.getPlayers())
+      .then(res => this.props.history.push('/'))
+    }
   }
 
   render() {
@@ -97,7 +100,7 @@ class NewPlayer extends Component {
       <Form onSubmit={this.handleSubmit}>
         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
           <Input
-            placeholder="player name"
+            placeholder="Name"
             maxLength="20"
             type="text"
             name="Name"
@@ -106,7 +109,7 @@ class NewPlayer extends Component {
         </FormGroup>
         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
           <Input
-            placeholder="HP"
+            placeholder="Hit Points"
             type="number"
             name="HP"
             onChange={this.handleChange}
@@ -114,7 +117,7 @@ class NewPlayer extends Component {
         </FormGroup>
         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
           <Input
-            placeholder="AC"
+            placeholder="Armor Class"
             type="number"
             name="AC"
             onChange={this.handleChange}
