@@ -32,7 +32,21 @@ class NewPlayer extends Component {
   }
 
 
+  getPlayers() {
+    const {user} = this.props
 
+    fetch(
+      `${BASE_URL}/users/${user.id}/players`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    )
+    .then(res => res.json())
+    .then(res => this.props.fetchPlayers(res))
+  }
 
 
   handleSubmit(event) {
@@ -71,7 +85,8 @@ class NewPlayer extends Component {
         body: JSON.stringify(newPlayer)
       }
     )
-    .then(res => console.log(res))
+    .then(res => this.getPlayers())
+    .then(res => this.props.history.push('/'))
     // .then(dataDoesNotMatter => {
     //   this.getFights()
     // })
@@ -170,8 +185,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateFights: payload =>
-    dispatch(actions.updateFights(payload)),
+    fetchPlayers: payload =>
+    dispatch(actions.fetchPlayers(payload))
   };
 }
 

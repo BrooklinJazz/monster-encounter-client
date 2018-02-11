@@ -127,6 +127,7 @@ class App extends Component {
             <AuthRoute
               isAuthenticated={this.isAuth()}
               path="/"
+              user={user}
               exact
               component={HomePage}
             />

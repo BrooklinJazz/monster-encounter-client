@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import * as actions from "../actions/index";
 import { bindActionCreators } from "redux";
 import { ListGroup, ListGroupItem } from 'reactstrap';
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBar';
+import DeletePlayer from './DeletePlayer'
 
 
 
@@ -32,6 +33,7 @@ class MonsterList extends Component {
   renderList() {
     // TODO refactor this.props with ES6 syntax
     const { showComponent } = this.state
+    const { user } = this.props
     if (showComponent === "monsters") {
       const {
         monsters = [],
@@ -80,6 +82,7 @@ class MonsterList extends Component {
             className="monsterListGroupItem"
             >
               {stats.Name}
+              <DeletePlayer id={player.id} user={user} />
             </ListGroupItem>
           );
         })

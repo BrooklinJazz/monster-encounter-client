@@ -75,7 +75,12 @@ class MonsterDetail extends Component {
 
 				<PropertyLine Name="Armor Class" Value={AC.Value} Notes={AC.Notes} />
 				<PropertyLine Name="Hit Points" Value={HP.Value} Notes={HP.Notes} />
-				<PropertyLine Name="Speed" Value={Speed} />
+				{
+					Speed.length > 0 ?
+					<PropertyLine Name="Speed" Value={Speed} />
+					:
+					<div></div>
+				}
 
 				<SvgLine />
 
@@ -133,9 +138,16 @@ class MonsterDetail extends Component {
 					<div></div>
 				}
 				{/* TODO show xp given for challenge */}
-				<PropertyListing Name="Challenge" Value={Challenge} />
+				{
+					Challenge.length > 0 ?
+					<div>
+						<PropertyListing Name="Challenge" Value={Challenge} />
+						<SvgLine />
+					</div>
+					:
+					<div></div>
+				}
 
-				<SvgLine />
 
 				{/* Only render these when they have value */}
 				{

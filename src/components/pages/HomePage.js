@@ -6,11 +6,12 @@ import Rolls from '../../containers/Rolls'
 import MonsterDetail from '../../containers/MonsterDetail'
 
 function HomePage(props) {
+  const {user} = props
   return (
     <div className="row">
       <div className="col-sm-4">
 
-        <MonsterList/>
+        <MonsterList user={user}/>
       </div>
       <div className="col-sm-4">
         <CombatantList/>
