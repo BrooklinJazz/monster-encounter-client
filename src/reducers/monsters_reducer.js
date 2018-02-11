@@ -32,7 +32,6 @@ export default function(state = INITIAL_STATE, action) {
     // Select combatant to show detailed stats
     // coming from Combatant.js
     case Types.FETCH_MONSTERS:
-    console.log('FETCH_MONSTERS');
     return {
       ...state,
       monsters: action.payload
@@ -60,7 +59,6 @@ export default function(state = INITIAL_STATE, action) {
     Players
     ****************************************/
     case Types.FETCH_PLAYERS:
-    console.log("FETCH PLAYERS REDUCER", action.payload);
     return {
       ...state,
       players: action.payload

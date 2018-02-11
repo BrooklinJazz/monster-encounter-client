@@ -8,12 +8,10 @@ class DeletePlayer extends Component {
   constructor(props) {
     super(props)
     // this.getPlayers = this.getPlayers.bind(this);
-
   }
   deletePlayer(e) {
     e.stopPropagation()
     const {id, user} = this.props
-    console.log('deletePlayer', id, user.id);
     fetch(
       `${BASE_URL}/users/${user.id}/players/${id}`,
       {

@@ -27,16 +27,15 @@ function NavBar(props) {
     onSignOutClick();
   };
   return (
-    <div>
       <Navbar color="faded" light expand="md">
         <NavbarBrand tag={Link} to="/">D&D Battle Master</NavbarBrand>
         <Nav className="ml-auto" navbar>
           <NavItem className="navItem">
             <NavLink tag={Link} to="/">Home</NavLink>
           </NavItem>
-          <NavItem className="navItem">
+          {/* <NavItem className="navItem">
             <NavLink className="navItem" tag={Link} to="/combat">Combat Mode</NavLink>
-          </NavItem>
+          </NavItem> */}
           <NavItem className="navItem">
             <NavLink className="navItem" tag={Link} to="/saves">Save Files</NavLink>
           </NavItem>
@@ -89,15 +88,6 @@ function NavBar(props) {
         }
       </Nav>
     </Navbar>
-    <nav
-      style={{
-        padding: '10px',
-        display: 'flex',
-      }}>
-
-    </nav>
-
-  </div>
 )
 }
 
