@@ -142,6 +142,7 @@ export default function(state = INITIAL_STATE, action) {
     let rollArrayString
     let rollArrayReduced
     let newSidedRoll
+    let dtwenty
     // this case creates a new Roll Component to be shown using the redux store for rolls. payload should be given in form similar to +5, or +12, or -6, or -13
     case Types.D20_ROLLED:
     console.log(action.payload);
@@ -152,7 +153,7 @@ export default function(state = INITIAL_STATE, action) {
       // toBeRolled expression for Roll Component
       toBeRolled = `(1d20 + ${modifier})`
       // a random number (roll) between 1 and 20
-      const dtwenty = d20()
+      dtwenty = d20()
       // show the number rolled for dtwenty
       roll = `[${dtwenty}] + ${modifier}`
       // set result i.e. [5] + 6, result = 11
