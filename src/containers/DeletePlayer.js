@@ -44,7 +44,7 @@ class DeletePlayer extends Component {
     return (
       <FontAwesome
         onClick={(e) => this.deletePlayer(e)}
-        className="deletePlayer"
+        className="DeletePlayer pull-right"
         name='trash'
         size='2x'
         style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}

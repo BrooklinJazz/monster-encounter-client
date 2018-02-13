@@ -103,14 +103,14 @@ class MonsterList extends Component {
       .map(player => {
         const {stats} = player
         return (
-          <ListGroupItem
-            key={player.id}
-            onClick={() => this.props.addMonsterToCombatants(stats)}
-            className="monsterListGroupItem"
-            >
-              {stats.Name}
-              <DeletePlayer id={player.id} user={user} />
-            </ListGroupItem>
+            <ListGroupItem
+              key={player.id}
+              onClick={() => this.props.addMonsterToCombatants(stats)}
+              className="monsterListGroupItem player"
+              >
+                {stats.Name}
+                <DeletePlayer id={player.id} user={user} />
+              </ListGroupItem>
           );
         })
     }
