@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import SearchBar from './SearchBar';
 import DeletePlayer from './DeletePlayer'
-
+import FontAwesome from 'react-fontawesome'
 
 
 class MonsterList extends Component {
@@ -120,8 +120,24 @@ class MonsterList extends Component {
       return (
         <div className="monsterList innerShadow">
           <h2>Library</h2>
-          <button onClick={() => this.showMonsters()}>Monsters</button>
-          <button onClick={() => this.showPlayers()}> Players</button>
+          <FontAwesome
+            onClick={() => this.showMonsters()}
+            name='optin-monster'
+            className="libraryIcon"
+            data-toggle="tooltip"
+            title="Show Monsters"
+            size='2x'
+            style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+          />
+          <FontAwesome
+            onClick={() => this.showPlayers()}
+            name='users'
+            className="libraryIcon"
+            data-toggle="tooltip"
+            title="Show Players"
+            size='2x'
+            style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+          />
           {/* <button onClick={() => this.toggleFilterByChallenge()}>Challenge</button> */}
           <SearchBar/>
           <ListGroup className="monsterListGroup">{this.renderList()}</ListGroup>

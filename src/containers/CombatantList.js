@@ -40,22 +40,24 @@ class CombatantList extends Component {
         <Table hover striped className="CombatantList">
           <thead>
             <tr>
-              <th className="col-xs-1"><InitiativeRoll /></th>
-              <th className="col-xs-4">
+              <th className="col-xs-1" data-toggle="tooltip" title="Roll Initiative">
+                <InitiativeRoll />
+              </th>
+              <th className="col-xs-4" data-toggle="tooltip" title="Monster Names">
                 <FontAwesome
                   name="optin-monster"
                   size="2x"
                   style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
                 />
               </th>
-              <th className="col-xs-3 textCenter">
+              <th className="col-xs-3 textCenter" data-toggle="tooltip" title="Hit Points">
                 <FontAwesome
                   name="heart"
                   size="2x"
                   style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
                 />
               </th>
-              <th className="col-xs-2">
+              <th className="col-xs-2" data-toggle="tooltip" title="Armor Class">
                 <FontAwesome
                   className="text-center"
                   name="shield"
@@ -64,7 +66,7 @@ class CombatantList extends Component {
                 />
               </th>
               {/* this table head allows space for delete button */}
-              <th className="col-xs-2"><ClearCombat /></th>
+              <th className="col-xs-2" data-toggle="tooltip" title="Clear Combat"><ClearCombat /></th>
             </tr>
           </thead>
           <tbody>

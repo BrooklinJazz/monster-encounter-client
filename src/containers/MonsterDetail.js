@@ -56,9 +56,7 @@ class MonsterDetail extends Component {
 			Wis = 0,
 			Cha = 0,
 		} = monster.Abilities
-		console.log('Traits', Traits, Traits.length);
-		console.log('Actions', Actions, Actions.length);
-		console.log('LegendaryActions', LegendaryActions, LegendaryActions.length);
+		
 		return (
 			<div className="MonsterDetail innerShadow">
 

@@ -29,6 +29,12 @@
   padding: 2px 5px 2px 3px !important;
   /* height:20px; */
 }
+.libraryIcon:hover {
+  color:green;
+}
+.libraryIcon {
+  margin-right:10px;
+}
 .searchBarInput {
   /* height:20px; */
   padding:0px;

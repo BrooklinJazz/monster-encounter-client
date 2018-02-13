@@ -53,13 +53,13 @@ class SignInPage extends Component {
 
     return (
       <main
-        className="SignInPage"
+        className="SignInPage col-sm-offset-5 col-sm-2"
         style={{
           padding: '0 20px'
         }}
       >
-        <h2>Sign In</h2>
         <form onSubmit={this.createToken}>
+          <h2>Sign In</h2>
           <div>
             <label htmlFor='email'>Email</label> <br />
             <input

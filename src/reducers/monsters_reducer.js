@@ -142,26 +142,45 @@ export default function(state = INITIAL_STATE, action) {
     let rollArrayString
     let rollArrayReduced
     let newSidedRoll
+    // this case creates a new Roll Component to be shown using the redux store for rolls. payload should be given in form similar to +5, or +12, or -6, or -13
     case Types.D20_ROLLED:
     console.log(action.payload);
+    // if the payload is positive
     if (parseInt(action.payload) >= 0) {
+      // convert payload to be integer as modifier
       modifier = parseInt(action.payload)
+      // toBeRolled expression for Roll Component
       toBeRolled = `(1d20 + ${modifier})`
-      console.log(modifier);
+      // a random number (roll) between 1 and 20
       const dtwenty = d20()
+      // show the number rolled for dtwenty
       roll = `[${dtwenty}] + ${modifier}`
+      // set result i.e. [5] + 6, result = 11
       result = modifier + dtwenty
-      newRoll = {rolled: toBeRolled, roll, result}
+      // set the newRoll object to be added to rolls state
+      newRoll = {
+        rolled: toBeRolled,
+        roll,
+        result
+      }
       return {
         ...state,
         rolls: state.rolls.concat(newRoll)
       }
+      // if the payload is negative
     } else if(parseInt(action.payload) < 0) {
+      // convert the roll to a positive number for
+      // ease of math. i.e. -5 becomes 5
       modifier = parseInt(0 - action.payload)
+      // the expression to be rolled i.e. (1d20 + 5)
       toBeRolled = `(1d20 - ${modifier})`
+      // a random number between 1 and 20
       const dtwenty = d20()
+      // the expression after rolling i.e. [5] + 5
       roll = `[${dtwenty}] - ${modifier}`
+      // the result of the roll i.e. [5] + 5, result = 10
       result = dtwenty - modifier
+      // the newRoll object the be added to the rolls state.
       newRoll = {rolled: toBeRolled, roll, result}
       return {
         ...state,
@@ -178,11 +197,9 @@ export default function(state = INITIAL_STATE, action) {
       rolls: rollsAfterDelete
     }
     case Types.SIDED_DICE_ROLLED:
-
-
-
     toBeRolled = action.payload
     modifier = getModifier(toBeRolled)
+    // if the modifier is positive
     if (modifier >= 0) {
       // the number of dice rolled i.e (2d6) will return 2
       numberOfDice = getNumberOfDice(toBeRolled)
@@ -196,14 +213,20 @@ export default function(state = INITIAL_STATE, action) {
       // result the sum of rollArray plus modifier
       rollArrayReduced = parseInt(rollArray.reduce((a, b) => a + b, 0)) + parseInt(modifier)
       // the object to be added to the redux store in rolls:
-      newSidedRoll = {rolled: action.payload, roll: rollArrayString, result: rollArrayReduced}
-      // console.log('newRoll', newSidedRoll);
+      newSidedRoll = {
+        rolled: action.payload,
+        roll: rollArrayString,
+        result: rollArrayReduced
+      }
+      // if the modifier is negative
     } else if (modifier <= 0) {
+      // set the modifier to a positive value
+      // for ease of math
       modifier = 0 - modifier
+      // the number of dice rolled, i.e. (2d6) will return 2
       numberOfDice = getNumberOfDice(toBeRolled)
       // the type of dice rolled. i.e. (2d6) will return 6
       sidesOfDice = getSidesOfDice(toBeRolled)
-      // the type of dice rolled. i.e. (2d6 + 5) will return 5
       // returns roll in format "1,3"
       rollArray = rollSidedDice(numberOfDice, sidesOfDice)
       // roll converted from "1,3" to "[1,3] + 3"
@@ -211,8 +234,11 @@ export default function(state = INITIAL_STATE, action) {
       // result the sum of rollArray plus modifier
       rollArrayReduced = parseInt(rollArray.reduce((a, b) => a + b, 0)) - parseInt(modifier)
       // the object to be added to the redux store in rolls:
-      newSidedRoll = {rolled: action.payload, roll: rollArrayString, result: rollArrayReduced}
-      // console.log('newRoll', newSidedRoll);
+      newSidedRoll = {
+        rolled: action.payload,
+        roll: rollArrayString,
+        result: rollArrayReduced
+      }
     }
     return {
       ...state,
