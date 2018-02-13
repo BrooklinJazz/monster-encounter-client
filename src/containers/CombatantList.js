@@ -35,6 +35,7 @@ class CombatantList extends Component {
     }
     // if there are combatants in Combatant list then render the list
     return (
+      <div className="CombatantListContainer innerShadow">
         <Table hover striped className="CombatantList">
           <thead>
             <tr>
@@ -69,6 +70,7 @@ class CombatantList extends Component {
             {this.renderList()}
           </tbody>
         </Table>
+      </div>
     )
     // return <ListGroup>{this.renderList()}</ListGroup>;
   }
