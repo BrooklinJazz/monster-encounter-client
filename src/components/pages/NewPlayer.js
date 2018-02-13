@@ -103,7 +103,7 @@ class NewPlayer extends Component {
             <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
               <Input
                 required="true"
-                placeholder="Name"
+                placeholder="*Name"
                 maxLength="20"
                 type="text"
                 name="Name"
@@ -113,7 +113,7 @@ class NewPlayer extends Component {
             <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
               <Input
                 required="true"
-                placeholder="Hit Points"
+                placeholder="*Hit Points"
                 type="number"
                 name="HP"
                 onChange={this.handleChange}
@@ -122,7 +122,7 @@ class NewPlayer extends Component {
             <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
               <Input
                 required="true"
-                placeholder="Armor Class"
+                placeholder="*Armor Class"
                 type="number"
                 name="AC"
                 onChange={this.handleChange}
