@@ -33,8 +33,3 @@
   background-color: #F5F5F5;
   height:calc(100vh - 55px);
 }
-.Combatant {
-  padding:10px !important;
-  margin: -10px !important;
-  background-color:blue;
-}

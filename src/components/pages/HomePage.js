@@ -2,7 +2,6 @@ import React from 'react';
 // import SearchBar from '../../containers/SearchBar'
 import MonsterList from '../../containers/MonsterList'
 import CombatantList from '../../containers/CombatantList'
-import Rolls from '../../containers/Rolls'
 import MonsterDetail from '../../containers/MonsterDetail'
 
 function HomePage(props) {
@@ -14,7 +13,6 @@ function HomePage(props) {
       </div>
       <div className="col-sm-5">
         <CombatantList/>
-        <Rolls />
       </div>
       <div className="col-sm-4">
         <MonsterDetail

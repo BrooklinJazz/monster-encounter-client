@@ -8,6 +8,7 @@ import { Table } from 'reactstrap';
 import InitiativeRoll from './InitiativeRoll'
 import ClearCombatant from './ClearCombatant'
 import FontAwesome from 'react-fontawesome'
+import Rolls from './Rolls'
 
 
 // import { selectCombatant } from '../actions/index';
@@ -70,6 +71,7 @@ class CombatantList extends Component {
             {this.renderList()}
           </tbody>
         </Table>
+        <Rolls />
       </div>
     )
     // return <ListGroup>{this.renderList()}</ListGroup>;
