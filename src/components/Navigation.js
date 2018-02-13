@@ -1,7 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import ClearRolls from '../containers/ClearRolls'
-import ClearCombatant from '../containers/ClearCombatant';
 import { Button } from 'reactstrap';
 import QuickSave from '../containers/QuickSave'
 import {
@@ -45,12 +43,6 @@ function NavBar(props) {
           <NavItem className="navItem">
             <NavLink><QuickSave user={user} /></NavLink>
           </NavItem>
-          <NavItem className="navItem">
-            <NavLink><ClearRolls /></NavLink>
-          </NavItem>
-          {/* <NavItem className="navItem">
-            <NavLink><ClearCombatant /></NavLink>
-          </NavItem> */}
 
         {
           user ? ([

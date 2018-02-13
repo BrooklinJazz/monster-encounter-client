@@ -6,7 +6,7 @@ import Combatant from "../containers/Combatant"
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Table } from 'reactstrap';
 import InitiativeRoll from './InitiativeRoll'
-import ClearCombatant from './ClearCombatant'
+import ClearCombat from './ClearCombat'
 import FontAwesome from 'react-fontawesome'
 import Rolls from './Rolls'
 
@@ -64,7 +64,7 @@ class CombatantList extends Component {
                 />
               </th>
               {/* this table head allows space for delete button */}
-              <th className="col-xs-2"><ClearCombatant /></th>
+              <th className="col-xs-2"><ClearCombat /></th>
             </tr>
           </thead>
           <tbody>

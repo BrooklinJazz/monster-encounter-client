@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import * as actions from "../actions/index"
 import FontAwesome from 'react-fontawesome'
 
-class ClearCombatant extends Component {
+class ClearCombat extends Component {
   constructor(props) {
     super(props)
   }
@@ -38,4 +38,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClearCombatant);
+export default connect(mapStateToProps, mapDispatchToProps)(ClearCombat);
