@@ -17,7 +17,7 @@ class MonsterDetail extends Component {
 		const {monster = {}} = this.props
 
 		if (!monster) {
-			return <div>Select a monster to get started</div>;
+			return <div className="MonsterDetail">Select a monster to get started</div>;
 		}
 		// this must be below if statement or it will be defined when monster is empty
 		// NOTE InitiativeModifier is always 0 in JSON?

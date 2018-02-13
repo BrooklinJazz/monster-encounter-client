@@ -122,7 +122,7 @@ class MonsterList extends Component {
           <h2>Library</h2>
           <button onClick={() => this.showMonsters()}>Monsters</button>
           <button onClick={() => this.showPlayers()}> Players</button>
-          <button onClick={() => this.toggleFilterByChallenge()}>Challenge</button>
+          {/* <button onClick={() => this.toggleFilterByChallenge()}>Challenge</button> */}
           <SearchBar/>
           <ListGroup className="monsterListGroup">{this.renderList()}</ListGroup>
         </div>

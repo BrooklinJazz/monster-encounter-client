@@ -1,6 +1,14 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-image: url('background-fantasy.jpg');
+}
+
 
 .container {
     max-width: 90vw !important;
+    font-family: fantasy;
 }
 @media (min-width: 1350px) {
     .container {

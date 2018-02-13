@@ -9,11 +9,10 @@ function HomePage(props) {
   const {user} = props
   return (
     <div className="row">
-      <div className="col-sm-4">
-
+      <div className="col-sm-3">
         <MonsterList user={user}/>
       </div>
-      <div className="col-sm-4">
+      <div className="col-sm-5">
         <CombatantList/>
         <Rolls />
       </div>
