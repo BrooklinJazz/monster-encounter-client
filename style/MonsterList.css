@@ -5,15 +5,16 @@
 /* NOTE subtracting necessary height to make the component take up the whole screen */
 .monsterList {
   background-color: #FBEFDA;
-  height: Calc(100vh - 170px);
-  border-radius: 10px 0 0 0;
+  height: Calc(100vh - 55px);
+  padding: 10px 20px 0 20px;
+  /* border-radius: 10px 0 0 0;
   border-left: solid 2px #E3982B;
-  border-top: solid 1px #E3982B;
+  border-top: solid 1px #E3982B; */
   /* box-shadow: 10px 10px 8px #888888; */
 }
 .monsterListGroup {
   overflow: scroll;
-  height:100%;
+  height: calc(100% - 120px);
 }
 .monsterListGroupItem:nth-child(odd) {
   background-color: #E4D7CA !important;

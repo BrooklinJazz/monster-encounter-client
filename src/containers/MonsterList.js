@@ -118,7 +118,7 @@ class MonsterList extends Component {
 
     render() {
       return (
-        <div className="monsterList">
+        <div className="monsterList innerShadow">
           <h2>Library</h2>
           <button onClick={() => this.showMonsters()}>Monsters</button>
           <button onClick={() => this.showPlayers()}> Players</button>
