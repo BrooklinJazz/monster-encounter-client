@@ -97,83 +97,87 @@ class NewPlayer extends Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            placeholder="Name"
-            maxLength="20"
-            type="text"
-            name="Name"
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            placeholder="Hit Points"
-            type="number"
-            name="HP"
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            placeholder="Armor Class"
-            type="number"
-            name="AC"
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            placeholder="Str"
-            maxLength="20"
-            type="number"
-            name="Str"
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            placeholder="Dex"
-            type="number"
-            name="Dex"
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            placeholder="Con"
-            type="number"
-            name="Con"
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            placeholder="Int"
-            type="number"
-            name="Int"
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            placeholder="Wis"
-            type="number"
-            name="Wis"
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            placeholder="Cha"
-            type="number"
-            name="Cha"
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <Button >Submit</Button>
-      </Form>
+      <div className="row">
+        <div className="col-sm-10 col-sm-offset-1">
+          <Form onSubmit={this.handleSubmit} className="NewPlayer">
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Input
+                placeholder="Name"
+                maxLength="20"
+                type="text"
+                name="Name"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Input
+                placeholder="Hit Points"
+                type="number"
+                name="HP"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Input
+                placeholder="Armor Class"
+                type="number"
+                name="AC"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Input
+                placeholder="Str"
+                maxLength="20"
+                type="number"
+                name="Str"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Input
+                placeholder="Dex"
+                type="number"
+                name="Dex"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Input
+                placeholder="Con"
+                type="number"
+                name="Con"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Input
+                placeholder="Int"
+                type="number"
+                name="Int"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Input
+                placeholder="Wis"
+                type="number"
+                name="Wis"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Input
+                placeholder="Cha"
+                type="number"
+                name="Cha"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <Button >Submit</Button>
+          </Form>
+        </div>
+      </div>
     )
   }
 }
