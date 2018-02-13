@@ -1,5 +1,6 @@
 import React from 'react'
 import PowerRoll from './src/containers/PowerRoll'
+import D20Roll from './src/containers/D20Roll'
 
 export const deepClone = (obj) => {
   const result = Array.isArray(obj) ? [] : {};
@@ -66,6 +67,17 @@ export const replaceRollsRegex = (str) => {
   for (let exp of regexArray) {
     replacedText = reactStringReplace(replacedText, exp, (match, i) => (
       <PowerRoll style={{ color: 'red' }} roll={match}></PowerRoll>
+    ))
+  }
+
+  const px = /(\+[0-9]\s)/g
+  const pxx = /(\+[0-9][0-9])/g
+  const mx = /(\-[0-9]\s)/g
+  const mxx = /(\-[0-9][0-9])/g
+  const d20regexArray = [px, pxx, mx, mxx]
+  for (let exp of d20regexArray) {
+    replacedText = reactStringReplace(replacedText, exp, (match, i) => (
+      <D20Roll style={{ color: 'red' }} roll={match}></D20Roll>
     ))
   }
   console.log('rea', replacedText);

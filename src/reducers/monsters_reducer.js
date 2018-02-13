@@ -136,14 +136,30 @@ export default function(state = INITIAL_STATE, action) {
     // the newRoll object concatinated with the rolls array in redux store
     let newRoll
     case Types.D20_ROLLED:
-    toBeRolled = `(1d20 + ${action.payload})`
-    const dtwenty = d20()
-    roll = `[${dtwenty}] + ${action.payload}`
-    result = action.payload + dtwenty
-    newRoll = {rolled: toBeRolled, roll, result}
-    return {
-      ...state,
-      rolls: state.rolls.concat(newRoll)
+    console.log(action.payload);
+    if (parseInt(action.payload) >= 0) {
+      modifier = parseInt(action.payload)
+      toBeRolled = `(1d20 + ${modifier})`
+      console.log(modifier);
+      const dtwenty = d20()
+      roll = `[${dtwenty}] + ${modifier}`
+      result = modifier + dtwenty
+      newRoll = {rolled: toBeRolled, roll, result}
+      return {
+        ...state,
+        rolls: state.rolls.concat(newRoll)
+      }
+    } else if(parseInt(action.payload) < 0) {
+      modifier = parseInt(0 - action.payload)
+      toBeRolled = `(1d20 - ${modifier})`
+      const dtwenty = d20()
+      roll = `[${dtwenty}] - ${modifier}`
+      result = dtwenty - modifier
+      newRoll = {rolled: toBeRolled, roll, result}
+      return {
+        ...state,
+        rolls: state.rolls.concat(newRoll)
+      }
     }
     case Types.DELETE_ROLL:
     const rollsAfterDelete = state.rolls.map( (roll, i) => {
