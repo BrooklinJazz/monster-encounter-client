@@ -10,7 +10,10 @@ class ClearCombatant extends Component {
   render() {
     return (
       <FontAwesome
-        onClick={() => this.props.clearCombatants()}
+        onClick={() => {
+          this.props.clearCombatants()
+          this.props.clearRolls()
+        }}
         className="clearCombatants"
         name='trash'
         size='2x'
@@ -29,6 +32,7 @@ function mapDispatchToProps(dispatch) {
   // Whenever selectCombatant is called, the result should be passed to all
   // of our reducers
   return {
+    clearRolls: payload => dispatch(actions.clearRolls(payload)),
     clearCombatants: payload => dispatch(actions.clearCombatants(payload))
   };
 }
