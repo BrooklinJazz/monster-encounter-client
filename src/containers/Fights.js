@@ -133,7 +133,7 @@ render() {
   }
 
   return (
-      <Table>
+      <Table className="Fights">
         <thead>
           <tr>
             <th className="col-xs-3">Name</th>

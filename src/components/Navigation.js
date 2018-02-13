@@ -37,10 +37,10 @@ function NavBar(props) {
             <NavLink className="navItem" tag={Link} to="/combat">Combat Mode</NavLink>
           </NavItem> */}
           <NavItem className="navItem">
-            <NavLink className="navItem" tag={Link} to="/saves">Save Files</NavLink>
+            <NavLink className="navItem" tag={Link} to="/new_player">Create Player</NavLink>
           </NavItem>
           <NavItem className="navItem">
-            <NavLink className="navItem" tag={Link} to="/new_player">Create Player</NavLink>
+            <NavLink className="navItem" tag={Link} to="/saves">Save Files</NavLink>
           </NavItem>
           <NavItem className="navItem">
             <NavLink><QuickSave user={user} /></NavLink>
