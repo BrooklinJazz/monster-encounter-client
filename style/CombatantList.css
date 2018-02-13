@@ -32,4 +32,5 @@
   padding:20px;
   background-color: #F5F5F5;
   height:calc(100vh - 55px);
+  overflow: scroll;
 }
