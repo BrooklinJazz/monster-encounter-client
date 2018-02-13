@@ -102,6 +102,7 @@ class NewPlayer extends Component {
           <Form onSubmit={this.handleSubmit} className="NewPlayer">
             <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
               <Input
+                required="true"
                 placeholder="Name"
                 maxLength="20"
                 type="text"
@@ -111,6 +112,7 @@ class NewPlayer extends Component {
             </FormGroup>
             <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
               <Input
+                required="true"
                 placeholder="Hit Points"
                 type="number"
                 name="HP"
@@ -119,6 +121,7 @@ class NewPlayer extends Component {
             </FormGroup>
             <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
               <Input
+                required="true"
                 placeholder="Armor Class"
                 type="number"
                 name="AC"
