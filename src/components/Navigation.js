@@ -29,24 +29,24 @@ function NavBar(props) {
         <NavbarBrand tag={Link} to="/">D&D Battle Master</NavbarBrand>
         <Nav className="ml-auto" navbar>
           <NavItem className="navItem">
-            <NavLink tag={Link} to="/">Home</NavLink>
+            <NavLink className="navLink" tag={Link} to="/">Home</NavLink>
           </NavItem>
           {/* <NavItem className="navItem">
             <NavLink className="navItem" tag={Link} to="/combat">Combat Mode</NavLink>
           </NavItem> */}
           <NavItem className="navItem">
-            <NavLink className="navItem" tag={Link} to="/new_player">Create Player</NavLink>
+            <NavLink  className="navLink" tag={Link} to="/new_player">Create Player</NavLink>
           </NavItem>
           <NavItem className="navItem">
-            <NavLink className="navItem" tag={Link} to="/saves">Save Files</NavLink>
+            <NavLink  className="navLink" tag={Link} to="/saves">Save Files</NavLink>
           </NavItem>
           <NavItem className="navItem">
-            <NavLink><QuickSave user={user} /></NavLink>
+            <NavLink className="navLink"><QuickSave user={user} /></NavLink>
           </NavItem>
 
         {
           user ? ([
-            <div>
+            <div className="pull-right">
               <NavItem className="navItem">
                 <NavLink
                   className="userName"
@@ -66,15 +66,17 @@ function NavBar(props) {
               </NavItem>
             </div>
           ]) : (
-            <NavItem>
-              <NavLink
-                className="signing"
-                style={{marginLeft: 'auto', marginRight: '20px'}}
-                to="/sign_in">
-                {/* DEBUG Sign in still shows until refresh */}
-                Sign In
-              </NavLink>
-            </NavItem>
+            <div className="pull-right">
+              <NavItem className='navItem '>
+                <NavLink
+                  className="signing "
+                  // style={{marginLeft: 'auto', marginRight: '20px'}}
+                  to="/sign_in">
+                  {/* DEBUG Sign in still shows until refresh */}
+                  Sign In
+                </NavLink>
+              </NavItem>
+            </div>
           )
         }
       </Nav>
