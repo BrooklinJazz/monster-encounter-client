@@ -1,6 +1,6 @@
 import React from 'react'
-import PowerRoll from './src/containers/PowerRoll'
-import D20Roll from './src/containers/D20Roll'
+import PowerRoll from './containers/PowerRoll'
+import D20Roll from './containers/D20Roll'
 
 export const deepClone = (obj) => {
   const result = Array.isArray(obj) ? [] : {};
