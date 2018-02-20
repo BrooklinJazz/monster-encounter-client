@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import Stat from '../components/Stat';
-import RollableListing from '../components/RollableListing';
-import Power from '../components/Power'
+import Stat from './Stat';
+import RollableListing from './RollableListing';
+import Power from './Power'
 import PropertyLine from '../components/PropertyLine'
 import SvgLine from '../components/SvgLine'
 import PropertyListing from '../components/PropertyListing'
@@ -56,7 +56,7 @@ class MonsterDetail extends Component {
 			Wis = 0,
 			Cha = 0,
 		} = monster.Abilities
-		
+
 		return (
 			<div className="MonsterDetail innerShadow">
 
