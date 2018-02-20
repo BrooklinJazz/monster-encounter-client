@@ -12,7 +12,7 @@ import {
   getModifier,
   rollSidedDice,
   limitMonsterHpChange
-} from "../../helpers"
+} from "../helpers"
 // the array of monster objects exported as a function.
 // NOTE storing monsters in a local file currently
 const monsters = monstersData()

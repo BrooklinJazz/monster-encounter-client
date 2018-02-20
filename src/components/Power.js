@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {replaceRollsRegex} from '../../helpers'
+import {replaceRollsRegex} from '../helpers'
 
 
 class Power extends Component {

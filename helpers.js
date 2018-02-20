@@ -73,7 +73,8 @@ export const replaceRollsRegex = (str) => {
   // An array of all of the expressions declared above.
   const regexArray = [xdx, xdxx, xxdx, xxdxx, xdxpx, xdxmx, xdxpxx, xdxmxx, xdxxpx, xdxxmx, xdxpxx, xdxxmxx, xdxxpx, xdxxpxx, xxdxxmx, xxdxxpx, xxdxxpxx, xxdxxmxx]
 
-  // replacedText is equal to the obj.Content given from the Power Component. We will use this to return the replacedText value.
+  // replacedText is equal to the obj.Content given from the Power Component.
+  // We will use this to return the replacedText value.
   let replacedText = str
   // replacing all sided Die roll expressions with PowerRoll.js
   for (let exp of regexArray) {
