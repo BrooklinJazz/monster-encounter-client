@@ -128,12 +128,12 @@ class Fights extends Component {
 
 render() {
 
-  if(this.props.fights.length === 0){
-    return false //return false or a <Loader/> when you don't have anything in your message[]
-  }
+  // if(this.props.fights.length === 0){
+  //   return false //return false or a <Loader/> when you don't have anything in your message[]
+  // }
 
   return (
-      <Table>
+      <Table className="Fights">
         <thead>
           <tr>
             <th className="col-xs-3">Name</th>
@@ -143,7 +143,12 @@ render() {
           </tr>
         </thead>
         <tbody>
-          {this.renderList()}
+          {
+            this.props.fights.length === 0 ?
+            false
+            :
+            this.renderList()
+          }
         </tbody>
       </Table>
   )

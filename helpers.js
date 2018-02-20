@@ -1,5 +1,6 @@
 import React from 'react'
 import PowerRoll from './src/containers/PowerRoll'
+import D20Roll from './src/containers/D20Roll'
 
 export const deepClone = (obj) => {
   const result = Array.isArray(obj) ? [] : {};
@@ -22,10 +23,20 @@ export const convScoreToMod  = (n) => {
   return result
 }
 
-// This function takes a string from the Power.js component's Content and replaces all regex instances of a dice roll with the PowerRoll.js component given props.roll as the matching regex instance.
+// replace regular expressions with a desired value or
+// component
 const reactStringReplace = require('react-string-replace')
+// This function takes a string from the Power.js
+// component's Content and replaces all regular expressions
+// of a sided dice roll with the PowerRoll.js and all
+// instances of a d20 dice roll with the D20Roll.js
+// component.
 export const replaceRollsRegex = (str) => {
   // Needed to wrap regex expressions with () group in order for fn reactStringReplace to work
+  /******************************
+  Sided Die Rolls
+  ******************************/
+  // Die Expressions to be replaced when found in str
   // (1d6)
   const xdx = /(\([0-9]d[0-9]\))/g
   // (1d12)
@@ -59,16 +70,40 @@ export const replaceRollsRegex = (str) => {
   // (12d12 - 12)
   const xxdxxmxx = /(\([0-9][0-9]d[0-9][0-9]\s\-\s[0-9][0-9]\))/g
 
+  // An array of all of the expressions declared above.
   const regexArray = [xdx, xdxx, xxdx, xxdxx, xdxpx, xdxmx, xdxpxx, xdxmxx, xdxxpx, xdxxmx, xdxpxx, xdxxmxx, xdxxpx, xdxxpxx, xxdxxmx, xxdxxpx, xxdxxpxx, xxdxxmxx]
-  // const newStr = str
-  // const testStr = str
+
+  // replacedText is equal to the obj.Content given from the Power Component.
+  // We will use this to return the replacedText value.
   let replacedText = str
+  // replacing all sided Die roll expressions with PowerRoll.js
   for (let exp of regexArray) {
     replacedText = reactStringReplace(replacedText, exp, (match, i) => (
       <PowerRoll style={{ color: 'red' }} roll={match}></PowerRoll>
     ))
   }
-  console.log('rea', replacedText);
+
+  /******************************
+  D20 Die Rolls
+  ******************************/
+  // Modifier Expressions to be replaced:
+  // +5
+  const px = /(\+[0-9]\s)/g
+  // +12
+  const pxx = /(\+[0-9][0-9])/g
+  // -5
+  const mx = /(\-[0-9]\s)/g
+  // -12
+  const mxx = /(\-[0-9][0-9])/g
+  // an array of the expressions declared above
+  const d20regexArray = [px, pxx, mx, mxx]
+  // replace all of the expressions found with D20Roll.js
+  for (let exp of d20regexArray) {
+    replacedText = reactStringReplace(replacedText, exp, (match, i) => (
+      <D20Roll style={{ color: 'red' }} roll={match}></D20Roll>
+    ))
+  }
+  // Now that d20 expressions and sided die roll expressions are replaced with clickable components PowerRoll and D20Roll, return the string to the Power.js component in MonsterDetail.js
   return replacedText
 }
 

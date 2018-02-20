@@ -7,12 +7,19 @@ function SavePage(props) {
   const {user = [], history = {}} = props
   console.log(props.user);
   return (
-    <div className="row">
-      <div className="col-sm-10">
-        <SaveFight user={user} />
-        <Fights user={user} history={history} />
+    <div>
+      <div className="row">
+        <div className="col-sm-4 col-sm-offset-5">
+          <SaveFight user={user} />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-sm-10 col-sm-offset-1">
+          <Fights user={user} history={history} />
+        </div>
       </div>
     </div>
+
   )
 }
 

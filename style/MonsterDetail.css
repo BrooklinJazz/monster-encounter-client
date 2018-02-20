@@ -109,7 +109,7 @@ TODO subtract the height of the navbar
 .MonsterDetail {
   background-color: #FCF0DB;
   overflow: scroll;
-  max-height: 100vh;
+  height: Calc(100vh - 55px);
   border-radius: 10px;
   padding:10px;
 }

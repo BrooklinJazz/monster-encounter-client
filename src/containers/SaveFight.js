@@ -58,10 +58,9 @@ class SaveFight extends Component {
 
   render() {
     return (
-        <Form onSubmit={this.handleSubmit} inline>
+        <Form onSubmit={this.handleSubmit} className="SaveFight" inline>
           <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
             <Input
-              id="saveFight"
               placeholder="save fight"
               maxLength="20"
               type="text"

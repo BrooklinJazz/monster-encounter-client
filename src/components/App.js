@@ -9,7 +9,6 @@ import MonsterDetail from "../containers/MonsterDetail";
 import CombatantList from "../containers/CombatantList";
 import Rolls from "../containers/Rolls";
 import NotFoundPage from './NotFoundPage';
-import ClearCombatant from '../containers/ClearCombatant'
 import Navigation from './Navigation'
 import CombatantModeList from '../containers/CombatantModeList'
 import ClearRolls from '../containers/ClearRolls'
@@ -19,6 +18,7 @@ import SavePage from './pages/SavePage'
 import CombatPage from './pages/CombatPage'
 import {AuthRoute} from './AuthRoute';
 import HomePage from './pages/HomePage';
+import NewPlayer from './pages/NewPlayer'
 import {
   BrowserRouter as Router,
   Route,
@@ -32,6 +32,7 @@ import Fights from '../containers/Fights'
 import SaveFight from '../containers/SaveFight'
 
 const serverUrl = 'http://localhost:3000/api/v1/monsters'
+const BASE_URL = 'http://localhost:3000/api/v1'
 
 class App extends Component {
   constructor (props) {
@@ -64,7 +65,7 @@ class App extends Component {
     return !!this.state.user
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // get monster data for MonsterList
     fetch(
       serverUrl,
@@ -77,8 +78,23 @@ class App extends Component {
     )
     .then(res => res.json())
     .then(res => this.props.fetchMonsters(res))
+
+    const {user = []} = this.state
+    this.props.fetchPlayers()
+    fetch(
+      `${BASE_URL}/users/${user.id}/players`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    )
+    .then(res => res.json())
+    .then(res => this.props.fetchPlayers(res))
   }
-  componentDidMount () {
+
+  componentWillMount () {
     this.signIn();
   }
 
@@ -110,11 +126,11 @@ class App extends Component {
             <AuthRoute
               isAuthenticated={this.isAuth()}
               path="/"
+              user={user}
               exact
               component={HomePage}
             />
             <Route path="/saves" render={props => {
-              console.log(props.history);
               return (
                 <AuthRoute
                   history={props.history}
@@ -122,39 +138,51 @@ class App extends Component {
                   path="/saves"
                   user={user}
                   component={SavePage}/>
-              )
-            }} />
-            <AuthRoute
-              isAuthenticated={this.isAuth()}
-              path="/combat"
-              component={CombatPage}
-            />
-            <Route component={NotFoundPage}/>
-          </Switch>
-        </div>
-      </Router>
-    );
-  }
-}
-function mapStateToProps(state) {
-  // Whatever is returned will show up as props inside of MonsterList
-  // console.tron.log(state);
-  const { monsters, searchTerm } = state.monsters;
-  return {
-    monsters
-  };
-}
+                )
+              }} />
+              <Route path="/new_player" render={props => {
+                return (
+                  <AuthRoute
+                    history={props.history}
+                    isAuthenticated={this.isAuth()}
+                    path="/new_player"
+                    user={user}
+                    component={NewPlayer}/>
+                  )
+                }} />
+                <AuthRoute
+                  isAuthenticated={this.isAuth()}
+                  path="/combat"
+                  component={CombatPage}
+                />
+                <Route component={NotFoundPage}/>
+              </Switch>
+            </div>
+          </Router>
+        );
+      }
+    }
+    function mapStateToProps(state) {
+      // Whatever is returned will show up as props inside of MonsterList
+      // console.tron.log(state);
+      const { monsters, searchTerm } = state.monsters;
+      return {
+        monsters
+      };
+    }
 
-// Anything returned from this function will end up as props
-// on the MonsterList container
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchMonsters: monsters =>
-    dispatch(actions.fetchMonsters(monsters)),
-  };
-}
+    // Anything returned from this function will end up as props
+    // on the MonsterList container
+    function mapDispatchToProps(dispatch) {
+      return {
+        fetchMonsters: monsters =>
+        dispatch(actions.fetchMonsters(monsters)),
+        fetchPlayers: payload =>
+        dispatch(actions.fetchPlayers(payload))
+      };
+    }
 
-// Promote MonsterList from a component to a container - it needs to know
-// about this new dispatch method, selectCombatant. Make it available
-// as a prop.
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+    // Promote MonsterList from a component to a container - it needs to know
+    // about this new dispatch method, selectCombatant. Make it available
+    // as a prop.
+    export default connect(mapStateToProps, mapDispatchToProps)(App);

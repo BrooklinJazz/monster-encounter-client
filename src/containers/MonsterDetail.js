@@ -17,7 +17,7 @@ class MonsterDetail extends Component {
 		const {monster = {}} = this.props
 
 		if (!monster) {
-			return <div>Select a monster to get started</div>;
+			return <div className="MonsterDetail innerShadow">Select a monster to get started</div>;
 		}
 		// this must be below if statement or it will be defined when monster is empty
 		// NOTE InitiativeModifier is always 0 in JSON?
@@ -56,11 +56,9 @@ class MonsterDetail extends Component {
 			Wis = 0,
 			Cha = 0,
 		} = monster.Abilities
-		console.log('Traits', Traits, Traits.length);
-		console.log('Actions', Actions, Actions.length);
-		console.log('LegendaryActions', LegendaryActions, LegendaryActions.length);
+		
 		return (
-			<div className="MonsterDetail">
+			<div className="MonsterDetail innerShadow">
 
 				<OrangeBar />
 
@@ -75,7 +73,12 @@ class MonsterDetail extends Component {
 
 				<PropertyLine Name="Armor Class" Value={AC.Value} Notes={AC.Notes} />
 				<PropertyLine Name="Hit Points" Value={HP.Value} Notes={HP.Notes} />
-				<PropertyLine Name="Speed" Value={Speed} />
+				{
+					Speed.length > 0 ?
+					<PropertyLine Name="Speed" Value={Speed} />
+					:
+					<div></div>
+				}
 
 				<SvgLine />
 
@@ -133,9 +136,16 @@ class MonsterDetail extends Component {
 					<div></div>
 				}
 				{/* TODO show xp given for challenge */}
-				<PropertyListing Name="Challenge" Value={Challenge} />
+				{
+					Challenge.length > 0 ?
+					<div>
+						<PropertyListing Name="Challenge" Value={Challenge} />
+						<SvgLine />
+					</div>
+					:
+					<div></div>
+				}
 
-				<SvgLine />
 
 				{/* Only render these when they have value */}
 				{
