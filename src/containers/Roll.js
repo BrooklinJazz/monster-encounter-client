@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import * as actions from "../actions/index";
 import { bindActionCreators } from "redux";
+import FontAwesome from 'react-fontawesome'
 
 class Roll extends Component {
   constructor(props) {
@@ -13,12 +14,16 @@ class Roll extends Component {
   render() {
     const {rolled, roll, result, index} = this.props
     return (
-      <div>
-        <div>{rolled} {roll} {result}
-          <button
+      <div className="row">
+        <div className="rollContainer pull-right one-edge-shadow float-right ">
+          <div>Rolled: {rolled} -> {roll} = <strong>{result}</strong></div>
+          <FontAwesome
+            className="rollCheck"
             onClick={() => this.props.deleteRoll(index)}
-            >Delete
-          </button>
+            name='check'
+            size='2x'
+            style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+          />
         </div>
 
       </div>

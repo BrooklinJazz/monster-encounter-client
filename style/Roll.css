@@ -1,0 +1,25 @@
+.rollContainer {
+  background-color: #FBEFDA;
+  min-height:50px;
+  max-width: 100%;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px 0 10px;
+  margin-top:5px;
+}
+.rollCheck {
+  background-color: #D7C5B2;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+.rollCheck:hover {
+  background-color: #C4AA8E;
+}
+.textRight {
+  text-align: right;
+}
+.one-edge-shadow {
+  box-shadow: 0 8px 6px -6px black;
+}

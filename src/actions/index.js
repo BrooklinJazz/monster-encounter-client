@@ -13,6 +13,11 @@ export const filterLibrary = searchTerm => {
   return createAction(Types.FILTER_MONSTER_LIBRARY, { searchTerm });
 }
 
+// Actions relating to Players
+export const fetchPlayers = payload => {
+  return createAction(Types.FETCH_PLAYERS, { payload });
+}
+
 // Actions relating to CombatantList
 export const selectCombatant = combatant =>
 createAction(Types.MONSTER_SELECTED, { combatant });

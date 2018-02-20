@@ -74,63 +74,64 @@ class SignUpPage extends Component {
     }
 
     return (
-      <main
-        className="SignUpPage"
-        style={{
-          padding: '0 20px'
-        }}
-      >
-        <h2>Sign Up</h2>
+      <div className="row">
+        <main
+          className="SignUpPage col-sm-offset-5 col-sm-2"
+          style={{
+            padding: '0 20px'
+          }}
+          >
+            <form onSubmit={this.signUp} className="signUpForm">
+              <h2>Sign Up</h2>
+              <div>
+                <label htmlFor='first_name'>First Name</label> <br />
+                <input
+                  value={first_name}
+                  onChange={this.handleChange('first_name')}
+                  id='first_name'
+                  name='first_name'
+                />
+              </div>
 
-        <form onSubmit={this.signUp}>
-        <div>
-          <label htmlFor='first_name'>First Name</label> <br />
-          <input
-            value={first_name}
-            onChange={this.handleChange('first_name')}
-            id='first_name'
-            name='first_name'
-          />
-        </div>
+              <div>
+                <label htmlFor='last_name'>Last Name</label> <br />
+                <input
+                  value={last_name}
+                  onChange={this.handleChange('last_name')}
+                  id='last_name'
+                  name='last_name'
+                />
+              </div>
 
-        <div>
-          <label htmlFor='last_name'>Last Name</label> <br />
-          <input
-            value={last_name}
-            onChange={this.handleChange('last_name')}
-            id='last_name'
-            name='last_name'
-          />
-        </div>
+              <div>
+                <label htmlFor='email'>Email</label> <br />
+                <input
+                  value={email}
+                  onChange={this.handleChange('email')}
+                  type='email'
+                  id='email'
+                  name='email'
+                />
+              </div>
 
-          <div>
-            <label htmlFor='email'>Email</label> <br />
-            <input
-              value={email}
-              onChange={this.handleChange('email')}
-              type='email'
-              id='email'
-              name='email'
-            />
-          </div>
-
-          <div>
-            <label htmlFor='password'>Password</label> <br />
-            <input
-              value={password}
-              onChange={this.handleChange('password')}
-              type='password'
-              id='password'
-              name='password'
-            />
-          </div>
+              <div>
+                <label htmlFor='password'>Password</label> <br />
+                <input
+                  value={password}
+                  onChange={this.handleChange('password')}
+                  type='password'
+                  id='password'
+                  name='password'
+                />
+              </div>
 
 
-          <div>
-            <input type='submit' value='Sign Up'/>
-          </div>
-        </form>
-      </main>
+              <div>
+                <input type='submit' value='Sign Up'/>
+              </div>
+            </form>
+          </main>
+      </div>
     )
   }
 }
