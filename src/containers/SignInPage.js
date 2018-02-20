@@ -54,11 +54,9 @@ class SignInPage extends Component {
     return (
       <main
         className="SignInPage col-sm-offset-5 col-sm-2"
-        style={{
-          padding: '0 20px'
-        }}
+
       >
-        <form onSubmit={this.createToken}>
+        <form onSubmit={this.createToken} className="signInForm">
           <h2>Sign In</h2>
           <div>
             <label htmlFor='email'>Email</label> <br />

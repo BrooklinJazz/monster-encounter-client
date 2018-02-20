@@ -81,7 +81,7 @@ class SignUpPage extends Component {
             padding: '0 20px'
           }}
           >
-            <form onSubmit={this.signUp}>
+            <form onSubmit={this.signUp} className="signUpForm">
               <h2>Sign Up</h2>
               <div>
                 <label htmlFor='first_name'>First Name</label> <br />
