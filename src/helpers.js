@@ -79,7 +79,7 @@ export const replaceRollsRegex = (str) => {
   // replacing all sided Die roll expressions with PowerRoll.js
   for (let exp of regexArray) {
     replacedText = reactStringReplace(replacedText, exp, (match, i) => (
-      <PowerRoll style={{ color: 'red' }} roll={match}></PowerRoll>
+      <PowerRoll key={i + exp} style={{ color: 'red' }} roll={match}></PowerRoll>
     ))
   }
 
@@ -100,7 +100,7 @@ export const replaceRollsRegex = (str) => {
   // replace all of the expressions found with D20Roll.js
   for (let exp of d20regexArray) {
     replacedText = reactStringReplace(replacedText, exp, (match, i) => (
-      <D20Roll style={{ color: 'red' }} roll={match}></D20Roll>
+      <D20Roll key={i + exp} style={{ color: 'red' }} roll={match}></D20Roll>
     ))
   }
   // Now that d20 expressions and sided die roll expressions are replaced with clickable components PowerRoll and D20Roll, return the string to the Power.js component in MonsterDetail.js

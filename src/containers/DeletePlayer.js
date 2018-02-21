@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from "react-redux";
 import * as actions from "../actions/index";
 import FontAwesome from 'react-fontawesome'
-const BASE_URL = 'http://localhost:3000/api/v1'
+const BASE_URL = 'http://ec2-18-217-99-170.us-east-2.compute.amazonaws.com:3000/api/v1'
 
 class DeletePlayer extends Component {
   constructor(props) {

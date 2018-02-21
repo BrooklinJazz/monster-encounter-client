@@ -7,16 +7,24 @@ class Combatant extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showComponent: false
+      showDamageInput: false,
+      showInitiativeInput: false
     };
-    this._onButtonClick = this._onButtonClick.bind(this);
-    this.onClickOut = this.onClickOut.bind(this);
+    this._onDamageSelectClick = this._onDamageSelectClick.bind(this);
+    this._onInitiativeSelectClick = this._onInitiativeSelectClick.bind(this);
+    this.onClickOutDamageInput = this.onClickOutDamageInput.bind(this);
+    this.onClickOutInitiativeInput = this.onClickOutInitiativeInput.bind(this);
     // expected that I would need to bind function, but do not seem to.
-    // this._handleSubmit = this._handleSubmit.bind(this);
+    // this._DamageFormSubmit = this._DamageFormSubmit.bind(this);
   }
 
-  onClickOut(e) {
-    this.setState({showComponent: false});
+  onClickOutDamageInput(e) {
+    this.setState({showDamageInput: false});
+  }
+
+  onClickOutInitiativeInput(e) {
+    console.log('ow');
+    this.setState({showInitiativeInput: false});
   }
 
   render() {
@@ -24,25 +32,56 @@ class Combatant extends Component {
     const {combatant = {}, index} = this.props;
 
     return (
-      <tr class="Combatant"
+      <tr className="Combatant"
         onClick={() => this.props.selectCombatant(combatant)}>
         <th
           className="col-xs-1"
-          scope="row">{combatant.InitiativeRoll || '#'}</th>
+          scope="row">
+          {
+            this.state.showInitiativeInput
+            ?
+            <form
+              onClick={(e) => e.stopPropagation()}
+              onSubmit={(e) => this._InitiativeFormSubmit(e)}>
+              <ClickOutHandler onClickOut={this.onClickOutInitiativeInput}>
+                <input
+                  className="combatantInitiativeInput"
+                  type="number"
+                  autoFocus
+                  name="initiativeChange"
+                  onChange={(e) => this._handleChange(e)}/>
+                </ClickOutHandler>
+              </form>
+              :
+              <div
+                className="combatantInitiativeSelect"
+                onClick={this._onInitiativeSelectClick}
+                data-toggle="tooltip"
+                title="Change Combatant Initiative">
+                {
+                  combatant.InitiativeRoll
+                  ?
+                  combatant.InitiativeRoll
+                  :
+                  combatant.InitiativeRoll = 0
+                }
+              </div>
+            }
+          </th>
           <td className="col-xs-4">
             {combatant.Name}
           </td>
           <td
             className="col-xs-3 textCenter">
             {
-              this.state.showComponent
+              this.state.showDamageInput
               ?
               <form
                 onClick={(e) => e.stopPropagation()}
-                onSubmit={(e) => this._handleSubmit(e)}>
-                <ClickOutHandler onClickOut={this.onClickOut}>
+                onSubmit={(e) => this._DamageFormSubmit(e)}>
+                <ClickOutHandler onClickOut={this.onClickOutDamageInput}>
                   <input
-                    className="monsterDamageInput"
+                    className="combatantDamageInput"
                     type="number"
                     autoFocus
                     name="hpChange"
@@ -51,70 +90,91 @@ class Combatant extends Component {
                 </form>
                 :
                 <div
-                  className="monsterDamageSelect"
-                  onClick={this._onButtonClick}>
+                  className="combatantDamageSelect"
+                  onClick={this._onDamageSelectClick}
+                  data-toggle="tooltip"
+                  title="Change Combatant HP">
                   {combatant.currentHp}/{combatant.HP.Value}
-              </div>
-            }
-          </td>
-          <td
-            className="col-xs-2">
-            {combatant.AC.Value}
-          </td>
-          <td className="col-xs-2">
-            <FontAwesome
-              onClick={() => this.props.clearCombatants()}
-              className="clearCombatant"
-              name='minus-circle'
-              size='2x'
-              style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-              onClick={ (e) => {
-                e.stopPropagation();
-                this.props.removeCombatant({combatant, index: index})
+                </div>
               }
-            }
-          />
-        </td>
-      </tr>
-    )
+            </td>
+            <td
+              className="col-xs-2">
+              {combatant.AC.Value}
+            </td>
+            <td className="col-xs-2">
+              <FontAwesome
+                onClick={() => this.props.clearCombatants()}
+                className="clearCombatant"
+                name='minus-circle'
+                size='2x'
+                style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                onClick={ (e) => {
+                  e.stopPropagation();
+                  this.props.removeCombatant({combatant, index: index})
+                }
+              }
+            />
+          </td>
+        </tr>
+      )
+    }
+
+    _onDamageSelectClick(e) {
+      e.stopPropagation()
+      this.setState({showDamageInput: true});
+    }
+    _onInitiativeSelectClick(e) {
+      e.stopPropagation()
+      this.setState({showInitiativeInput: true});
+    }
+
+    _handleChange(e) {
+      // creates this.state.hpChange for use in _DamageFormSubmit
+      const newState = Object.assign({}, this.state, {
+        [e.target.name]: e.target.value
+      });
+      this.setState(newState)
+    }
+
+    _DamageFormSubmit(e) {
+      e.preventDefault();
+      const {combatant = {}, index} = this.props;
+      const {hpChange} = this.state
+      this.props.changeCombatantHp({combatant, hpChange, index})
+      this.setState({showDamageInput: false});
+    }
+    _InitiativeFormSubmit(e) {
+      e.preventDefault();
+      const {combatant = {}, index} = this.props;
+      const {initiativeChange} = this.state
+      this.props.changeCombatantInitiative({combatant, initiativeChange, index})
+      this.setState({showInitiativeInput: false});
+    }
   }
 
-  _onButtonClick(e) {
-    e.stopPropagation()
-    this.setState({showComponent: true});
+
+
+  function mapStateToProps(state) {
+    const {selectedMonster} = state.monsters;
+    return {selectedMonster};
   }
 
-  _handleChange(e) {
-    // creates this.state.hpChange for use in _handleSubmit
-    const newState = Object.assign({}, this.state, {
-      [e.target.name]: e.target.value
-    });
-    this.setState(newState)
+  function mapDispatchToProps(dispatch) {
+    // Whenever selectCombatant is called, the result should be passed to all
+    // of our reducers
+    return {
+      selectCombatant: combatant =>
+      dispatch(actions.selectCombatant(combatant)),
+
+      changeCombatantHp: combatant =>
+      dispatch(actions.changeCombatantHp(combatant)),
+
+      changeCombatantInitiative: combatant =>
+      dispatch(actions.changeCombatantInitiative(combatant)),
+
+      removeCombatant: combatant =>
+      dispatch(actions.removeCombatant(combatant))
+    };
   }
-
-  _handleSubmit(e) {
-    e.preventDefault();
-    const {combatant = {}, index} = this.props;
-    const {hpChange} = this.state
-    this.props.changeCombatantHp({combatant, hpChange, index})
-    this.setState({showComponent: false});
-  }
-}
-
-
-
-function mapStateToProps(state) {
-  const {selectedMonster} = state.monsters;
-  return {selectedMonster};
-}
-
-function mapDispatchToProps(dispatch) {
-  // Whenever selectCombatant is called, the result should be passed to all
-  // of our reducers
-  return {
-    selectCombatant: combatant => dispatch(actions.selectCombatant(combatant)),
-    changeCombatantHp: combatant => dispatch(actions.changeCombatantHp(combatant)),
-    removeCombatant: combatant => dispatch(actions.removeCombatant(combatant))
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Combatant);
+  export default connect(mapStateToProps, mapDispatchToProps)(Combatant);

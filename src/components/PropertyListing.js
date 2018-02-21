@@ -2,7 +2,6 @@ import React from 'react';
 
 function PropertyListing(props) {
   const {Name = '', Value = ''} = props
-  // console.log('Value', Value, typeof Value);
       return (
         <div className="listing">
           <strong>{Name} </strong>

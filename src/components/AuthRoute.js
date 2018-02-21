@@ -10,8 +10,6 @@ function AuthRoute (props) {
     ...restProps
   } = props;
 
-  console.log('-----------------------', props.history);
-
   return (
     <Route
       {...restProps}

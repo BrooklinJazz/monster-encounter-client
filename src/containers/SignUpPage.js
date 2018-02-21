@@ -30,8 +30,6 @@ class SignUpPage extends Component {
     const params = this.state
     const {onSignIn = () => {}} = this.props;
 
-    console.log(params);
-    // TODO sign up is not saving user password has encrypted
     const {email, password} = this.state;
     fetch(
       `${BASE_URL}/api/v1/users/`,

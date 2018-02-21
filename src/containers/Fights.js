@@ -5,7 +5,7 @@ import Moment from 'react-moment';
 import { Table } from 'reactstrap';
 import FontAwesome from 'react-fontawesome'
 
-const BASE_URL = 'http://localhost:3000/api/v1'
+const BASE_URL = 'http://ec2-18-217-99-170.us-east-2.compute.amazonaws.com:3000/api/v1'
 
 class Fights extends Component {
   constructor(props) {
@@ -20,10 +20,6 @@ class Fights extends Component {
 
   componentWillMount() {
     this.getFights()
-    console.log(this.props.fights);
-  }
-  componentDidMount() {
-    console.log(this.props.fights);
   }
 
   // NOTE make this fetch request without a local function?
@@ -76,9 +72,7 @@ class Fights extends Component {
         },
       }
     )
-    // .then(res => console.log('hey'))
     .then(res => this.getFights())
-    // .then(res => this.props.renderSavedCombat(res))
   }
 
   renderList() {

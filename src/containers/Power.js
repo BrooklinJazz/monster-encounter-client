@@ -14,25 +14,23 @@ class Power extends Component {
     const {Title = ''} = this.props
     // map through the ArrOfObj and replace obj.Content string
     // with clickable Components D20Roll and PowerRoll
-    const ArrOfObjMap = ArrOfObj.map( obj => {
+    const ArrOfObjMap = ArrOfObj.map( (obj, index) => {
       return (
-        <div className="propertyBlock" key={obj.Name}>
+        <div className="propertyBlock" key={index}>
           {/* i.e. Bite */}
-          <h4><strong>{obj.Name} </strong></h4>
+          <h4 key={obj.Name}><strong>{obj.Name} </strong></h4>
           {/* i.e. Melee Weapon Attack: <D20Roll>+6</D20Roll> to hit, reach 5 ft., one target. Hit: 1 piercing damage plus 7 <PowerRoll>(3d4)</PowerRoll> poison damage. */}
-          <div className="propertyBlock-text">
+          <div key={obj.Content} className="propertyBlock-text">
             {replaceRollsRegex(obj.Content)}
           </div>
         </div>
       )
     })
     return (
-      <div className="actions">
+      <div key={Title} className="actions">
         {
           Title.length > 0 ? <h3>{Title}</h3> : <div />
         }
-        {/* <h3>{Title}</h3> */}
-        {/* <div>{ArrOfObjMap}</div> */}
         {ArrOfObjMap}
       </div>
     )

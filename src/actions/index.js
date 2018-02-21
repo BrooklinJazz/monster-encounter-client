@@ -26,7 +26,10 @@ export const clearCombatants = payload =>
 createAction(Types.CLEAR_COMBATANTS, { payload });
 
 export const changeCombatantHp = payload =>
-createAction(Types.CHANGE_MONSTER_HP, { payload });
+createAction(Types.CHANGE_COMBATANT_HP, { payload });
+
+export const changeCombatantInitiative = payload =>
+createAction(Types.CHANGE_COMBATANT_INITIATIVE, { payload });
 
 export const removeCombatant = payload =>
 createAction(Types.REMOVE_COMBATANT, { payload })

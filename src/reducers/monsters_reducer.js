@@ -69,6 +69,7 @@ export default function(state = INITIAL_STATE, action) {
     // Variable names to be used:
     // a deepClone of the current combatant
     let newCombatant
+    let newCombatantList
     case Types.REMOVE_COMBATANT:
     // assign a constant to be equal to CombatantList.
     // using map to avoid mutating state.
@@ -82,14 +83,30 @@ export default function(state = INITIAL_STATE, action) {
       ...state,
       CombatantList: combatantsListAfterRemove
     };
-    case Types.CHANGE_MONSTER_HP:
-    // NOTE DEBUG this function works, but when it changes the value of combatant.currentHp it may be pointing to the original state and mutating it.
-    const combatantsListAfterChange = state.CombatantList.map( (combatant, i) => {
+    case Types.CHANGE_COMBATANT_HP:
+    const combatantsListAfterDamageChange = state.CombatantList.map( (combatant, i) => {
       return limitMonsterHpChange(i, combatant, action.payload)
     })
     return {
       ...state,
-      CombatantList: combatantsListAfterChange
+      CombatantList: combatantsListAfterDamageChange
+    }
+    case Types.CHANGE_COMBATANT_INITIATIVE:
+    newCombatantList = [...state.CombatantList]
+    const combatantsListAfterInitiativeChange = newCombatantList.map( (combatant, i) => {
+      if (i == action.payload.index) {
+        action.payload.combatant.InitiativeRoll = action.payload.initiativeChange
+        return action.payload.combatant
+      } else {
+        return combatant
+      }
+    })
+    combatantsListAfterInitiativeChange.sort(function(a, b) {
+      return b.InitiativeRoll - a.InitiativeRoll
+    })
+    return {
+      ...state,
+      CombatantList: combatantsListAfterInitiativeChange
     }
     case Types.CLEAR_COMBATANTS:
     return {
@@ -97,7 +114,7 @@ export default function(state = INITIAL_STATE, action) {
       CombatantList: []
     }
     case Types.ROLL_INITIATIVES:
-    const newCombatantList = [...state.CombatantList]
+    newCombatantList = [...state.CombatantList]
     const combatantsAfterInitiativeRoll = newCombatantList.map( monster => {
       return {
         ...monster,
@@ -116,7 +133,6 @@ export default function(state = INITIAL_STATE, action) {
       CombatantList: combatantsAfterInitiativeRoll
     }
     case Types.RENDER_SAVED_COMBAT:
-    // console.log('RENDER_SAVED_COMBAT', action.payload);
     return {
       ...state,
       CombatantList: action.payload
@@ -145,7 +161,6 @@ export default function(state = INITIAL_STATE, action) {
     let dtwenty
     // this case creates a new Roll Component to be shown using the redux store for rolls. payload should be given in form similar to +5, or +12, or -6, or -13
     case Types.D20_ROLLED:
-    console.log(action.payload);
     // if the payload is positive
     if (parseInt(action.payload) >= 0) {
       // convert payload to be integer as modifier
@@ -254,7 +269,6 @@ export default function(state = INITIAL_STATE, action) {
     Rolls
     ****************************************/
     case Types.UPDATE_FIGHTS:
-    // console.log('UPDATE FIGHTS', action.payload);
     return {
       ...state,
       fights: action.payload

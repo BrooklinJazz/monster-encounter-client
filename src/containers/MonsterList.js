@@ -44,10 +44,7 @@ class MonsterList extends Component {
   renderList() {
     // TODO refactor this.props with ES6 syntax
     const { showComponent, filterByChallenge } = this.state
-    const { user } = this.props
-    const {
-      monsters = [],
-    } = this.props
+    const { user, monsters } = this.props
     if (showComponent === "monsters") {
       if (filterByChallenge) {
         return monsters
@@ -117,6 +114,7 @@ class MonsterList extends Component {
     }
 
     render() {
+      const { monsters } = this.props
       return (
         <div className="monsterList innerShadow">
           <h2>Library</h2>
@@ -140,7 +138,13 @@ class MonsterList extends Component {
           />
           {/* <button onClick={() => this.toggleFilterByChallenge()}>Challenge</button> */}
           <SearchBar/>
-          <ListGroup className="monsterListGroup">{this.renderList()}</ListGroup>
+          {
+            monsters.length === 0
+            ?
+            <div>loading...</div>
+            :
+            <ListGroup className="monsterListGroup">{this.renderList()}</ListGroup>
+          }
         </div>
       )
     }

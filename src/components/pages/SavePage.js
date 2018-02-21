@@ -5,7 +5,6 @@ import SaveFight from '../../containers/SaveFight'
 
 function SavePage(props) {
   const {user = [], history = {}} = props
-  console.log(props.user);
   return (
     <div>
       <div className="row">

@@ -19,7 +19,7 @@ import {
 } from 'reactstrap';
 
 
-function NavBar(props) {
+function Navigation(props) {
   const {user, onSignOutClick = () => {}} = props;
 
   const handleSignOut = event => {
@@ -27,45 +27,42 @@ function NavBar(props) {
     onSignOutClick();
   };
   return (
-    <Navbar color="faded" light expand="md">
-      <NavbarBrand tag={Link} to="/">
-      <FontAwesome
-        name='d-and-d'
-        size='2x'
-        style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-      />
-      D&D Battle Master
+    <Navbar key="Navbar" color="faded" light expand="md">
+      <NavbarBrand key="NavbarBrand" tag={Link} to="/">
+      Monster Encounter
     </NavbarBrand>
-    <Nav className="ml-auto" navbar>
-      <NavItem className="navItem">
-        <NavLink className="navLink" tag={Link} to="/">Home</NavLink>
+    <Nav key="Nav" className="ml-auto" navbar>
+      <NavItem key="HomeItem" className="navItem">
+        <NavLink key="HomeLink" className="navLink" tag={Link} to="/">Home</NavLink>
       </NavItem>
       {/* <NavItem className="navItem">
       <NavLink className="navItem" tag={Link} to="/combat">Combat Mode</NavLink>
     </NavItem> */}
-    <NavItem className="navItem">
-      <NavLink  className="navLink" tag={Link} to="/new_player">Create Player</NavLink>
+    <NavItem key="CreatePlayerItem" className="navItem">
+      <NavLink  key="CreatePlayerLink" className="navLink" tag={Link} to="/new_player">Create Player</NavLink>
     </NavItem>
-    <NavItem className="navItem">
-      <NavLink  className="navLink" tag={Link} to="/saves">Save Files</NavLink>
+    <NavItem key="SaveFilesItem" className="navItem">
+      <NavLink  key="SaveFilesLink" className="navLink" tag={Link} to="/saves">Save Files</NavLink>
     </NavItem>
-    <NavItem className="navItem">
-      <NavLink className="navLink"><QuickSave user={user} /></NavLink>
+    <NavItem key="QuickSaveItem" className="navItem">
+      <NavLink key="QuickSaveLink" className="navLink"><QuickSave user={user} /></NavLink>
     </NavItem>
 
     {
       user ? ([
-        <div className="pull-right">
-          <NavItem className="navItem">
+        <div key="pull-right" className="pull-right">
+          <NavItem key="UserNameItem" className="navItem">
             <NavLink
+              key="UserNameLink"
               className="userName"
               key='1'
               style={{marginLeft: '20px', marginRight: '0px'}}>
               Hello, {user.full_name}
             </NavLink>
           </NavItem>
-          <NavItem className="navItem">
+          <NavItem key="SignOutItem" className="navItem">
             <NavLink
+              key="SignOutLink"
               className="signing"
               onClick={handleSignOut}
               key='2'
@@ -75,9 +72,10 @@ function NavBar(props) {
           </NavItem>
         </div>
       ]) : (
-        <div className="pull-right">
-          <NavItem className='navItem '>
+        <div key="pull-right" className="pull-right">
+          <NavItem key="SignInItem" className='navItem '>
             <NavLink
+              key="SignInLink"
               className="signing "
               // style={{marginLeft: 'auto', marginRight: '20px'}}
               tag={Link}
@@ -86,8 +84,9 @@ function NavBar(props) {
               Sign In
             </NavLink>
           </NavItem>
-          <NavItem className='navItem '>
+          <NavItem key="SignUpItem" className='navItem '>
             <NavLink
+              key="SignUpLink"
               className="signing "
               tag={Link}
               // style={{marginLeft: 'auto', marginRight: '20px'}}
@@ -104,4 +103,4 @@ function NavBar(props) {
 )
 }
 
-export default NavBar
+export default Navigation

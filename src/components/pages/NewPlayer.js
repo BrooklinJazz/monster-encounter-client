@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import * as actions from "../../actions/index"
 import { InputGroup, InputGroupAddon, InputGroupText, Input, Button, Form, FormGroup, Label, FormText } from 'reactstrap';
 
-const BASE_URL = 'http://localhost:3000/api/v1'
+const BASE_URL = 'http://ec2-18-217-99-170.us-east-2.compute.amazonaws.com:3000/api/v1'
 
 class NewPlayer extends Component {
   constructor(props) {

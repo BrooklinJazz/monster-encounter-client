@@ -20,7 +20,7 @@ class Roll extends Component {
           <FontAwesome
             className="rollCheck"
             onClick={() => this.props.deleteRoll(index)}
-            name='check'
+            name='times'
             size='2x'
             style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
           />
