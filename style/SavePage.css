@@ -1,0 +1,12 @@
+.deleteSave:hover {
+  color: red;
+}
+.loadSave:hover {
+  color: green;
+}
+.Fights {
+  background-color: white !important;
+}
+.SaveFight {
+  padding:20px;
+}

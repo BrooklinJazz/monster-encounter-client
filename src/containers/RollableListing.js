@@ -14,19 +14,19 @@ class RollableListing extends Component {
     const {ArrOfObj} = this.props
     const ArrOfObjMap = ArrOfObj.map( obj => {
       return (
-        <div key={obj.Name}>
-          <div >
-            {obj.Name}: <span
-              className="rollableMod"
-              onClick={() => this.props.d20Roll(obj.Modifier)}
-              >{obj.Modifier}</span>
-          </div>
-
+        <div
+          key={obj.Name}
+          onClick={() => this.props.d20Roll(obj.Modifier)}>
+            <p>{obj.Name}:+
+              <span
+                className='rollableUnderline'>
+              {obj.Modifier}</span><span> </span>
+            </p>
         </div>
       )
     })
     return (
-      <div><strong>{Title}:</strong>{ArrOfObjMap}</div>
+      <div className="listing" ><strong>{Title}</strong> {ArrOfObjMap}</div>
     )
   }
 }

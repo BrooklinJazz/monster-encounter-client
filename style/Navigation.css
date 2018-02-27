@@ -1,0 +1,19 @@
+.navItem {
+  list-style: none !important;
+  list-style-type: none !important;
+}
+.userName {
+  color:grey !important;
+}
+.signing {
+  color:#1E63B7 !important;
+}
+.signing:hover {
+  color:#65BFF4 !important;
+}
+.navLink {
+  color:#686869 !important ;
+}
+.navLink:hover {
+  color:#A3A3A8 !important ;
+}

@@ -1,49 +1,24 @@
-#dndBattleMaster
+# Monster Encounter
+Monster Encounter is a combat tool for 5th edition Dungeons and Dragons. This tool allows Dungeon Masters to streamline and manage their combats with features such as auto rolling, hit point tracking, and initiative tracking. DMs, as they are colloquially known, can use this tool in place of the typical pen and paper to make their combats more fun and engaging.
 
-## Desired Features to Impliment
-1. User Sign In
-  - Save fights (the existing CombatantList)
-  - using express on the BackEnd
-2. Layouts
-  - Possibly using Router to have different layouts of the page i.e having a combatant focused layout that shows all of the combatants detailed stats on the page, and the current layout which is better for selecting Combatants one at a time.
-3. Stylings
-  - general stylings
-  - better layout for MonsterDetail.js
-  - Roll.js divs
-  - MonsterList.js
-  - CombatantList.js
+to see the site deployed go to: http://monsterencounter.com
 
-# tech
-react-router
-```js
-npm install --save react-router-dom
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch
-} from 'react-router-dom';
+## Getting Started
+run the following in your terminal:
 ```
-react-string-replace
-npm install --sace react-string-replace
-```js
-const reactStringReplace = require('react-string-replace')
-```
-NOT USING THIS
-npm install --save redux-state-save
-```js
-import Storage from "redux-state-save";
+$ git clone git@github.com:BrooklinJazz/monster-encounter-client.git
+$ npm install
+$ npm start
 
-var storage1 = new Storage();
-storage1.setConfig({
-    storage_type: "local_storage",
-    local_key: "redux-states"
-});
-var store = createStore(reducers, applyMiddleware(storage1.saveState()));
+Open on http://localhost:8080/
+```
 
-// state data load from local storage
-store = storage1.loadState(store);
-```
-## redux-persist
-```js
-npm install --save redux-persist
-```
+## API
+for more information on the API being used, go to: https://github.com/BrooklinJazz/monster-encounter-api
+
+## Technologies used:
+- React with Redux
+- Ruby on Rails (API)
+- Javascript
+- PostgreSQL
+- Bootstrap (Reactstrap)

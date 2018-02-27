@@ -12,7 +12,7 @@ import {
   getModifier,
   rollSidedDice,
   limitMonsterHpChange
-} from "../../helpers"
+} from "../helpers"
 // the array of monster objects exported as a function.
 // NOTE storing monsters in a local file currently
 const monsters = monstersData()
@@ -22,7 +22,9 @@ const INITIAL_STATE = {
   selectedMonster: null,
   CombatantList: [],
   searchTerm: '',
-  rolls: []
+  rolls: [],
+  fights: [],
+  players: []
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -30,7 +32,6 @@ export default function(state = INITIAL_STATE, action) {
     // Select combatant to show detailed stats
     // coming from Combatant.js
     case Types.FETCH_MONSTERS:
-    console.log('FETCH_MONSTERS');
     return {
       ...state,
       monsters: action.payload
@@ -55,11 +56,20 @@ export default function(state = INITIAL_STATE, action) {
       searchTerm: action.searchTerm
     };
     /****************************************
+    Players
+    ****************************************/
+    case Types.FETCH_PLAYERS:
+    return {
+      ...state,
+      players: action.payload
+    }
+    /****************************************
     CombatantList
     ****************************************/
     // Variable names to be used:
     // a deepClone of the current combatant
     let newCombatant
+    let newCombatantList
     case Types.REMOVE_COMBATANT:
     // assign a constant to be equal to CombatantList.
     // using map to avoid mutating state.
@@ -73,14 +83,30 @@ export default function(state = INITIAL_STATE, action) {
       ...state,
       CombatantList: combatantsListAfterRemove
     };
-    case Types.CHANGE_MONSTER_HP:
-    // NOTE DEBUG this function works, but when it changes the value of combatant.currentHp it may be pointing to the original state and mutating it.
-    const combatantsListAfterChange = state.CombatantList.map( (combatant, i) => {
+    case Types.CHANGE_COMBATANT_HP:
+    const combatantsListAfterDamageChange = state.CombatantList.map( (combatant, i) => {
       return limitMonsterHpChange(i, combatant, action.payload)
     })
     return {
       ...state,
-      CombatantList: combatantsListAfterChange
+      CombatantList: combatantsListAfterDamageChange
+    }
+    case Types.CHANGE_COMBATANT_INITIATIVE:
+    newCombatantList = [...state.CombatantList]
+    const combatantsListAfterInitiativeChange = newCombatantList.map( (combatant, i) => {
+      if (i == action.payload.index) {
+        action.payload.combatant.InitiativeRoll = action.payload.initiativeChange
+        return action.payload.combatant
+      } else {
+        return combatant
+      }
+    })
+    combatantsListAfterInitiativeChange.sort(function(a, b) {
+      return b.InitiativeRoll - a.InitiativeRoll
+    })
+    return {
+      ...state,
+      CombatantList: combatantsListAfterInitiativeChange
     }
     case Types.CLEAR_COMBATANTS:
     return {
@@ -88,7 +114,7 @@ export default function(state = INITIAL_STATE, action) {
       CombatantList: []
     }
     case Types.ROLL_INITIATIVES:
-    const newCombatantList = [...state.CombatantList]
+    newCombatantList = [...state.CombatantList]
     const combatantsAfterInitiativeRoll = newCombatantList.map( monster => {
       return {
         ...monster,
@@ -106,6 +132,11 @@ export default function(state = INITIAL_STATE, action) {
       ...state,
       CombatantList: combatantsAfterInitiativeRoll
     }
+    case Types.RENDER_SAVED_COMBAT:
+    return {
+      ...state,
+      CombatantList: action.payload
+    }
     /****************************************
     Rolls
     ****************************************/
@@ -120,15 +151,57 @@ export default function(state = INITIAL_STATE, action) {
     let result
     // the newRoll object concatinated with the rolls array in redux store
     let newRoll
+    let modifier
+    let numberOfDice
+    let sidesOfDice
+    let rollArray
+    let rollArrayString
+    let rollArrayReduced
+    let newSidedRoll
+    let dtwenty
+    // this case creates a new Roll Component to be shown using the redux store for rolls. payload should be given in form similar to +5, or +12, or -6, or -13
     case Types.D20_ROLLED:
-    toBeRolled = `(1d20 + ${action.payload})`
-    const dtwenty = d20()
-    roll = `[${dtwenty}] + ${action.payload}`
-    result = action.payload + dtwenty
-    newRoll = {rolled: toBeRolled, roll, result}
-    return {
-      ...state,
-      rolls: state.rolls.concat(newRoll)
+    // if the payload is positive
+    if (parseInt(action.payload) >= 0) {
+      // convert payload to be integer as modifier
+      modifier = parseInt(action.payload)
+      // toBeRolled expression for Roll Component
+      toBeRolled = `(1d20 + ${modifier})`
+      // a random number (roll) between 1 and 20
+      dtwenty = d20()
+      // show the number rolled for dtwenty
+      roll = `[${dtwenty}] + ${modifier}`
+      // set result i.e. [5] + 6, result = 11
+      result = modifier + dtwenty
+      // set the newRoll object to be added to rolls state
+      newRoll = {
+        rolled: toBeRolled,
+        roll,
+        result
+      }
+      return {
+        ...state,
+        rolls: state.rolls.concat(newRoll)
+      }
+      // if the payload is negative
+    } else if(parseInt(action.payload) < 0) {
+      // convert the roll to a positive number for
+      // ease of math. i.e. -5 becomes 5
+      modifier = parseInt(0 - action.payload)
+      // the expression to be rolled i.e. (1d20 + 5)
+      toBeRolled = `(1d20 - ${modifier})`
+      // a random number between 1 and 20
+      const dtwenty = d20()
+      // the expression after rolling i.e. [5] + 5
+      roll = `[${dtwenty}] - ${modifier}`
+      // the result of the roll i.e. [5] + 5, result = 10
+      result = dtwenty - modifier
+      // the newRoll object the be added to the rolls state.
+      newRoll = {rolled: toBeRolled, roll, result}
+      return {
+        ...state,
+        rolls: state.rolls.concat(newRoll)
+      }
     }
     case Types.DELETE_ROLL:
     const rollsAfterDelete = state.rolls.map( (roll, i) => {
@@ -140,32 +213,49 @@ export default function(state = INITIAL_STATE, action) {
       rolls: rollsAfterDelete
     }
     case Types.SIDED_DICE_ROLLED:
-    // the action.payload should be a dice expression i.e. (2d6 + 2)
-
-    // this case creates a new object in the rolls array in store.
-    // for example, when passed 2d6 + 2, an object will be created
-    // that looks like
-    // object = {
-    // rolled: "(2d6 + 2)",
-    // roll: "[6][2] + 2",
-    // result: 10
-    // }
-    // the object is then concatinated with the rolls array in store
     toBeRolled = action.payload
-    // the number of dice rolled i.e (2d6) will return 2
-    const numberOfDice = getNumberOfDice(toBeRolled)
-    // the type of dice rolled. i.e. (2d6) will return 6
-    const sidesOfDice = getSidesOfDice(toBeRolled)
-    let modifier = getModifier(toBeRolled)
-    // returns roll in format "1,3"
-    const rollArray = rollSidedDice(numberOfDice, sidesOfDice)
-    // roll converted from "1,3" to "[1,3] + 3"
-    const rollArrayString = `[${rollArray}] + ${modifier}`
-    // result the sum of rollArray plus modifier
-    const rollArrayReduced = parseInt(rollArray.reduce((a, b) => a + b, 0)) + parseInt(modifier)
-    // the object to be added to the redux store in rolls:
-    const newSidedRoll = {rolled: action.payload, roll: rollArrayString, result: rollArrayReduced}
-    // console.log('newRoll', newSidedRoll);
+    modifier = getModifier(toBeRolled)
+    // if the modifier is positive
+    if (modifier >= 0) {
+      // the number of dice rolled i.e (2d6) will return 2
+      numberOfDice = getNumberOfDice(toBeRolled)
+      // the type of dice rolled. i.e. (2d6) will return 6
+      sidesOfDice = getSidesOfDice(toBeRolled)
+      // the type of dice rolled. i.e. (2d6 + 5) will return 5
+      // returns roll in format "1,3"
+      rollArray = rollSidedDice(numberOfDice, sidesOfDice)
+      // roll converted from "1,3" to "[1,3] + 3"
+      rollArrayString = `[${rollArray}] + ${modifier}`
+      // result the sum of rollArray plus modifier
+      rollArrayReduced = parseInt(rollArray.reduce((a, b) => a + b, 0)) + parseInt(modifier)
+      // the object to be added to the redux store in rolls:
+      newSidedRoll = {
+        rolled: action.payload,
+        roll: rollArrayString,
+        result: rollArrayReduced
+      }
+      // if the modifier is negative
+    } else if (modifier <= 0) {
+      // set the modifier to a positive value
+      // for ease of math
+      modifier = 0 - modifier
+      // the number of dice rolled, i.e. (2d6) will return 2
+      numberOfDice = getNumberOfDice(toBeRolled)
+      // the type of dice rolled. i.e. (2d6) will return 6
+      sidesOfDice = getSidesOfDice(toBeRolled)
+      // returns roll in format "1,3"
+      rollArray = rollSidedDice(numberOfDice, sidesOfDice)
+      // roll converted from "1,3" to "[1,3] + 3"
+      rollArrayString = `[${rollArray}] - ${modifier}`
+      // result the sum of rollArray plus modifier
+      rollArrayReduced = parseInt(rollArray.reduce((a, b) => a + b, 0)) - parseInt(modifier)
+      // the object to be added to the redux store in rolls:
+      newSidedRoll = {
+        rolled: action.payload,
+        roll: rollArrayString,
+        result: rollArrayReduced
+      }
+    }
     return {
       ...state,
       rolls: state.rolls.concat(newSidedRoll)
@@ -174,6 +264,14 @@ export default function(state = INITIAL_STATE, action) {
     return {
       ...state,
       rolls: []
+    }
+    /****************************************
+    Rolls
+    ****************************************/
+    case Types.UPDATE_FIGHTS:
+    return {
+      ...state,
+      fights: action.payload
     }
 
   }

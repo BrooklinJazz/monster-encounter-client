@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Roll from '../components/Roll'
+import Roll from './Roll'
 import { connect } from "react-redux";
 
 class Rolls extends Component {

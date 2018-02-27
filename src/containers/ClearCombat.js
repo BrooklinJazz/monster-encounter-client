@@ -1,17 +1,24 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as actions from "../actions/index"
+import FontAwesome from 'react-fontawesome'
 
-class ClearCombatant extends Component {
+class ClearCombat extends Component {
   constructor(props) {
     super(props)
   }
   render() {
     return (
-      <button
-        className="btn btn-default"
-        onClick={() => this.props.clearCombatants()}
-        >Clear Combatants</button>
+      <FontAwesome
+        onClick={() => {
+          this.props.clearCombatants()
+          this.props.clearRolls()
+        }}
+        className="clearCombatants"
+        name='trash'
+        size='2x'
+        style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+      />
     )
   }
 }
@@ -25,9 +32,10 @@ function mapDispatchToProps(dispatch) {
   // Whenever selectCombatant is called, the result should be passed to all
   // of our reducers
   return {
+    clearRolls: payload => dispatch(actions.clearRolls(payload)),
     clearCombatants: payload => dispatch(actions.clearCombatants(payload))
   };
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClearCombatant);
+export default connect(mapStateToProps, mapDispatchToProps)(ClearCombat);

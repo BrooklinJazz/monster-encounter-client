@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions/index";
 
 
-class PowerRoll extends Component {
+class D20Roll extends Component {
   constructor(props) {
     super(props)
   }
@@ -11,8 +11,9 @@ class PowerRoll extends Component {
     const {roll} = this.props
 
     return (
-      <div className="PowerRoll rollableUnderline"
-        onClick={() => this.props.sidedDiceRoll(roll)}
+      <div className="D20Roll rollableUnderline"
+        onClick={() => this.props.d20Roll(roll)}
+        // onClick={() => this.props.sidedDiceRoll(roll)}
         >
           {roll}
         </div>
@@ -32,9 +33,9 @@ function mapDispatchToProps(dispatch) {
   // Whenever selectCombatant is called, the result should be passed to all
   // of our reducers
   return {
-    sidedDiceRoll: payload =>
-    dispatch(actions.sidedDiceRoll(payload)),
+    d20Roll: payload =>
+    dispatch(actions.d20Roll(payload)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PowerRoll);
+export default connect(mapStateToProps, mapDispatchToProps)(D20Roll);

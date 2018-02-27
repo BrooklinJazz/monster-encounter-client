@@ -9,10 +9,16 @@ import MonsterDetail from "../containers/MonsterDetail";
 import CombatantList from "../containers/CombatantList";
 import Rolls from "../containers/Rolls";
 import NotFoundPage from './NotFoundPage';
-import ClearCombatant from '../containers/ClearCombatant'
-import NavBar from './NavBar'
+import Navigation from './Navigation'
 import CombatantModeList from '../containers/CombatantModeList'
 import ClearRolls from '../containers/ClearRolls'
+
+import SignUpPage from '../containers/SignUpPage'
+import SavePage from './pages/SavePage'
+import CombatPage from './pages/CombatPage'
+import {AuthRoute} from './AuthRoute';
+import HomePage from './pages/HomePage';
+import NewPlayer from './pages/NewPlayer'
 import {
   BrowserRouter as Router,
   Route,
@@ -22,9 +28,11 @@ import {
 import {Token} from '../requests/tokens';
 import jwtDecode from 'jwt-decode';
 import SignInPage from '../containers/SignInPage'
+import Fights from '../containers/Fights'
+import SaveFight from '../containers/SaveFight'
 
-// const testUrl = 'http://www.dnd5eapi.co/api/monsters/1'
-const serverUrl = 'http://localhost:3000/api/v1/monsters'
+const SERVER_URL = 'http://ec2-18-217-99-170.us-east-2.compute.amazonaws.com:3000/api/v1/monsters'
+const BASE_URL = 'http://ec2-18-217-99-170.us-east-2.compute.amazonaws.com:3000/api/v1'
 
 class App extends Component {
   constructor (props) {
@@ -53,9 +61,14 @@ class App extends Component {
     }
   }
 
-  componentWillMount() {
+  isAuth () {
+    return !!this.state.user
+  }
+
+  componentDidMount() {
+    // get monster data for MonsterList
     fetch(
-      serverUrl,
+      SERVER_URL,
       {
         method: 'GET',
         headers: {
@@ -65,8 +78,23 @@ class App extends Component {
     )
     .then(res => res.json())
     .then(res => this.props.fetchMonsters(res))
+
+    const {user = []} = this.state
+    this.props.fetchPlayers()
+    fetch(
+      `${BASE_URL}/users/${user.id}/players`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    )
+    .then(res => res.json())
+    .then(res => this.props.fetchPlayers(res))
   }
-  componentDidMount () {
+
+  componentWillMount () {
     this.signIn();
   }
 
@@ -84,46 +112,57 @@ class App extends Component {
     return (
       <Router >
         <div className="App">
-          <NavBar
+          <Navigation
             user={user}
             onSignOutClick={this.signOut}
           />
           <Switch>
             <Route path="/sign_in" render={props => {
-              return <SignInPage {...props} onSignIn={this.signIn} />
+              return <SignInPage {...props} user={user} onSignIn={this.signIn} />
             }} />
-            <Route exact path="/">
-            <div className="row">
-              <div className="col-sm-4">
-                <SearchBar/>
-                <MonsterList/>
-              </div>
-              <div className="col-sm-4">
-                <CombatantList/>
-                <Rolls />
-              </div>
-              <div className="col-sm-4">
-                <MonsterDetail
-                />
-              </div>
-            </div>
-          </Route>
-          <Route path="/combat">
-          <div className="row">
-            <div className="col-sm-8">
-              <CombatantModeList />
-            </div>
-            <div className="col-sm-4">
-              <MonsterDetail />
-            </div>
-          </div>
-        </Route>
-        <Route component={NotFoundPage}/>
-      </Switch>
-    </div>
-  </Router>
-);
-}
+            <Route path="/sign_up" render={props => {
+              return <SignUpPage {...props} user={user} onSignIn={this.signIn}/>
+            }} />
+            <AuthRoute
+              isAuthenticated={this.isAuth()}
+              path="/"
+              user={user}
+              exact
+              component={HomePage}
+            />
+            <Route path="/saves" render={props => {
+              return (
+                <AuthRoute
+                  history={props.history}
+                  isAuthenticated={this.isAuth()}
+                  path="/saves"
+                  user={user}
+                  component={SavePage}/>
+                )
+              }}
+            />
+            <Route path="/new_player" render={props => {
+              return (
+                <AuthRoute
+                  history={props.history}
+                  isAuthenticated={this.isAuth()}
+                  path="/new_player"
+                  user={user}
+                  component={NewPlayer}/>
+                )
+              }}
+            />
+            <AuthRoute
+              isAuthenticated={this.isAuth()}
+              path="/combat"
+              component={CombatPage}
+            />
+            <Route component={NotFoundPage}/>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
 }
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside of MonsterList
@@ -140,6 +179,8 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchMonsters: monsters =>
     dispatch(actions.fetchMonsters(monsters)),
+    fetchPlayers: payload =>
+    dispatch(actions.fetchPlayers(payload))
   };
 }
 

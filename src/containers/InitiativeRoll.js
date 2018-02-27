@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as actions from "../actions/index";
-import {Button} from 'reactstrap'
+// import {Button} from 'reactstrap'
+import FontAwesome from 'react-fontawesome'
 
 class InitiativeRoll extends Component {
   constructor(props) {
@@ -9,9 +10,13 @@ class InitiativeRoll extends Component {
   }
   render() {
     return (
-      <Button color="default"
-        onClick={() => this.props.rollInitiatives()}
-        >InitiativeRoll</Button>
+        <FontAwesome
+          onClick={() => this.props.rollInitiatives()}
+          className="initiativeRoll"
+          name="sort"
+          size="2x"
+          style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+        />
     )
   }
 }

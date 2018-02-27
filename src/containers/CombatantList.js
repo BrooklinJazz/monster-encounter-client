@@ -3,6 +3,13 @@ import {connect} from "react-redux";
 import * as actions from "../actions/index"
 // import DamageInput from "../components/damage-input";
 import Combatant from "../containers/Combatant"
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Table } from 'reactstrap';
+import InitiativeRoll from './InitiativeRoll'
+import ClearCombat from './ClearCombat'
+import FontAwesome from 'react-fontawesome'
+import Rolls from './Rolls'
+
 
 // import { selectCombatant } from '../actions/index';
 // import { bindActionCreators} from 'redux';
@@ -18,11 +25,7 @@ class CombatantList extends Component {
     const {CombatantList = []} = this.props
     return CombatantList.map((combatant, index) => {
       return (
-        <div key={index}>
-          <li className="list-group-item">
-            <Combatant combatant={combatant} index={index}/>
-          </li>
-        </div>
+            <Combatant key={index} combatant={combatant} index={index}/>
       )
     });
   }
@@ -32,7 +35,48 @@ class CombatantList extends Component {
       return <div>Select a CombatantList to get started</div>;
     }
     // if there are combatants in Combatant list then render the list
-    return <ul className="list-group">{this.renderList()}</ul>;
+    return (
+      <div className="CombatantListContainer innerShadow">
+        <Table hover striped className="CombatantList">
+          <thead>
+            <tr>
+              <th className="col-xs-1" data-toggle="tooltip" title="Roll Initiative">
+                <InitiativeRoll />
+              </th>
+              <th className="col-xs-4" data-toggle="tooltip" title="Monster Names">
+                <FontAwesome
+                  name="optin-monster"
+                  size="2x"
+                  style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                />
+              </th>
+              <th className="col-xs-3 textCenter" data-toggle="tooltip" title="Hit Points">
+                <FontAwesome
+                  name="heart"
+                  size="2x"
+                  style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                />
+              </th>
+              <th className="col-xs-2" data-toggle="tooltip" title="Armor Class">
+                <FontAwesome
+                  className="text-center"
+                  name="shield"
+                  size="2x"
+                  style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                />
+              </th>
+              {/* this table head allows space for delete button */}
+              <th className="col-xs-2" data-toggle="tooltip" title="Clear Combat"><ClearCombat /></th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderList()}
+          </tbody>
+        </Table>
+        <Rolls />
+      </div>
+    )
+    // return <ListGroup>{this.renderList()}</ListGroup>;
   }
 }
 
