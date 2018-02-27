@@ -6,7 +6,7 @@ to see the site deployed go to: https://monsterencounter.com
 ## Getting Started
 run the following in your terminal:
 ```
-$ git clone git@github.com:BrooklinJazz/battle-master-client.git
+$ git clone git@github.com:BrooklinJazz/monster-encounter-client.git
 $ npm install
 $ npm start
 
@@ -14,7 +14,7 @@ Open on http://localhost:8080/
 ```
 
 ## API
-for more information on the API being used, go to: https://github.com/BrooklinJazz/battle-master-api
+for more information on the API being used, go to: https://github.com/BrooklinJazz/monster-encounter-api
 
 ## Technologies used:
 - React with Redux
@@ -22,8 +22,3 @@ for more information on the API being used, go to: https://github.com/BrooklinJa
 - Javascript
 - PostgreSQL
 - Bootstrap (Reactstrap)
-
-## Additional Packages
-```
-reactstrap react-dom jwt-decode react-router react-moment react-onclickout react-router-dom react-transition-group react-string-replace redux react-redux react-fontawesome
-```
