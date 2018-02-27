@@ -16,7 +16,6 @@ class ClearRolls extends Component {
   }
 }
 
-
 function mapStateToProps(state) {
   const {CombatantList} = state.monsters;
   return {CombatantList};
