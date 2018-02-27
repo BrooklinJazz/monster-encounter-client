@@ -1,7 +1,7 @@
 # Monster Encounter
 Monster Encounter is a combat tool for 5th edition Dungeons and Dragons. This tool allows Dungeon Masters to streamline and manage their combats with features such as auto rolling, hit point tracking, and initiative tracking. DMs, as they are colloquially known, can use this tool in place of the typical pen and paper to make their combats more fun and engaging.
 
-to see the site deployed go to: https://monsterencounter.com
+to see the site deployed go to: http://monsterencounter.com
 
 ## Getting Started
 run the following in your terminal:
