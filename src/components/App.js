@@ -80,18 +80,21 @@ class App extends Component {
     .then(res => this.props.fetchMonsters(res))
 
     const {user = []} = this.state
-    this.props.fetchPlayers()
-    fetch(
-      `${BASE_URL}/users/${user.id}/players`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      }
-    )
-    .then(res => res.json())
-    .then(res => this.props.fetchPlayers(res))
+    if (user) {
+
+      this.props.fetchPlayers()
+      fetch(
+        `${BASE_URL}/users/${user.id}/players`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }
+      )
+      .then(res => res.json())
+      .then(res => this.props.fetchPlayers(res))
+    }
   }
 
   componentWillMount () {
