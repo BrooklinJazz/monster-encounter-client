@@ -42,7 +42,6 @@ class MonsterList extends Component {
   }
 
   renderList() {
-    // TODO refactor this.props with ES6 syntax
     const { showComponent, filterByChallenge } = this.state
     const { user, monsters } = this.props
     if (showComponent === "monsters") {

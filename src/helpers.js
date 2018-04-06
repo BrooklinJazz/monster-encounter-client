@@ -178,7 +178,7 @@ export const rollSidedDice = (num, dice) => {
   return rollArray
 }
 
-export const limitMonsterHpChange = (i, combatant, payload) => {
+export const limitMonsterHpChange = (i, combatant, payload, grouped) => {
   if (i !== payload.index || isNaN(payload.hpChange) ) {
     // if the input given by hpChange is not a number
     // or the index of the current monster doesn't match
@@ -202,4 +202,10 @@ export const limitMonsterHpChange = (i, combatant, payload) => {
     // return the combatant with changed HP
     return payload.combatant
   }
+}
+
+export const flatten =(arr) => {
+  return arr.reduce(function (flat, toFlatten) {
+    return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
+  }, []);
 }

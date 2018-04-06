@@ -8,6 +8,7 @@ class InitiativeRoll extends Component {
   constructor(props) {
     super(props)
   }
+  
   render() {
     return (
         <FontAwesome

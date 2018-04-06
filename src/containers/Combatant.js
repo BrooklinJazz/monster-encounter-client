@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import * as actions from "../actions/index"
 import FontAwesome from 'react-fontawesome'
 import ClickOutHandler from 'react-onclickout'
@@ -19,17 +19,16 @@ class Combatant extends Component {
   }
 
   onClickOutDamageInput(e) {
-    this.setState({showDamageInput: false});
+    this.setState({ showDamageInput: false });
   }
 
   onClickOutInitiativeInput(e) {
-    console.log('ow');
-    this.setState({showInitiativeInput: false});
+    this.setState({ showInitiativeInput: false });
   }
 
   render() {
 
-    const {combatant = {}, index} = this.props;
+    const { combatant = {}, index } = this.props;
 
     return (
       <tr className="Combatant"
@@ -39,17 +38,17 @@ class Combatant extends Component {
           scope="row">
           {
             this.state.showInitiativeInput
-            ?
-            <form
-              onClick={(e) => e.stopPropagation()}
-              onSubmit={(e) => this._InitiativeFormSubmit(e)}>
-              <ClickOutHandler onClickOut={this.onClickOutInitiativeInput}>
-                <input
-                  className="combatantInitiativeInput"
-                  type="number"
-                  autoFocus
-                  name="initiativeChange"
-                  onChange={(e) => this._handleChange(e)}/>
+              ?
+              <form
+                onClick={(e) => e.stopPropagation()}
+                onSubmit={(e) => this._InitiativeFormSubmit(e)}>
+                <ClickOutHandler onClickOut={this.onClickOutInitiativeInput}>
+                  <input
+                    className="combatantInitiativeInput"
+                    type="number"
+                    autoFocus
+                    name="initiativeChange"
+                    onChange={(e) => this._handleChange(e)} />
                 </ClickOutHandler>
               </form>
               :
@@ -60,21 +59,21 @@ class Combatant extends Component {
                 title="Change Combatant Initiative">
                 {
                   combatant.InitiativeRoll
-                  ?
-                  combatant.InitiativeRoll
-                  :
-                  combatant.InitiativeRoll = 0
+                    ?
+                    combatant.InitiativeRoll
+                    :
+                    combatant.InitiativeRoll = 0
                 }
               </div>
-            }
-          </th>
-          <td className="col-xs-4">
-            {combatant.Name}
-          </td>
-          <td
-            className="col-xs-3 textCenter">
-            {
-              this.state.showDamageInput
+          }
+        </th>
+        <td className="col-xs-4">
+          {combatant.Name}
+        </td>
+        <td
+          className="col-xs-3 textCenter">
+          {
+            this.state.showDamageInput
               ?
               <form
                 onClick={(e) => e.stopPropagation()}
@@ -85,96 +84,96 @@ class Combatant extends Component {
                     type="number"
                     autoFocus
                     name="hpChange"
-                    onChange={(e) => this._handleChange(e)}/>
-                  </ClickOutHandler>
-                </form>
-                :
-                <div
-                  className="combatantDamageSelect"
-                  onClick={this._onDamageSelectClick}
-                  data-toggle="tooltip"
-                  title="Change Combatant HP">
-                  {combatant.currentHp}/{combatant.HP.Value}
-                </div>
-              }
-            </td>
-            <td
-              className="col-xs-2">
-              {combatant.AC.Value}
-            </td>
-            <td className="col-xs-2">
-              <FontAwesome
-                onClick={() => this.props.clearCombatants()}
-                className="clearCombatant"
-                name='minus-circle'
-                size='2x'
-                style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-                onClick={ (e) => {
-                  e.stopPropagation();
-                  this.props.removeCombatant({combatant, index: index})
-                }
-              }
-            />
-          </td>
-        </tr>
-      )
-    }
-
-    _onDamageSelectClick(e) {
-      e.stopPropagation()
-      this.setState({showDamageInput: true});
-    }
-    _onInitiativeSelectClick(e) {
-      e.stopPropagation()
-      this.setState({showInitiativeInput: true});
-    }
-
-    _handleChange(e) {
-      // creates this.state.hpChange for use in _DamageFormSubmit
-      const newState = Object.assign({}, this.state, {
-        [e.target.name]: e.target.value
-      });
-      this.setState(newState)
-    }
-
-    _DamageFormSubmit(e) {
-      e.preventDefault();
-      const {combatant = {}, index} = this.props;
-      const {hpChange} = this.state
-      this.props.changeCombatantHp({combatant, hpChange, index})
-      this.setState({showDamageInput: false});
-    }
-    _InitiativeFormSubmit(e) {
-      e.preventDefault();
-      const {combatant = {}, index} = this.props;
-      const {initiativeChange} = this.state
-      this.props.changeCombatantInitiative({combatant, initiativeChange, index})
-      this.setState({showInitiativeInput: false});
-    }
+                    onChange={(e) => this._handleChange(e)} />
+                </ClickOutHandler>
+              </form>
+              :
+              <div
+                className="combatantDamageSelect"
+                onClick={this._onDamageSelectClick}
+                data-toggle="tooltip"
+                title="Change Combatant HP">
+                {combatant.currentHp}/{combatant.HP.Value}
+              </div>
+          }
+        </td>
+        <td
+          className="col-xs-2">
+          {combatant.AC.Value}
+        </td>
+        <td className="col-xs-2">
+          <FontAwesome
+            // onClick={() => this.props.clearCombatants()}
+            className="clearCombatant"
+            name='minus-circle'
+            size='2x'
+            style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+            onClick={(e) => {
+              e.stopPropagation();
+              this.props.removeCombatant({ combatant, index: index })
+            }
+            }
+          />
+        </td>
+      </tr>
+    )
   }
 
-
-
-  function mapStateToProps(state) {
-    const {selectedMonster} = state.monsters;
-    return {selectedMonster};
+  _onDamageSelectClick(e) {
+    e.stopPropagation()
+    this.setState({ showDamageInput: true });
+  }
+  _onInitiativeSelectClick(e) {
+    e.stopPropagation()
+    this.setState({ showInitiativeInput: true });
   }
 
-  function mapDispatchToProps(dispatch) {
-    // Whenever selectCombatant is called, the result should be passed to all
-    // of our reducers
-    return {
-      selectCombatant: combatant =>
+  _handleChange(e) {
+    // creates this.state.hpChange for use in _DamageFormSubmit
+    const newState = Object.assign({}, this.state, {
+      [e.target.name]: e.target.value
+    });
+    this.setState(newState)
+  }
+
+  _DamageFormSubmit(e) {
+    e.preventDefault();
+    const { combatant = {}, index } = this.props;
+    const { hpChange } = this.state
+    this.props.changeCombatantHp({ combatant, hpChange, index })
+    this.setState({ showDamageInput: false });
+  }
+  _InitiativeFormSubmit(e) {
+    e.preventDefault();
+    const { combatant = {}, index } = this.props;
+    const { initiativeChange } = this.state
+    this.props.changeCombatantInitiative({ combatant, initiativeChange, index })
+    this.setState({ showInitiativeInput: false });
+  }
+}
+
+
+
+function mapStateToProps(state) {
+  const { selectedMonster } = state.monsters;
+  return { selectedMonster };
+}
+
+function mapDispatchToProps(dispatch) {
+  // Whenever selectCombatant is called, the result should be passed to all
+  // of our reducers
+  return {
+    selectCombatant: combatant =>
       dispatch(actions.selectCombatant(combatant)),
 
-      changeCombatantHp: combatant =>
+    changeCombatantHp: combatant =>
       dispatch(actions.changeCombatantHp(combatant)),
 
-      changeCombatantInitiative: combatant =>
+    changeCombatantInitiative: combatant =>
       dispatch(actions.changeCombatantInitiative(combatant)),
 
-      removeCombatant: combatant =>
+    removeCombatant: combatant =>
       dispatch(actions.removeCombatant(combatant))
-    };
-  }
-  export default connect(mapStateToProps, mapDispatchToProps)(Combatant);
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Combatant);
