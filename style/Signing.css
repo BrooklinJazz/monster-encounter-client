@@ -1,0 +1,25 @@
+.SignMain {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top:30px;
+  border-radius: 10px;
+  padding:40px !important;
+  -moz-box-shadow:    inset 0 0 30px #000000;
+  -webkit-box-shadow: inset 0 0 30px #000000;
+  box-shadow:         inset 0 0 30px #000000;
+}
+
+.submit {
+  margin:10px 0;
+}
+
+.GuestSignIn {
+  color:#1E63B7;
+  cursor:pointer;
+}
+
+.GuestSignIn:hover {
+  color:#65BFF4;
+}

@@ -22,3 +22,11 @@ for more information on the API being used, go to: https://github.com/BrooklinJa
 - Javascript
 - PostgreSQL
 - Bootstrap (Reactstrap)
+
+## Examples:
+### Home Page
+![Sorry, there seems to be an issue locating this image.](assets/main.png "Home Page")
+### Save Files
+![Sorry, there seems to be an issue locating this image.](assets/saves.png "Save Files")
+### Creating a Player
+![Sorry, there seems to be an issue locating this image.](assets/create-player.png "Create New Player")

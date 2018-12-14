@@ -11,8 +11,10 @@ import {
   getSidesOfDice,
   getModifier,
   rollSidedDice,
-  limitMonsterHpChange
+  limitMonsterHpChange,
+  flatten
 } from "../helpers"
+import { log } from "util";
 // the array of monster objects exported as a function.
 // NOTE storing monsters in a local file currently
 const monsters = monstersData()
@@ -24,7 +26,8 @@ const INITIAL_STATE = {
   searchTerm: '',
   rolls: [],
   fights: [],
-  players: []
+  players: [],
+  GroupMonsters: false,
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -41,15 +44,34 @@ export default function(state = INITIAL_STATE, action) {
     ****************************************/
     case Types.MONSTER_SELECTED:
     return { ...state, selectedMonster: action.combatant };
+
     // add a Monster obj to the CombatantList
     case Types.ADD_MONSTER_TO_COMBATANTS:
     newCombatant = deepClone(action.monster);
     // add the currentHp to combatant object to show current/max health
     newCombatant.currentHp = newCombatant.HP.Value
-    return {
-      ...state,
-      CombatantList: state.CombatantList.concat(newCombatant)
-    };
+    if (!!state.GroupMonsters && newCombatant.Challenge) {
+      newCombatantList = [...state.CombatantList]
+      const combatantListAfterAddingCombatantToGroup = newCombatantList.map( monster => {
+        if (!!monster.Group) {
+          monster.Combatants = monster.Combatants.concat(newCombatant)
+          return monster
+        } else {
+          return monster
+        }
+      })
+
+
+      return {
+        ...state,
+        CombatantList: combatantListAfterAddingCombatantToGroup
+      }
+    } else {
+      return {
+        ...state,
+        CombatantList: state.CombatantList.concat(newCombatant)
+      };
+    }
     case Types.FILTER_MONSTER_LIBRARY:
     return {
       ...state,
@@ -71,6 +93,27 @@ export default function(state = INITIAL_STATE, action) {
     let newCombatant
     let newCombatantList
     case Types.REMOVE_COMBATANT:
+    newCombatantList = [...state.CombatantList]
+    if (state.GroupMonsters && !!action.payload.fromGrouped) {
+      const combatantsListAfterRemove = newCombatantList.map((combatantGroup) => {
+        if (combatantGroup.Group) {
+          let combatantsArrayAfterRemove = combatantGroup.Combatants.filter( (combatant) => (
+            action.payload.index !== combatantGroup.Combatants.indexOf(combatant)
+        ))
+          console.log('Combatants Array After', combatantsArrayAfterRemove);
+          
+          return {
+            ...combatantGroup,
+            Combatants: combatantsArrayAfterRemove
+          }
+        }
+        return combatantGroup
+      })
+      return {
+        ...state,
+        CombatantList: combatantsListAfterRemove
+      }
+    }
     // assign a constant to be equal to CombatantList.
     // using map to avoid mutating state.
     const combatantsListAfterRemove = state.CombatantList.map( (combatant, i) => {
@@ -84,6 +127,33 @@ export default function(state = INITIAL_STATE, action) {
       CombatantList: combatantsListAfterRemove
     };
     case Types.CHANGE_COMBATANT_HP:
+    newCombatantList = [...state.CombatantList]
+    if (state.GroupMonsters && !!action.payload.fromGrouped) {
+      // NOTE this would have to be adjusted to expect multiple groups in the future
+      // find grouped combatants
+      const GroupedCombatants = newCombatantList.find( combatantGroup => { !!combatantGroup.Group})
+      // find combatant at action.payload.index
+      const combatantsListAfterDamageChange = newCombatantList.map((combatantGroup, index) => {
+        if (combatantGroup.Group) {
+          combatantGroup.Combatants = combatantGroup.Combatants.map( (combatant, index) => {
+            if (index === action.payload.index) {
+              return limitMonsterHpChange(index, combatant, action.payload)
+            } else {
+              return combatant
+            }
+          })
+          return combatantGroup
+        }
+        return combatantGroup
+      })
+      // reduce combatant health by action.payload.hpChange, limit the reduction
+      // return after changes
+      return {
+        ...state,
+        CombatantList: combatantsListAfterDamageChange
+      }
+      
+    }
     const combatantsListAfterDamageChange = state.CombatantList.map( (combatant, i) => {
       return limitMonsterHpChange(i, combatant, action.payload)
     })
@@ -116,6 +186,20 @@ export default function(state = INITIAL_STATE, action) {
     case Types.ROLL_INITIATIVES:
     newCombatantList = [...state.CombatantList]
     const combatantsAfterInitiativeRoll = newCombatantList.map( monster => {
+      if (monster.Group) {
+        monster.Combatants = monster.Combatants.map( combatant => {
+          return {
+            ...combatant,
+            InitiativeRoll: d20() + convScoreToMod(combatant.Abilities.Dex)
+          }
+        })
+
+        return {
+          ...monster,
+          // May want to add a modifier for the group of monsters
+          InitiativeRoll: d20()
+        }
+      }
       return {
         ...monster,
         InitiativeRoll: d20() + convScoreToMod(monster.Abilities.Dex)
@@ -137,6 +221,49 @@ export default function(state = INITIAL_STATE, action) {
       ...state,
       CombatantList: action.payload
     }
+    case Types.TOGGLE_GROUPING_MONSTERS:
+    // re-organize CombatantList to have a grouped object with it's own InitiativeRoll
+    // property
+    if (!!action.payload) {
+      newCombatantList = [...state.CombatantList]
+      const groupedMonsters = {InitiativeRoll: d20(), Combatants: [], Group: true}
+      groupedMonsters.Combatants = newCombatantList.filter( monster => {
+        if (monster.Challenge) {
+          return monster
+        }
+      })
+      const ungroupedMonsters = newCombatantList.filter( monster => {
+        if (!monster.Challenge) {
+          return monster
+        }
+      })
+      const combatantListAfterGrouping = ungroupedMonsters.concat(groupedMonsters)
+
+      return {
+        ...state,
+        GroupMonsters: action.payload,
+        CombatantList: combatantListAfterGrouping
+      }
+    } else {
+      newCombatantList = [...state.CombatantList]
+      const combatantListBeforeFlattening = newCombatantList.map( monster => {
+        if (!!monster.Group) {
+          return monster.Combatants
+        } else {
+          return monster
+        }
+      })
+      const combatantListAfterFlattening = flatten(combatantListBeforeFlattening)
+
+      return {
+        ...state,
+        GroupMonsters: action.payload,
+        CombatantList: combatantListAfterFlattening
+
+
+      }
+    }
+
     /****************************************
     Rolls
     ****************************************/

@@ -40,6 +40,9 @@ createAction(Types.ROLL_INITIATIVES, { payload })
 export const renderSavedCombat = payload =>
 createAction(Types.RENDER_SAVED_COMBAT, { payload })
 
+export const toggleGroupingMonsters = payload =>
+createAction(Types.TOGGLE_GROUPING_MONSTERS, { payload })
+
 // Actions relating to Rolls
 export const d20Roll = payload =>
 createAction(Types.D20_ROLLED, { payload });
